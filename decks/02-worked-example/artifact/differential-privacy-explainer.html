@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Differential Privacy &amp; Federated Learning</title>
+<meta name="description" content="An interactive presentation exploring differential privacy and federated learning for CYB-4203/6203, Unit 8.">
+<link rel="stylesheet" href="assets/dp-explainer/styles.css">
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- =============================================================
+     SLIDE 1 — TITLE
+     ============================================================= -->
+<section class="slide title-slide" id="slide-1">
+  <div class="slide-number">01</div>
+  <div class="eyebrow">CYB-4203 / 6203 &middot; Unit 8 &middot; Presentation 17</div>
+  <h1>Differential Privacy<br>&amp; Federated Learning</h1>
+  <div class="attribution">Secure &amp; Trustworthy AI &middot; Spring 2026 &middot; Dallas Elleman</div>
+
+  <div class="speaker-notes">
+    <h2>Title</h2>
+    <p>Opening. Today we're covering two of the central privacy-enhancing technologies in modern AI/ML: differential privacy and federated learning. We'll start with DP and the history that led us there, then move to federated learning in the second half.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 2 — THE ILLUSION OF INVISIBILITY
+     ============================================================= -->
+<section class="slide" id="slide-2">
+  <div class="slide-number">02</div>
+  <h2 class="slide-title">The Illusion of Invisibility</h2>
+  <div class="slide-body">
+    <p class="big-text">
+      We want to collect and analyze data to <strong>cure diseases</strong>, to <strong>train AI</strong>, to <strong>plan our cities</strong>.
+    </p>
+    <p class="big-text">
+      But the more detailed that data is, the higher the risk of <em>privacy harms</em> for the data sources &mdash; i.e., people.
+    </p>
+    <p class="small-context">
+      The field that tries to resolve this paradox is called <strong>privacy-enhancing technology</strong>.<br>
+      And to understand where it is now, we have to go back to <strong>1996</strong>.
+    </p>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>The Illusion of Invisibility</h2>
+    <p>Set up the core tension of the whole unit: the usefulness of data versus the harm that detail creates. Don't belabor specific examples &mdash; let the students connect it to things they already care about.</p>
+    <p>Transition: "The field that tries to resolve this paradox is called privacy-enhancing technology, and to understand where it is now, we have to go back to 1996."</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 3 — 1996 (ERA SETTING)
+     ============================================================= -->
+<section class="slide" id="slide-3">
+  <div class="slide-number">03</div>
+  <h2 class="slide-title huge" style="margin-bottom: 30px;">1996</h2>
+  <div class="collage-4">
+    <figure>
+      <img src="assets/dp-explainer/1996-time-cover.jpg" alt="Time magazine cover from 1996">
+    </figure>
+    <figure>
+      <img src="assets/dp-explainer/1996-internet.jpg" alt="The internet in 1996">
+    </figure>
+    <figure>
+      <img src="assets/dp-explainer/1996-oasis.png" alt="Oasis, 1996">
+    </figure>
+    <figure>
+      <img src="assets/dp-explainer/1996-bill-weld-MA.jpg" alt="Governor William F. Weld of Massachusetts, 1996">
+      <figcaption class="collage-caption"><strong>Gov. William F. Weld</strong><br>Governor of Massachusetts</figcaption>
+    </figure>
+  </div>
+  <p class="small-context" style="margin-top: 40px;">The internet is a toddler. Anonymization means taking a black marker to the obvious fields.</p>
+
+  <div class="speaker-notes">
+    <h2>1996 &mdash; Setting the Scene</h2>
+    <p>Ground the students in the era. The internet is new, spreadsheets are the primary tool, and the standard approach to "anonymization" is: delete names, delete addresses, delete Social Security numbers, and you're done.</p>
+    <p>This matters because the failure we're about to see isn't a failure of the people involved &mdash; they did what everyone thought was enough. It's a failure of the *assumption* that deletion equals anonymity.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 4 — DIRECT IDENTIFIERS
+     ============================================================= -->
+<section class="slide" id="slide-4">
+  <div class="slide-number">04</div>
+  <h2 class="slide-title" style="margin-bottom: 16px;">Direct Identifiers</h2>
+
+  <div class="gic-header">
+    <img src="assets/dp-explainer/gic-logo.jpg" alt="Group Insurance Commission logo" class="gic-logo-small">
+    <p class="gic-intro">
+      The <strong>Group Insurance Commission</strong> in Massachusetts decides (with good intentions) to release anonymized data on state employees' hospital visits &mdash; the idea was to let researchers crunch the numbers and find ways to lower healthcare costs.
+    </p>
+  </div>
+
+  <div class="direct-id-layout">
+    <div class="data-table-wrapper hospital-wrapper">
+      <div class="table-caption">GIC Hospital Visit Records (1996)</div>
+      <div class="table-scroll">
+        <table class="data-table hospital-table" id="hospitalTable">
+          <thead>
+            <tr>
+              <th class="direct-id-col">Name</th>
+              <th class="direct-id-col">Address</th>
+              <th class="direct-id-col">SSN</th>
+              <th>Ethnicity</th>
+              <th>Sex</th>
+              <th>Birth Date</th>
+              <th>ZIP</th>
+              <th>Visit Date</th>
+              <th>Diagnosis</th>
+              <th>Procedure</th>
+              <th>Medication</th>
+              <th>Charge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="direct-id-cell">William F. Weld</td>
+              <td class="direct-id-cell">15 Louisburg Sq, Boston</td>
+              <td class="direct-id-cell">042-31-8876</td>
+              <td>White</td><td>M</td><td>1945-07-31</td><td>02138</td>
+              <td>1996-05-14</td><td>Hypertension</td><td>Blood panel</td><td>Lisinopril</td><td>$1,840</td>
+            </tr>
+            <tr>
+              <td class="direct-id-cell">Margaret O'Shea</td>
+              <td class="direct-id-cell">88 Beacon St, Boston</td>
+              <td class="direct-id-cell">019-44-2210</td>
+              <td>White</td><td>F</td><td>1962-03-11</td><td>02116</td>
+              <td>1996-02-22</td><td>Asthma</td><td>Pulmonary test</td><td>Albuterol</td><td>$620</td>
+            </tr>
+            <tr>
+              <td class="direct-id-cell">David Chen</td>
+              <td class="direct-id-cell">412 Mass Ave, Cambridge</td>
+              <td class="direct-id-cell">127-88-5501</td>
+              <td>Asian</td><td>M</td><td>1978-09-04</td><td>02139</td>
+              <td>1996-08-03</td><td>Migraine</td><td>MRI</td><td>Sumatriptan</td><td>$2,410</td>
+            </tr>
+            <tr>
+              <td class="direct-id-cell">Rosa Alvarez</td>
+              <td class="direct-id-cell">27 Blue Hill Ave, Roxbury</td>
+              <td class="direct-id-cell">553-12-6049</td>
+              <td>Hispanic</td><td>F</td><td>1955-12-19</td><td>02119</td>
+              <td>1996-06-30</td><td>Diabetes, Type II</td><td>A1C panel</td><td>Metformin</td><td>$980</td>
+            </tr>
+            <tr>
+              <td class="direct-id-cell">James Whitaker</td>
+              <td class="direct-id-cell">9 Elm St, Worcester</td>
+              <td class="direct-id-cell">204-76-1183</td>
+              <td>Black</td><td>M</td><td>1949-11-02</td><td>01609</td>
+              <td>1996-04-17</td><td>Arthritis</td><td>X-ray, knee</td><td>Naproxen</td><td>$1,275</td>
+            </tr>
+            <tr>
+              <td class="direct-id-cell">Linda Petrov</td>
+              <td class="direct-id-cell">56 Walnut Ave, Springfield</td>
+              <td class="direct-id-cell">396-55-7720</td>
+              <td>White</td><td>F</td><td>1970-06-24</td><td>01108</td>
+              <td>1996-07-09</td><td>Depression</td><td>Psych eval</td><td>Fluoxetine</td><td>$540</td>
+            </tr>
+            <tr>
+              <td class="direct-id-cell">Marcus Johnson</td>
+              <td class="direct-id-cell">301 Seaver St, Dorchester</td>
+              <td class="direct-id-cell">611-09-3354</td>
+              <td>Black</td><td>M</td><td>1983-01-15</td><td>02121</td>
+              <td>1996-09-28</td><td>Fractured radius</td><td>Cast, ortho</td><td>Oxycodone</td><td>$3,120</td>
+            </tr>
+            <tr>
+              <td class="direct-id-cell">Emily Tanaka</td>
+              <td class="direct-id-cell">74 Harvard St, Brookline</td>
+              <td class="direct-id-cell">445-22-9918</td>
+              <td>Asian</td><td>F</td><td>1990-04-07</td><td>02446</td>
+              <td>1996-11-05</td><td>Pneumonia</td><td>Chest X-ray</td><td>Azithromycin</td><td>$1,680</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <figure class="weld-aside">
+      <img src="assets/dp-explainer/1996-bill-weld-MA.jpg" alt="Governor William F. Weld" id="weldAside">
+      <figcaption>Gov. Weld &middot; a state employee,<br>so his record is in the release.</figcaption>
+    </figure>
+  </div>
+
+  <div class="direct-id-controls">
+    <button class="demo-btn" id="removeDirectIdBtn" onclick="removeDirectIdentifiers()">Remove Direct Identifiers</button>
+    <button class="demo-btn secondary" onclick="restoreDirectIdentifiers()">Reset</button>
+  </div>
+
+  <p class="direct-id-caption" id="directIdCaption">
+    To anonymize the data, they deleted <strong>direct identifiers</strong> &mdash; names, addresses, Social Security numbers &mdash; of patients and called it good.
+  </p>
+
+  <div class="speaker-notes">
+    <h2>Direct Identifiers</h2>
+    <p>The Group Insurance Commission wanted to help researchers study healthcare costs. Their approach to anonymization was the standard of the era: delete the fields that *obviously* identify someone &mdash; name, address, SSN &mdash; and publish the rest.</p>
+    <p>Click "Remove Direct Identifiers" to show what the released version looked like. The direct-ID columns go black. Weld's portrait blurs &mdash; because now he's just another row in a sea of "anonymous" patients.</p>
+    <p>This looked safe. It wasn't. The next few slides show why.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 5 — THE GIC DATA RELEASE
+     ============================================================= -->
+<section class="slide" id="slide-5">
+  <div class="slide-number">05</div>
+
+  <div class="sweeney-layout">
+    <figure class="sweeney-aside">
+      <img src="assets/dp-explainer/latonya-sweeney.jpg" alt="Latanya Sweeney">
+      <figcaption><strong>Latanya Sweeney</strong><br>MIT researcher, 1996</figcaption>
+    </figure>
+
+    <div class="sweeney-right">
+      <div class="sweeney-text">
+        <p>
+          <strong>Latanya Sweeney</strong>, a researcher at MIT, saw a problem &mdash; and decided to prove a point.
+        </p>
+        <p>
+          She bought the voter registration list (a public record) from Cambridge, MA for <span class="price">$20</span>.
+        </p>
+        <p>
+          She then cross-referenced this voter list with the released medical records, found Governor Weld's personal medical records in the &ldquo;de-identified&rdquo; data set, and <strong>mailed them to him</strong> to demonstrate the problem.
+        </p>
+      </div>
+
+      <div class="data-table-wrapper voter-wrapper">
+        <div class="table-caption">Cambridge, MA Voter Registration List &mdash; public record, $20</div>
+    <div class="table-scroll">
+      <table class="data-table voter-reg-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>ZIP</th>
+            <th>Birth Date</th>
+            <th>Sex</th>
+            <th>Date Registered</th>
+            <th>Party</th>
+            <th>Last Voted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>William F. Weld</td><td>15 Louisburg Sq, Boston</td><td>02138</td>
+            <td>1945-07-31</td><td>M</td><td>1968-09-12</td><td>Republican</td><td>1996-03-05</td>
+          </tr>
+          <tr>
+            <td>Anne Driscoll</td><td>210 Broadway, Cambridge</td><td>02139</td>
+            <td>1952-02-18</td><td>F</td><td>1974-10-01</td><td>Democrat</td><td>1996-03-05</td>
+          </tr>
+          <tr>
+            <td>Robert Kim</td><td>47 Garden St, Cambridge</td><td>02138</td>
+            <td>1965-11-22</td><td>M</td><td>1987-08-14</td><td>Independent</td><td>1994-11-08</td>
+          </tr>
+          <tr>
+            <td>Sarah Goldberg</td><td>12 Brattle St, Cambridge</td><td>02138</td>
+            <td>1971-04-09</td><td>F</td><td>1989-06-03</td><td>Democrat</td><td>1996-03-05</td>
+          </tr>
+          <tr>
+            <td>Michael O'Brien</td><td>305 Mass Ave, Cambridge</td><td>02139</td>
+            <td>1948-08-30</td><td>M</td><td>1970-02-19</td><td>Democrat</td><td>1995-11-07</td>
+          </tr>
+          <tr>
+            <td>Priya Natarajan</td><td>88 Prospect St, Cambridge</td><td>02139</td>
+            <td>1980-06-17</td><td>F</td><td>1998-09-20</td><td>Democrat</td><td>1996-03-05</td>
+          </tr>
+          <tr>
+            <td>Thomas Reilly</td><td>59 Hancock St, Cambridge</td><td>02139</td>
+            <td>1955-01-04</td><td>M</td><td>1977-11-08</td><td>Republican</td><td>1996-03-05</td>
+          </tr>
+          <tr>
+            <td>Janet Williams</td><td>22 Oxford St, Cambridge</td><td>02138</td>
+            <td>1963-10-25</td><td>F</td><td>1984-04-15</td><td>Independent</td><td>1994-11-08</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Latanya Sweeney &mdash; Proving the Point</h2>
+    <p>Sweeney, then an MIT researcher (now one of the world's leading privacy scholars), saw the GIC release and saw an obvious hole. She decided to make the vulnerability concrete by picking the most visible possible target: the governor.</p>
+    <p>She walked into the Cambridge city office and paid $20 for the public voter registration list. Now she had two spreadsheets. One had diagnoses. The other had names. Both had three fields in common: birth date, ZIP code, and gender.</p>
+    <p>Walk the class through the voter table on screen. Note Weld's row: 1945-07-31, male, 02138. Those three values will come back in the next two slides.</p>
+    <p>Payoff: Sweeney mailed Weld his own medical records to prove the vulnerability. This is one of the most cited demonstrations in the history of privacy research.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 6 — THE LINKAGE ATTACK DIAGRAM
+     ============================================================= -->
+<section class="slide" id="slide-6">
+  <div class="slide-number">06</div>
+  <h2 class="slide-title">The Linkage Attack</h2>
+  <img src="assets/dp-explainer/linkage-attack.png" alt="Linkage attack diagram" class="slide-hero-image wide">
+  <p class="image-caption">Cross-reference two safe-looking datasets on their shared columns &mdash; and anonymity vanishes.</p>
+
+  <div class="speaker-notes">
+    <h2>The Linkage Attack</h2>
+    <p>The technique has a name: linkage attack. You take two datasets that each look safe on their own, find the columns they share, and use one to re-identify records in the other.</p>
+    <p>The key insight: anonymity isn't a property of a single dataset. It's a property of a dataset *in the context of everything else that's publicly known*. And in 1996, as now, an enormous amount of data is publicly known.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 7 — INTERACTIVE: LIVE LINKAGE ATTACK
+     ============================================================= -->
+<section class="slide" id="slide-7">
+  <div class="slide-number">07</div>
+  <div class="demo-wrap">
+    <div class="demo-label">Interactive Demo</div>
+    <div class="demo-heading">Finding the Governor</div>
+    <p style="color: var(--ink-muted); text-align: center; margin-bottom: 20px; font-size: 1.0625rem;">Click each filter in sequence. Watch the two tables converge.</p>
+
+    <div class="filter-controls">
+      <button class="demo-btn" id="filterBirthBtn" onclick="applyFilter('birth')">1. Birth date: 1945-07-31</button>
+      <button class="demo-btn" id="filterGenderBtn" onclick="applyFilter('gender')" disabled>2. Gender: Male</button>
+      <button class="demo-btn" id="filterZipBtn" onclick="applyFilter('zip')" disabled>3. ZIP: 02138</button>
+      <button class="demo-btn secondary" onclick="resetLinkage()">Reset</button>
+    </div>
+
+    <div class="tables-grid">
+      <div class="data-table-wrapper">
+        <div class="table-caption">Anonymized Medical Records</div>
+        <div class="table-scroll">
+          <table class="data-table" id="medicalTable">
+            <thead>
+              <tr><th>Birth Date</th><th>ZIP</th><th>Gender</th><th>Diagnosis</th></tr>
+            </thead>
+            <tbody id="medicalBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="data-table-wrapper">
+        <div class="table-caption">Cambridge Voter List ($20)</div>
+        <div class="table-scroll">
+          <table class="data-table" id="voterTable">
+            <thead>
+              <tr><th>Name</th><th>Birth Date</th><th>ZIP</th><th>Gender</th></tr>
+            </thead>
+            <tbody id="voterBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-box-label">Medical records remaining</div>
+        <div class="stat-box-value" id="medicalCount">20</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-label">Voter records remaining</div>
+        <div class="stat-box-value" id="voterCount">30</div>
+      </div>
+    </div>
+
+    <div id="linkageReveal" style="display: none; margin-top: 20px;">
+      <p style="font-family: var(--serif); font-size: 1.5rem; color: var(--red); text-align: center; font-style: italic;">
+        Sweeney mailed the Governor his own medical records.
+      </p>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Interactive: Finding the Governor</h2>
+    <p>Walk through the filters one at a time. Let the class call out what they notice. After the first filter, we're down to 6 matches on each side. After gender, 3. After ZIP, 1.</p>
+    <p>The mathematical inevitability of that final "1" is the whole lesson. There was only ever going to be one match.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 8 — THE 87% STATISTIC
+     ============================================================= -->
+<section class="slide" id="slide-8">
+  <div class="slide-number">08</div>
+
+  <div class="quasi-layout">
+    <div class="quasi-left">
+      <div class="giant-stat stat-small">87%</div>
+      <p class="giant-stat-label">
+        of the US population can be uniquely identified using only <strong>ZIP code</strong>, <strong>birth date</strong>, and <strong>gender</strong>.
+        <em>&mdash; Sweeney, 2000</em>
+      </p>
+
+      <div class="quasi-block">
+        <p class="quasi-text">
+          Fields like these are called <strong>quasi-identifiers</strong> &mdash; data points that, while not unique alone, can be combined with other public or private information to re-identify individuals.
+        </p>
+        <p class="quasi-text quasi-callout">
+          Data scientists realized they needed a new approach. They couldn't just delete names &mdash; they needed a <strong>mathematical guarantee</strong> of safety.
+        </p>
+      </div>
+    </div>
+
+    <div class="quasi-right">
+      <h3 class="quasi-right-heading">Common Quasi-Identifiers by Category</h3>
+
+      <div class="quasi-cat-grid">
+        <div class="quasi-cat">
+          <div class="quasi-cat-title">Geographic Information</div>
+          <ul>
+            <li>ZIP codes, census tracts, counties</li>
+            <li>Business or facility names</li>
+            <li>Movement patterns or locations</li>
+            <li>School districts or neighborhoods</li>
+          </ul>
+        </div>
+
+        <div class="quasi-cat">
+          <div class="quasi-cat-title">Demographic Details</div>
+          <ul>
+            <li>Age ranges or birth years</li>
+            <li>Gender or sex</li>
+            <li>Education level or occupation</li>
+            <li>Race or ethnicity</li>
+            <li>Income brackets</li>
+          </ul>
+        </div>
+
+        <div class="quasi-cat">
+          <div class="quasi-cat-title">Temporal Data</div>
+          <ul>
+            <li>Service, admission, or discharge dates</li>
+            <li>Purchase timelines or patterns</li>
+            <li>Employment history or tenure</li>
+            <li>Subscription duration</li>
+            <li>Event attendance dates</li>
+          </ul>
+        </div>
+
+        <div class="quasi-cat">
+          <div class="quasi-cat-title">Lifestyle Indicators</div>
+          <ul>
+            <li>Vehicle ownership details</li>
+            <li>Educational institutions attended</li>
+            <li>Homeownership status</li>
+            <li>Purchase categories or preferences</li>
+            <li>Leisure activities or memberships</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>87%</h2>
+    <p>Let that number breathe. Sweeney's 2000 paper quantified what we just saw: three public fields are enough to re-identify the vast majority of Americans.</p>
+    <p>The crowd we were supposed to be hiding in &mdash; it isn't that big. Or maybe we're all much more unique than we thought.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 9 — THE SPARTACUS STRATEGY
+     ============================================================= -->
+<section class="slide" id="slide-9">
+  <div class="slide-number">09</div>
+  <h2 class="slide-title">k-Anonymity: The Spartacus Strategy</h2>
+  <div class="side-by-side">
+    <figure class="spartacus-figure">
+      <img src="assets/dp-explainer/i-am-spartacus.jpg" alt="I am Spartacus scene — slaves standing up one by one to claim the identity">
+      <figcaption>&ldquo;I am Spartacus.&rdquo;</figcaption>
+    </figure>
+    <div class="k-anon-text">
+      <p>
+        The Romans demand the slaves identify Spartacus. One by one, every slave stands and claims, <em>&ldquo;I am Spartacus.&rdquo;</em> If everyone looks like the target, no one can be singled out.
+      </p>
+      <p>
+        This is <strong>k-anonymity</strong>: transform the data so that every record is indistinguishable from at least <em class="kminus">k &minus; 1</em> others on its quasi-identifiers. Instead of age <em>32</em>, store <em>30&ndash;40</em>. Instead of ZIP <em>02138</em>, store <em>021**</em>. Suppress the outliers you can&rsquo;t generalize.
+      </p>
+      <p>
+        If <em class="kminus">k = 5</em>, every person in the release is hiding in a crowd of at least five identical-looking records. The Romans can&rsquo;t pick the right one.
+      </p>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>The Spartacus Strategy &mdash; k-Anonymity</h2>
+    <p>The first serious attempt to fix the linkage attack was k-anonymity, introduced by Sweeney herself a few years after the Weld incident.</p>
+    <p>The intuition is the Spartacus scene. If everyone in the group looks the same, the Romans can't pick out the real target.</p>
+    <p>Mechanically, k-anonymity uses two tools: <em>generalization</em> (turning age 32 into "30&ndash;40", turning ZIP 12345 into "123**") and <em>suppression</em> (deleting outliers entirely &mdash; if you're the only 104-year-old in the dataset, you get cut).</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 10 — INTERACTIVE k-ANONYMIZATION (MEDICAL RECORDS)
+     ============================================================= -->
+<section class="slide" id="slide-10">
+  <div class="slide-number">10</div>
+  <div class="demo-wrap">
+    <div class="demo-label">Interactive Demo</div>
+    <div class="demo-heading">k-Anonymizing the Governor's Dataset</div>
+    <p class="demo-subcaption">
+      The same 20 medical records from <em>Finding the Governor</em>. Two tools: <strong>generalization</strong> (replace precise values with buckets) and <strong>suppression</strong> (drop rows that can't be hidden in a group of k).
+    </p>
+
+    <div class="filter-controls">
+      <button class="demo-btn active" id="mk1Btn" onclick="setMedicalK(1)">k = 1 (raw)</button>
+      <button class="demo-btn" id="mk3Btn" onclick="setMedicalK(3)">k = 3</button>
+      <button class="demo-btn" id="mk5Btn" onclick="setMedicalK(5)">k = 5</button>
+      <button class="demo-btn secondary" onclick="setMedicalK(1)">Reset</button>
+    </div>
+
+    <div class="data-table-wrapper" style="max-width: 820px; margin: 0 auto;">
+      <div class="table-caption" id="mkTableCaption">Raw Medical Records (k = 1)</div>
+      <div class="table-scroll">
+        <table class="data-table" id="mkTable">
+          <thead>
+            <tr><th>Birth Date</th><th>ZIP</th><th>Gender</th><th>Diagnosis</th></tr>
+          </thead>
+          <tbody id="mkBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="k-mechanism-grid">
+      <div class="k-mechanism-card">
+        <div class="k-mech-label">Generalization</div>
+        <p>Replace precise values with buckets. Exact birth date &rarr; birth decade. Full ZIP &rarr; ZIP prefix (<code>021**</code>). Ages become ranges. The data loses detail but each row becomes indistinguishable from others in its bucket.</p>
+      </div>
+      <div class="k-mechanism-card">
+        <div class="k-mech-label">Suppression</div>
+        <p>Some rows can't be hidden in a group of <em>k</em> &mdash; they're too rare. Drop them entirely. Outliers pay the price for everyone else's anonymity.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Interactive: k-Anonymizing the Medical Records</h2>
+    <p>Same 20 records students saw in the Finding the Governor demo. At k=1 it's the raw table. Click k=3 and the birth dates become 20-year buckets, ZIPs collapse to <code>021**</code>, and the two records that can't find a group of 3 get suppressed.</p>
+    <p>At k=5 the buckets widen further. More rows fit into each group, but the data is even blurrier.</p>
+    <p>Emphasize the two techniques explicitly: generalization (replace with a bucket) and suppression (drop the outlier). These are the only tools k-anonymity has.</p>
+    <p>Set up the next slide: "So is this safe? Let's look at one more example and see what still leaks."</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 11 — k-ANONYMITY HOMOGENEITY ATTACK
+     ============================================================= -->
+<section class="slide" id="slide-11">
+  <div class="slide-number">11</div>
+  <div class="demo-wrap">
+    <div class="demo-label">Interactive Demo</div>
+    <div class="demo-heading">k-Anonymity &amp; the Homogeneity Attack</div>
+
+    <div class="filter-controls">
+      <button class="demo-btn active" id="k1Btn" onclick="setK(1)">k = 1 (raw)</button>
+      <button class="demo-btn" id="k3Btn" onclick="setK(3)">k = 3 (generalized)</button>
+      <button class="demo-btn" id="k5Btn" onclick="setK(5)">k = 5 (anonymized)</button>
+      <button class="demo-btn danger" id="revealBtn" onclick="revealHomogeneity()" disabled>Reveal the Attack</button>
+    </div>
+
+    <div class="data-table-wrapper" style="max-width: 900px; margin: 0 auto;">
+      <div class="table-caption" id="kTableCaption">Raw Hospital Dataset (k = 1)</div>
+      <div class="table-scroll">
+        <table class="data-table" id="kTable">
+          <thead>
+            <tr><th>Age</th><th>ZIP</th><th>Gender</th><th>Diagnosis</th></tr>
+          </thead>
+          <tbody id="kBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="homogeneityExplanation" style="display: none; max-width: 900px; margin: 20px auto 0;">
+      <p style="font-family: var(--serif); font-size: 1.375rem; color: var(--red); text-align: center; font-style: italic; line-height: 1.4;">
+        Every male in the "30&ndash;40, 021**" group has Heart Disease.<br>
+        Identifying him doesn't matter &mdash; we already know his secret.
+      </p>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Interactive: k-Anonymity</h2>
+    <p>Step through the three k values. At k=1 we see raw data. At k=3, age and ZIP are generalized but everyone is still present. At k=5, the generalization is heavier and the two outliers are suppressed.</p>
+    <p>Then hit Reveal. The homogeneity attack: the five males in the first group all have Heart Disease. The attacker doesn't need to know *which* male is the target. They know what condition he has, because everyone in his hiding group has the same condition.</p>
+    <p>k-anonymity was patched with l-diversity and t-closeness, but the bigger problem was the curse of dimensionality: in modern high-dimensional data, you'd have to suppress so much that the dataset becomes useless.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 12 — DIFFERENTIAL PRIVACY (2006) + FROSTED GLASS
+     ============================================================= -->
+<section class="slide" id="slide-12">
+  <div class="slide-number">12</div>
+  <h2 class="slide-title" style="margin-bottom: 24px;">Differential Privacy</h2>
+
+  <div class="dp-intro-layout">
+    <div class="dp-intro-left">
+      <p class="dp-year">2006</p>
+      <p class="dp-authors">
+        <strong>Dwork, McSherry, Nissim, Smith</strong>
+      </p>
+      <p class="dp-thesis">
+        Stop protecting the <em>data</em>.<br>
+        Start protecting the <strong>process</strong>.
+      </p>
+      <p class="dp-body">
+        Instead of trying to sanitize a dataset until it is &ldquo;safe to release,&rdquo; define a mathematical property of the <em>release mechanism</em> itself: the output of any query should look effectively the same whether or not any single individual is in the database.
+      </p>
+      <p class="dp-body">
+        That property is called <strong>&epsilon;-differential privacy</strong>. The parameter &epsilon; controls how much any one person can influence the answer &mdash; and therefore how much they can be leaked.
+      </p>
+
+      <a class="dp-playable-link" href="https://amanpriyanshu.github.io/Differentially-Private-Tetris/" target="_blank" rel="noopener">
+        <div class="dp-playable-label">Play &rarr;</div>
+        <div class="dp-playable-title">Differentially Private Tetris</div>
+        <div class="dp-playable-meta">Feel the effect of &epsilon; on gameplay &mdash; low budget means noisy controls.</div>
+      </a>
+    </div>
+
+    <div class="dp-intro-right">
+      <h3 class="dp-right-heading">Frosted Glass</h3>
+      <p class="dp-right-sub">
+        You can see the <strong>shape</strong>. You cannot see the <em>pores</em>.
+      </p>
+
+      <div class="crowd-container">
+        <img src="assets/dp-explainer/diverse-crowd.jpg" alt="A diverse crowd" id="crowdImage" class="crowd-image">
+      </div>
+
+      <div class="control-row crowd-control-row">
+        <span class="control-label">Privacy Budget (&epsilon;)</span>
+        <input type="range" id="crowdEpsilonSlider" min="-10" max="13" value="0" step="1" oninput="updateCrowdBlur()">
+        <span class="range-value" id="crowdEpsilonValue">&epsilon; = 1.00</span>
+      </div>
+
+      <p class="dp-body crowd-caption">
+        Compute the true answer &mdash; then deliberately blur it with <strong>mathematical noise</strong>. Low &epsilon; = heavy blur = strong privacy. High &epsilon; = crisp detail = weak privacy.
+      </p>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Differential Privacy (2006) &mdash; Frosted Glass</h2>
+    <p>Dwork, McSherry, Nissim, and Smith published the foundational paper that created the field. The key move was a change of framing: instead of trying to sanitize a dataset so it was "safe to release," they defined a mathematical property of the <em>release mechanism</em> itself.</p>
+    <p>Plausible deniability: the output of a query should be effectively the same whether or not you, specifically, are in the database.</p>
+    <p>The frosted-glass metaphor is the intuition that makes DP click for most people. Through frosted glass, you can see the big picture &mdash; beach vs. forest, crowd vs. empty street &mdash; but not individual faces. Use the slider to show: low epsilon = heavy blur, high epsilon = clear. Same image, same underlying data; what changes is the privacy budget.</p>
+    <p>The mechanism: compute the true answer, then add random noise drawn from a carefully chosen distribution (Laplace, for the basic case). The noise scale depends on epsilon.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 13 — INTERACTIVE: THE EPSILON DIAL
+     ============================================================= -->
+<section class="slide" id="slide-13">
+  <div class="slide-number">13</div>
+  <div class="demo-wrap">
+    <div class="demo-label">Interactive Demo</div>
+    <div class="demo-heading">The Epsilon Dial</div>
+
+    <div class="epsilon-header">
+      <div class="epsilon-controls">
+        <div class="control-row">
+          <span class="control-label">Privacy Budget (&epsilon;)</span>
+          <input type="range" id="epsilonSlider" min="-10" max="13" value="0" step="1" oninput="updateEpsilon()">
+          <span class="range-value" id="epsilonValue">&epsilon; = 1.00</span>
+          <button class="demo-btn" onclick="rerollEpsilon()">Re-roll Noise</button>
+        </div>
+        <div id="epsilonInterpretation">The balance point &mdash; moderate privacy, moderate utility</div>
+      </div>
+
+      <div class="stats-row stats-row-compact">
+        <div class="stat-box">
+          <div class="stat-box-label">True Mean</div>
+          <div class="stat-box-value" id="trueMean">$59,400</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-label">Reported Mean</div>
+          <div class="stat-box-value" id="noisyMean">$59,400</div>
+        </div>
+        <div class="stat-box delta">
+          <div class="stat-box-label">Privacy Error</div>
+          <div class="stat-box-value" id="meanDelta">&plusmn;$0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container" style="position: relative;">
+      <svg id="salaryChart" viewBox="0 0 800 350" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="glass-overlay" id="glassOverlay"></div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Interactive: The Epsilon Dial</h2>
+    <p>Low epsilon = thick frosted glass = strong privacy, weak utility. High epsilon = thin glass = weak privacy, strong utility.</p>
+    <p>Click re-roll a few times so students see the noise is actually random. This is the key distinguishing feature from k-anonymity: there is no single "anonymized dataset" &mdash; each query draws fresh noise.</p>
+    <p>Emphasize: you cannot have perfect privacy *and* perfect accuracy. Someone has to decide where to set the dial.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 14 — DP IN THE WILD
+     ============================================================= -->
+<section class="slide" id="slide-14">
+  <div class="slide-number">14</div>
+  <h2 class="slide-title" style="margin-bottom: 20px;">Differential Privacy in the Wild</h2>
+  <div class="deployment-grid">
+    <a class="deployment-card deployment-card-link"
+       href="https://machinelearning.apple.com/research/learning-with-privacy-at-scale"
+       target="_blank" rel="noopener">
+      <div class="deployment-icon">📱</div>
+      <div class="deployment-title">Apple</div>
+      <p class="deployment-desc">Your iPhone adds noise <strong>before</strong> data ever leaves the device. Apple learns trending emoji. It never sees your keystrokes.</p>
+    </a>
+
+    <a class="deployment-card deployment-card-link"
+       href="https://blog.google/products-and-platforms/products/maps/maps101-popular-times-and-live-busyness-information/"
+       target="_blank" rel="noopener">
+      <div class="deployment-icon">🗺️</div>
+      <div class="deployment-title">Google Maps</div>
+      <p class="deployment-desc">"Popular Times" tracks device density with noise. They know the grocery store is busy. They don't know you're in it.</p>
+    </a>
+
+    <a class="deployment-card deployment-card-link"
+       href="https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/process/disclosure-avoidance/differential-privacy.html"
+       target="_blank" rel="noopener">
+      <div class="deployment-icon">🏛️</div>
+      <div class="deployment-title">2020 US Census</div>
+      <p class="deployment-desc">For the first time, the official population count has mathematical noise baked in &mdash; to defeat reconstruction attacks.</p>
+    </a>
+
+    <div class="deployment-card">
+      <div class="deployment-icon">🏦</div>
+      <div class="deployment-title">Bank Collaboration (SMPC)</div>
+      <p class="deployment-desc">Two banks detect money laundering together <strong>without ever sharing customer lists</strong>. The secret files talk. The humans don't see.</p>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>DP in the Wild</h2>
+    <p>Four real deployments. Apple's local DP is the one students are most likely to have encountered &mdash; noise added on-device before anything is transmitted.</p>
+    <p>The 2020 Census is the most consequential. Reconstruction attacks had become feasible enough that the Bureau switched methodology entirely. We'll come back to the consequences of that decision on the next slide.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 15 — THE DARK SIDE (SETUP)
+     ============================================================= -->
+<section class="slide" id="slide-15">
+  <div class="slide-number">15</div>
+  <h2 class="slide-title">Minority Erasure: The Costs of Differential Privacy</h2>
+  <div class="slide-body">
+    <p class="big-text">
+      If a group has <strong>1,000 people</strong>, adding &plusmn;5 is a rounding error.
+    </p>
+    <p class="big-text">
+      If a group has <strong>three people</strong>...
+    </p>
+    <p class="big-text" style="color: var(--red); margin-top: 30px;">
+      <em>...they can mathematically cease to exist.</em>
+    </p>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>The Dark Side &mdash; Minority Erasure</h2>
+    <p>This is the honest reckoning. DP isn't a free lunch. The noise doesn't affect all groups equally.</p>
+    <p>Large groups absorb the noise without trouble. Small groups &mdash; which in demographic data usually means minority communities &mdash; can be noised into oblivion. A group of 3 + a random noise draw of -4 = reported as 0.</p>
+    <p>This isn't hypothetical. The 2020 Census noise levels were controversial for exactly this reason.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 16 — INTERACTIVE: MINORITY ERASURE
+     ============================================================= -->
+<section class="slide" id="slide-16">
+  <div class="slide-number">16</div>
+  <div class="demo-wrap">
+    <div class="demo-label">Interactive Demo</div>
+    <div class="demo-heading">Minority Erasure</div>
+
+    <div class="epsilon-header">
+      <div class="epsilon-controls">
+        <div class="control-row">
+          <span class="control-label">Privacy Budget (&epsilon;)</span>
+          <input type="range" id="townEpsilonSlider" min="-10" max="13" value="0" step="1" oninput="updateTown()">
+          <span class="range-value" id="townEpsilonValue">&epsilon; = 1.00</span>
+          <button class="demo-btn" onclick="rerollTown()">Re-roll Noise</button>
+        </div>
+      </div>
+
+      <div class="stats-row stats-row-compact">
+        <div class="stat-box">
+          <div class="stat-box-label">Groups Tracked</div>
+          <div class="stat-box-value">5</div>
+        </div>
+        <div class="stat-box erased-count">
+          <div class="stat-box-label">Groups Erased</div>
+          <div class="stat-box-value" id="erasedCount">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-label">True Population</div>
+          <div class="stat-box-value">977</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <svg id="townChart" viewBox="0 0 800 360" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Interactive: Minority Erasure</h2>
+    <p>Lower the epsilon and re-roll the noise a few times. The majority group (950) is untouched. The minorities (12, 7, 5, 3) collapse to zero at low epsilon, often.</p>
+    <p>Census data decides school placement, voting districts, and federal aid distribution. If the noise washes out a small community, they lose funding and political representation. The paradox: the people who most need protection from identification are also the ones most harmed by the loss of accuracy.</p>
+    <p>Researchers call the active work in this space "equitable differential privacy." It's unsolved.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 17 — MINORITY ERASURE: WHAT'S AT STAKE
+     ============================================================= -->
+<section class="slide" id="slide-17">
+  <div class="slide-number">17</div>
+  <h2 class="slide-title" style="margin-bottom: 24px;">What's at Stake</h2>
+
+  <div class="stakes-grid">
+    <div class="stakes-card">
+      <div class="stakes-label">Funding &amp; Representation</div>
+      <p>
+        Census data decides where schools get built, where voting-district lines are drawn, and where federal aid lands. If the privacy noise washes out a small community, they <strong>lose funding and political representation</strong> &mdash; even though the people are still there.
+      </p>
+    </div>
+
+    <div class="stakes-card">
+      <div class="stakes-label">Voting Rights Act &sect; 203</div>
+      <p>
+        Federal law requires jurisdictions to provide ballots and voter materials in a non-English language whenever census data shows a language-minority population above a fixed threshold. If DP noise pushes those counts below the line, the trigger fails &mdash; and <strong>voters lose translated ballots entirely</strong>, disenfranchising communities the protection was designed for.
+      </p>
+    </div>
+  </div>
+
+  <a class="stakes-source" href="https://ct-data-collaborative.github.io/dp2010/files/CensusDistortionProgram_VAGovernor_2020-01-23.pdf" target="_blank" rel="noopener">
+    <div class="stakes-source-label">Read the memo &rarr;</div>
+    <div class="stakes-source-title">Census Distortion Program: The Perils of Differentially Private Census Data</div>
+    <div class="stakes-source-meta">Meredith Strohm Gunter, Weldon Cooper Center for Public Service, University of Virginia &middot; Memorandum to Gov. Ralph Northam, January 23, 2020 &middot; PDF</div>
+  </a>
+
+  <div class="speaker-notes">
+    <h2>Minority Erasure &mdash; What's at Stake</h2>
+    <p>Two concrete examples of how noise in released counts becomes harm in the real world.</p>
+    <p><strong>Funding and representation.</strong> Federal funding allocations (Title I schools, Medicaid matching, highway funds, &mdash; all tied to population counts), political boundary drawing, and where new public infrastructure gets built all run off census data. Small communities noised to zero become invisible to those processes.</p>
+    <p><strong>Voting Rights Act Section 203.</strong> Requires bilingual ballots where a language-minority population exceeds 5% of eligible voters OR 10,000 people in a jurisdiction. The trigger depends entirely on the count being accurate. DP noise on the small end of those populations can push them below the threshold and strip the legal protection.</p>
+    <p>The memo on the link is from 2020, when the Bureau was finalizing its DP approach. Virginia's state demographer laid out concrete distortion cases and asked the governor to push back. Worth a click after class.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 18 — DP, AI/ML, AND THE MATTHEW EFFECT
+     ============================================================= -->
+<section class="slide" id="slide-18">
+  <div class="slide-number">18</div>
+  <h2 class="slide-title" style="margin-bottom: 16px;">Differential Privacy, AI/ML, and the &ldquo;Matthew Effect&rdquo;</h2>
+
+  <p class="matthew-epigraph">
+    &ldquo;For to everyone who has, more will be given&hellip; but from the one who has not, even what they have will be taken away.&rdquo;<br>
+    <span class="matthew-cite">&mdash; Matthew 25:29</span>
+  </p>
+
+  <div class="matthew-grid">
+    <div class="matthew-card">
+      <div class="matthew-label">Majority wins, minority loses</div>
+      <p>The model learns the majority class <strong>perfectly</strong> &mdash; its signal is strong enough to survive the noise. But it <strong>completely fails</strong> to learn the minority class. Their signal is the same order of magnitude as the noise added to protect them.</p>
+    </div>
+
+    <div class="matthew-card">
+      <div class="matthew-label">Outliers clipped</div>
+      <p>DP training mechanisms (e.g. DP-SGD) <em>clip</em> per-example gradients before adding noise. Rare and informative examples &mdash; the edge cases &mdash; get their influence capped. The model never hears from them.</p>
+    </div>
+
+    <div class="matthew-card">
+      <div class="matthew-label">Bias, amplified</div>
+      <p>The result: an AI system that is <strong>more biased than it would have been naturally</strong>. The model doesn't just inherit bias from the data &mdash; the privacy mechanism itself makes it worse.</p>
+    </div>
+
+    <div class="matthew-card">
+      <div class="matthew-label">Erasure, not protection</div>
+      <p>If you're too unique, the algorithm <strong>literally erases you</strong>, distorting reality. The same mechanism that promises to protect you from identification also protects the model from learning you exist.</p>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>The Matthew Effect</h2>
+    <p>The name comes from sociology of science, ultimately from Matthew 25:29: the rich get richer, the poor get poorer. When applied to DP training, it captures the failure mode exactly.</p>
+    <p>Mechanically: DP training adds noise at each gradient step, and clips per-example gradient norms so any single example can't influence the model too much. Both moves disproportionately damage signal from rare classes and outliers.</p>
+    <p>Walk through the four cards. Land on the last one: the fairness story and the privacy story are coupled. You can't fix one without thinking about the other.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 19 — COMPLIANCE &amp; PRIVACY THEATER
+     ============================================================= -->
+<section class="slide" id="slide-19">
+  <div class="slide-number">19</div>
+  <h2 class="slide-title" style="margin-bottom: 24px;">Differential Privacy, Compliance, and Privacy Theater</h2>
+
+  <div class="compliance-grid">
+    <div class="compliance-card">
+      <div class="compliance-flag">EU</div>
+      <div class="compliance-title">GDPR <span class="compliance-year">2018</span></div>
+      <p>The General Data Protection Regulation sets strict rules for collection, purpose limitation, and the right to erasure. &ldquo;Anonymized&rdquo; data &mdash; data that can no longer be linked back to a person &mdash; falls outside its scope entirely, creating a strong incentive to <em>really</em> anonymize, not just redact names.</p>
+    </div>
+
+    <div class="compliance-card">
+      <div class="compliance-flag">QC</div>
+      <div class="compliance-title">Quebec Law 25 <span class="compliance-year">2022</span></div>
+      <p>Requires that personal data be <strong>irreversibly anonymized</strong> before release or reuse &mdash; the black-marker method doesn't qualify. Penalties reach <strong>$25M CAD</strong> or 4% of global revenue. This effectively forces organizations toward techniques like differential privacy.</p>
+    </div>
+  </div>
+
+  <div class="theater-callout">
+    <div class="theater-label">The loophole</div>
+    <p class="theater-quote">
+      <span class="theater-claim">&ldquo;We use differential privacy.&rdquo;</span><br>
+      <span class="theater-reply">Great. What did you set &epsilon; to?</span>
+    </p>
+    <p class="theater-body">
+      The law says &ldquo;use DP.&rdquo; It usually doesn&rsquo;t say <em>what &epsilon; to use</em>. A company can announce DP for the PR win, ship it with &epsilon; = 14 or 20, and be technically compliant while offering almost no real protection. Fancy math, safe door wide open. This is <strong>privacy theater</strong>.
+    </p>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Compliance &amp; Privacy Theater</h2>
+    <p>Regulation is catching up. GDPR (2018) is the landmark: it creates an explicit legal category for "anonymized" data that no longer identifies anyone, and carves that category out of the regulation entirely. So there is a large compliance incentive to achieve real anonymization.</p>
+    <p>Quebec's Law 25 (2022) goes further and specifies <em>irreversibly</em> anonymized. Under that wording, the old delete-the-names approach doesn't meet the bar. Penalties are severe: up to CAD $25M or 4% of global revenue. Companies operating in Quebec are effectively pushed toward techniques like DP.</p>
+    <p>The catch: the law mandates the technique but usually not the parameters. A company can adopt DP in name, configure it with a huge epsilon, and be formally compliant while leaking freely. This is the privacy theater trap &mdash; the move the law was trying to block reappears in a new costume.</p>
+    <p>Pedagogical payoff: privacy-as-math-guarantee only works if someone is watching the parameter, not just the label.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 20 — THE REFRAME
+     ============================================================= -->
+<section class="slide" id="slide-20">
+  <div class="slide-number">20</div>
+  <div class="slide-body reframe-body">
+    <p class="pullquote-slide">
+      Privacy is not a switch.<br>It's a dial.
+    </p>
+    <p class="small-context reframe-tagline">
+      The hand turning it balances <strong style="font-style: normal;">safety</strong>, <strong style="font-style: normal;">accuracy</strong>, and <strong style="font-style: normal;">fairness</strong>.
+    </p>
+  </div>
+
+  <div class="further-reading">
+    <div class="further-reading-label">Further reading</div>
+    <div class="further-reading-list">
+      <a class="further-reading-item" href="https://arxiv.org/abs/2509.03294" target="_blank" rel="noopener">
+        <div class="fr-title">A Comprehensive Guide to Differential Privacy: From Theory to User Expectations</div>
+        <div class="fr-meta">Karmitsa et&nbsp;al., 2025 &middot; arXiv:2509.03294</div>
+      </a>
+      <a class="further-reading-item" href="https://programming-dp.com/" target="_blank" rel="noopener">
+        <div class="fr-title">Programming Differential Privacy</div>
+        <div class="fr-meta">Near &amp; Abuah, 2025 &middot; programming-dp.com</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>The Reframe</h2>
+    <p>We've gone from the black marker to injecting measured chaos. From redaction to perturbation. We've accepted that we have to damage the data a little to save the people in it.</p>
+    <p>The key conceptual shift: privacy isn't a binary. It's a dial that balances three things pulling against each other.</p>
+    <p>Leave them with the question: is there a point where being *too* private actually hurts? Can you be so hidden from the systems that are supposed to help you that you get left behind? That's a real tradeoff. It doesn't have a clean answer.</p>
+  </div>
+</section>
+
+<!-- =============================================================
+     SLIDE 21 — INTRO TO FEDERATED LEARNING
+     ============================================================= -->
+<section class="slide" id="slide-21">
+  <div class="slide-number">21</div>
+  <h2 class="slide-title" style="margin-bottom: 40px;">Intro to Federated Learning</h2>
+
+  <a class="fl-bigcard" href="https://pair.withgoogle.com/explorables/federated-learning/" target="_blank" rel="noopener">
+    <div class="fl-bigcard-label">Explorable &rarr;</div>
+    <div class="fl-bigcard-title">Federated Learning</div>
+    <div class="fl-bigcard-meta">Google PAIR &middot; pair.withgoogle.com</div>
+  </a>
+
+  <div class="speaker-notes">
+    <h2>Intro to Federated Learning</h2>
+    <p>Transition slide into the federated learning half of the unit. Open the Google PAIR explorable live and walk through the first scroll-interactive together. Return to the deck afterward for the FL content.</p>
+  </div>
+</section>
+
+<!-- Presentation chrome -->
+<div class="slide-dots" id="slideDots"></div>
+<div class="slide-counter" id="slideCounter">1 / 18</div>
+<div class="nav-hint">← → navigate &nbsp;·&nbsp; S speaker notes</div>
+
+<!-- Speaker notes panel (populated on open) -->
+<aside class="speaker-notes-panel" id="speakerNotesPanel">
+  <button class="close-notes" onclick="toggleSpeakerNotes()" aria-label="Close speaker notes">&times;</button>
+  <h3>Speaker Notes</h3>
+  <div id="speakerNotesContent"></div>
+</aside>
+
+<script src="assets/dp-explainer/script.js"></script>
+</body>
+</html>

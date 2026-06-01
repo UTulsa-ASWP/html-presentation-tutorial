@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Worked Example — How the DP Explainer Was Built</title>
+  <meta name="description" content="A real interactive explainer, built step by step with the llm-dev:cycle.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ============ 1. TITLE ================================================== -->
+  <section class="slide title-slide">
+    <div class="eyebrow">ASWP Summer 2026 · Deck 2 of 3</div>
+    <h1>The Worked Example</h1>
+    <p class="subtitle">How a real interactive explainer was built, one cycle phase at a
+      time — with the transcripts and artifacts to prove it.</p>
+    <div class="attribution">Differential Privacy Explainer · a live, offline artifact</div>
+
+    <div class="speaker-notes">
+      <h2>Welcome to the worked example</h2>
+      <p>Deck 1 taught the cycle in the abstract. This deck shows it applied to one real
+         build — a differential-privacy explainer used in a live class. Everything here is
+         real: the decisions, the quotes, the bug, the refactor.</p>
+      <p>Tell the audience they can open the finished artifact themselves — it's bundled in
+         this repo and runs offline, just like these slides.</p>
+    </div>
+  </section>
+
+  <!-- ============ 2. STORY OF THE BUILD ==================================== -->
+  <section class="slide">
+    <span class="slide-number">02</span>
+    <div class="slide-content">
+      <div class="eyebrow">The story</div>
+      <h2 class="slide-title">What you're about to see</h2>
+      <p class="lead">Over two work sessions, an instructor and an LLM turned a topic —
+        "explain differential privacy" — into a polished, interactive, offline web deck.</p>
+      <p>The build followed the same six phases from Deck 1. Along the way: a sharp design
+         pivot, a "no dependencies" decision that paid off, a mid-build refactor, a bug
+         caught by testing, and a same-day deploy. We'll walk each phase, then highlight the
+         moments that mattered most.</p>
+      <div class="callout">
+        <p><strong>Open it now:</strong> the finished
+          <a href="artifact/differential-privacy-explainer.html">Differential Privacy
+          Explainer</a> — try the interactive demos, then come back.</p>
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>The story in one breath</h2>
+      <p>Set expectations: this is "how it really went," not an idealized version. The point
+         is to show that the cycle produces real artifacts at each step, and that the messy
+         parts (a bug, a refactor, a time crunch) are normal. Invite them to open the
+         explainer link and click an interactive before you continue.</p>
+    </div>
+  </section>
+
+  <!-- ============ 3. PHASE 1 — REVIEW ====================================== -->
+  <section class="slide">
+    <span class="slide-number">03</span>
+    <div class="slide-content">
+      <div class="eyebrow">Phase 1 · Review</div>
+      <h2 class="slide-title">The constraint that shaped everything</h2>
+      <p>The very first phase pinned down the hard limit the whole build had to respect:</p>
+      <div class="callout warn">
+        <p>"Must be ready by tomorrow… Single-session build."</p>
+      </div>
+      <p>A same-day deadline with a live, in-class demo and no server to lean on. That one
+         constraint quietly decided the tool, the scope, and the format before a line of
+         code existed.</p>
+      <p class="small-context"><a href="cycle-artifacts/review.md">Read the full Review doc →</a></p>
+    </div>
+    <div class="speaker-notes"><h2>Review</h2>
+      <p>Key teaching point: naming the constraint early is what makes the later decisions
+         obvious. "Same-day + offline + live demo" is doing all the work here.</p></div>
+  </section>
+
+  <!-- ============ 4. PHASE 2 — BRAINSTORM ================================== -->
+  <section class="slide">
+    <span class="slide-number">04</span>
+    <div class="slide-content">
+      <div class="eyebrow">Phase 2 · Brainstorm</div>
+      <h2 class="slide-title">The pivot: explain, don't crowdsource</h2>
+      <p>The tempting idea was a participatory, multi-device demo. Brainstorm rejected it
+         in favor of an instructor-driven explainer:</p>
+      <div class="callout">
+        <p>"A well-designed interactive explainer can drive discussion as effectively as
+           participation."</p>
+      </div>
+      <p>This was the foundational <strong>key moment</strong>: the narrative and pedagogy
+         were designed <em>first</em>, then the interactive demos were mapped onto that arc
+         — not the other way around.</p>
+      <p class="small-context"><a href="cycle-artifacts/brainstorm.md">Read the full Brainstorm doc →</a></p>
+    </div>
+    <div class="speaker-notes"><h2>Brainstorm</h2>
+      <p>Story-first is the lesson. The 8-act arc (Sweeney's $20 re-identification, the
+         Spartacus k-anonymity analogy, Dwork's 2006 "revolution," real deployments,
+         minority erasure as the dark side) came before any slide. Rejecting the
+         participatory idea was a deliberate scope-narrowing for a same-day build.</p></div>
+  </section>
+
+  <!-- ============ 5. PHASE 3 — RESEARCH ==================================== -->
+  <section class="slide">
+    <span class="slide-number">05</span>
+    <div class="slide-content">
+      <div class="eyebrow">Phase 3 · Research</div>
+      <h2 class="slide-title">Zero dependencies, on purpose</h2>
+      <div class="callout good">
+        <p>"Vanilla HTML/CSS/JavaScript in a single self-contained file. No framework, no
+           build step, no external JS libraries." — <strong>Zero dependency risk.</strong></p>
+      </div>
+      <p>React, D3, Chart.js — all considered and rejected. The payoff: sophisticated
+         interactivity (Laplace-noise sampling, live SVG histograms, sliders) built in pure
+         client-side JavaScript, with nothing to break between now and class tomorrow.</p>
+      <p class="small-context"><a href="cycle-artifacts/research.md">Read the full Research doc →</a></p>
+    </div>
+    <div class="speaker-notes"><h2>Research</h2>
+      <p>This is the decision that makes the artifact <em>offline</em> — the same reason
+         our tutorial decks are vanilla too. Note that "simplest tool that meets the
+         requirements" beat the reflex to reach for a framework.</p></div>
+  </section>
+
+  <!-- ============ 6. PHASE 4 — PLAN ======================================== -->
+  <section class="slide">
+    <span class="slide-number">06</span>
+    <div class="slide-content">
+      <div class="eyebrow">Phase 4 · Plan</div>
+      <h2 class="slide-title">An ordered build, with room to split</h2>
+      <p>Plan laid out the file structure and an ordered sequence: scaffold first, then
+         build the narrative acts in order, then the interactive exhibits, then deploy.</p>
+      <p>It started as a single self-contained file — but planned for a clean structure that
+         could <strong>split as complexity grew</strong>. That foresight set up the refactor
+         we'll see in Execute.</p>
+      <div class="callout">
+        <p>Acceptance criteria were written as pass/fail checks — the same ones Verify would
+           later confirm.</p>
+      </div>
+      <p class="small-context"><a href="cycle-artifacts/plan.md">Read the full Plan doc →</a></p>
+    </div>
+    <div class="speaker-notes"><h2>Plan</h2>
+      <p>The plan is self-contained: someone else could execute it. The split-file
+         foresight is the link to the next slide's refactor — plans anticipate where the
+         pressure will be.</p></div>
+  </section>
+
+  <!-- ============ 7. PHASE 5 — EXECUTE ===================================== -->
+  <section class="slide">
+    <span class="slide-number">07</span>
+    <div class="slide-content">
+      <div class="eyebrow">Phase 5 · Execute</div>
+      <h2 class="slide-title">Build, test, fix — in the open</h2>
+      <p>Roughly 1,766 lines came together, with every interactive exhibit tested in the
+         browser as it landed. Testing immediately paid off:</p>
+      <div class="callout warn">
+        <p>The epsilon slider's range was too wide. Fix: "Narrowed to <code>min=-10
+           max=13</code>, giving a meaningful range of ε ≈ 0.1 to ε ≈ 20."</p>
+      </div>
+      <p>The demo was complete but <em>pedagogically broken</em> until that fix made the
+         privacy-vs-utility tradeoff actually teachable.</p>
+      <div class="callout">
+        <p><strong>See it live:</strong> open the
+          <a href="artifact/differential-privacy-explainer.html">explainer</a> and try the
+          epsilon slider and the linkage-attack demo.</p>
+      </div>
+      <p class="small-context"><a href="cycle-artifacts/execute.md">Read the full Execute doc →</a></p>
+    </div>
+    <div class="speaker-notes"><h2>Execute</h2>
+      <p>"Test early and often" is the whole lesson — the bug was caught because each
+         interactive was exercised as it was built, not at the end. Have them open the
+         slider and re-roll the noise a few times to feel the randomness.</p></div>
+  </section>
+
+  <!-- ============ 8. PHASE 6 — VERIFY ====================================== -->
+  <section class="slide">
+    <span class="slide-number">08</span>
+    <div class="slide-content">
+      <div class="eyebrow">Phase 6 · Verify</div>
+      <h2 class="slide-title">Proven by hand, with evidence</h2>
+      <div class="callout good">
+        <p>"Status: COMPLETE — manually verified by user… hands-on in Chrome on macOS."</p>
+      </div>
+      <p>Every slide and all four interactive exhibits were walked through by a human in the
+         browser. Two items — Safari and public deploy — were consciously deferred as
+         low-risk, not silently skipped.</p>
+      <p class="small-context"><a href="cycle-artifacts/verify.md">Read the full Verify doc →</a></p>
+    </div>
+    <div class="speaker-notes"><h2>Verify</h2>
+      <p>Evidence over assertion: "verified in Chrome on macOS, all four interactives
+         exercised" beats "looks done." Deferring Safari/deploy explicitly is honest scope
+         management, not cutting corners.</p></div>
+  </section>
+
+  <!-- ============ 9. KEY MOMENT — THE REFACTOR ============================= -->
+  <section class="slide">
+    <span class="slide-number">09</span>
+    <div class="slide-content">
+      <div class="eyebrow">Key moment</div>
+      <h2 class="slide-title">One file became three — mid-build</h2>
+      <p>As slides multiplied and interactivity grew, the monolithic HTML file was
+         refactored on the fly into three:</p>
+      <div class="stats-row">
+        <div class="stat-box"><div class="value">.html</div><div class="label">content</div></div>
+        <div class="stat-box"><div class="value">.css</div><div class="label">styling</div></div>
+        <div class="stat-box"><div class="value">.js</div><div class="label">interactivity</div></div>
+      </div>
+      <p>It was safe because the IDs weren't referenced in JS and the slide counter
+         auto-computes from <code>slideElements.length</code> — so there were no hardcoded
+         numbers to break. Structure emerged exactly when complexity demanded it.</p>
+    </div>
+    <div class="speaker-notes"><h2>The refactor</h2>
+      <p>This is the "refactoring emerges from the cycle" lesson made concrete — it wasn't
+         scheduled, it was triggered by the code signaling it was time. The same three-file
+         split is what our starter template uses.</p></div>
+  </section>
+
+  <!-- ============ 10. KEY MOMENT — HOW IT REALLY WENT ===================== -->
+  <section class="slide">
+    <span class="slide-number">10</span>
+    <div class="slide-content">
+      <div class="eyebrow">Key moment</div>
+      <h2 class="slide-title">How it really went</h2>
+      <p>The transcripts show the human side of the build — direction given in real time:</p>
+      <div class="callout">
+        <p>"…we will just start editing the slide deck because I don't really have time to
+           go back through another iteration."</p>
+      </div>
+      <p>And decisiveness — a one-word <strong>"B"</strong> chose the stronger slide order
+         (insert the k-anonymity demo, push the homogeneity reveal down as the "even this
+         still fails" twist). A real gotcha, too: a deploy-then-sanitize
+         <code>git reset --hard</code> wiped uncommitted edits, recovered from the already
+         deployed copy.</p>
+    </div>
+    <div class="speaker-notes"><h2>How it really went</h2>
+      <p>Humanize it: the process bends to real constraints (time pressure → skip a formal
+         iteration), decisions can be one word, and tools have sharp edges (the reset
+         mishap). None of this is failure — it's what real builds look like.</p></div>
+  </section>
+
+  <!-- ============ 11. CLOSE ================================================= -->
+  <section class="slide title-slide">
+    <div class="eyebrow">Your turn</div>
+    <h1>You've seen it end to end.</h1>
+    <p class="subtitle">Open the <a href="artifact/differential-privacy-explainer.html"
+      style="color:var(--gold-light);">finished explainer</a>, skim the
+      <a href="cycle-artifacts/review.md" style="color:var(--gold-light);">cycle
+      artifacts</a>, then build your own. Deck 3 covers making your slides richer.</p>
+
+    <div class="speaker-notes"><h2>Hand-off</h2>
+      <p>Concrete next step: they now have a full worked example AND the starter. Encourage
+         them to run <code>/llm-dev:cycle</code> on a real topic. Tease Deck 3 (enrichment +
+         what's next). The artifacts and the live explainer are all here in the repo to
+         study offline.</p></div>
+  </section>
+
+  <!-- ============ CHROME =================================================== -->
+  <div class="slide-dots" id="slideDots"></div>
+  <div class="slide-counter" id="slideCounter">1 / 11</div>
+  <div class="nav-hint">&larr; &rarr; navigate &middot; S speaker notes</div>
+
+  <aside class="speaker-notes-panel" id="speakerNotesPanel">
+    <button class="close-notes" onclick="toggleSpeakerNotes()" aria-label="Close speaker notes">&times;</button>
+    <h3>Speaker Notes</h3>
+    <div id="speakerNotesContent"></div>
+  </aside>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
