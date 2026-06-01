@@ -1,0 +1,54 @@
+/* ============================================================================
+   SHARED THEME TOKENS — html-presentation-tutorial
+   ----------------------------------------------------------------------------
+   This is the CANONICAL design-token block for the whole suite. Each deck and
+   the starter COPY this :root block into the top of their own styles.css (we
+   copy rather than @import so every deck stays fully self-contained / offline —
+   no cross-file path dependencies).
+
+   To RE-THEME a deck: edit these custom properties. Colors, fonts, and shadows
+   all flow from here. You should rarely need to touch anything below the :root
+   block in a deck's styles.css.
+
+   FONTS: deliberately NO web-font @import. The font stacks below fall back to
+   system fonts so the deck works with zero network access (classroom-offline).
+   If you want custom fonts later, vendor WOFF2 files locally and add @font-face
+   here — do NOT add a Google Fonts @import (it breaks the offline guarantee).
+   ========================================================================== */
+
+:root {
+  /* --- Surfaces --- */
+  --bg: #0f1419;            /* deep backdrop behind slides */
+  --bg-slide: #fafaf7;      /* the slide "paper" */
+  --bg-panel: #ffffff;      /* panels (e.g. speaker notes) */
+  --bg-accent: #f4f1eb;     /* subtle accent fill */
+  --border: #e2dfd8;        /* hairline borders */
+  --border-strong: #c9c4b8; /* stronger borders */
+
+  /* --- Ink (text) --- */
+  --ink: #1a1a2e;           /* primary text */
+  --ink-muted: #55556b;     /* secondary text */
+  --ink-dim: #8a8a9e;       /* tertiary / captions */
+
+  /* --- Brand accents (re-theme these first) --- */
+  --navy: #1d3557;          /* primary brand / title background */
+  --navy-deep: #0f1e33;
+  --navy-light: #2c5282;
+  --gold: #b8860b;          /* secondary accent / progress bar */
+  --gold-light: #d4a017;
+  --red: #9b2c2c;           /* warnings / emphasis */
+  --red-light: #e53e3e;
+  --green: #2a7f62;         /* success / positive */
+  --highlight: #fef3c7;     /* highlighter background */
+  --highlight-strong: #fcd34d;
+
+  /* --- Type (system-font stacks; no network fonts) --- */
+  --serif: Georgia, 'Times New Roman', 'Crimson Pro', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.25);
+}

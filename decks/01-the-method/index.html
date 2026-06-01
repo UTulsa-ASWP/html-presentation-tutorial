@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Method — Building Presentations with llm-dev:cycle</title>
+  <meta name="description" content="The llm-dev:cycle skill as a tool for building interactive HTML presentations.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ============ 1. TITLE =================================================== -->
+  <section class="slide title-slide">
+    <div class="eyebrow">ASWP Summer 2026 · Deck 1 of 3</div>
+    <h1>The Method</h1>
+    <p class="subtitle">Using <code>llm-dev:cycle</code> to build interactive HTML
+      presentations — the same loop that built this deck.</p>
+    <div class="attribution">A tool for the team · Tutorial Suite</div>
+
+    <div class="speaker-notes">
+      <h2>Welcome</h2>
+      <p>This is the first of three decks. This one teaches the <em>process</em> we use
+         to build presentations with an LLM. Deck 2 walks a real example end to end;
+         Deck 3 covers enrichment and what to explore next.</p>
+      <p>Point out the mechanics as you go: arrow keys to navigate, and press S to see
+         these notes. This deck is itself a vanilla HTML presentation — the thing we're
+         teaching them to make.</p>
+    </div>
+  </section>
+
+  <!-- ============ 2. WHY / WHAT YOU'LL BE ABLE TO DO ======================== -->
+  <section class="slide">
+    <span class="slide-number">02</span>
+    <div class="slide-content">
+      <div class="eyebrow">Why this exists</div>
+      <h2 class="slide-title">From "I have a topic" to a finished deck</h2>
+      <p class="lead">By the end of these three decks, you'll be able to build an
+        interactive HTML presentation on your own — with an LLM doing the heavy lifting.</p>
+      <p>No slide software, no framework, no build step. Just a folder of files that
+         opens in any browser and <strong>runs fully offline</strong> — which is exactly
+         what the teachers we hand these to need in a classroom with no internet.</p>
+      <div class="callout">
+        <p>You don't need to write the HTML by hand. You need to know how to
+           <strong>drive the LLM</strong> well — and that's what the cycle is for.</p>
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>From topic to deck</h2>
+      <p>Set the bar plainly: solo authorship. The audience is mixed — some code, some
+         don't. The honest message is that the skill being taught is <em>directing the
+         model</em>, not memorizing CSS. The cycle is the structure that makes that
+         reliable instead of a chaotic chat.</p>
+      <p>The offline constraint is the reason we use plain HTML rather than a hosted
+         tool — say so, because it justifies everything that follows.</p>
+    </div>
+  </section>
+
+  <!-- ============ 3. THE CYCLE AT A GLANCE ================================== -->
+  <section class="slide">
+    <span class="slide-number">03</span>
+    <div class="slide-content centered">
+      <div class="eyebrow">The shape of the work</div>
+      <h2 class="slide-title">Six phases, one loop</h2>
+    </div>
+    <div class="two-column">
+      <div>
+        <p>The <code>llm-dev:cycle</code> skill structures a build into six phases.
+           Each produces a short markdown file, so the thinking is written down before
+           any code exists.</p>
+        <ol>
+          <li><strong>Review / Reflect</strong> — load context</li>
+          <li><strong>Brainstorm</strong> — decide what to build</li>
+          <li><strong>Research</strong> — pick the tools, verify them</li>
+          <li><strong>Plan</strong> — an ordered build sequence</li>
+          <li><strong>Execute</strong> — build it, test as you go</li>
+          <li><strong>Verify</strong> — prove it actually works</li>
+        </ol>
+        <p>Then you <em>iterate</em>: each pass is smaller and sharper than the last.</p>
+      </div>
+      <div style="text-align:center;">
+        <img class="slide-image" src="assets/img/llm-dev-cycle-6.webp"
+             alt="Diagram of the six-phase llm-dev cycle as a loop">
+        <div class="image-caption">The cycle: Review → Brainstorm → Research → Plan → Execute → Verify</div>
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Six phases, one loop</h2>
+      <p>The key idea: the value is in <em>making decisions before committing to code</em>.
+         Each phase has a gate — you approve before moving on. Nothing here is rigid; you
+         can revise a phase or jump back. Stress that the markdown artifacts are the point:
+         they make the reasoning reviewable and reusable.</p>
+    </div>
+  </section>
+
+  <!-- ============ 4–9. ONE SLIDE PER PHASE ================================== -->
+
+  <!-- Phase 1 -->
+  <section class="slide">
+    <span class="slide-number">04</span>
+    <div class="slide-content centered"><div class="eyebrow">Phase 1</div>
+      <h2 class="slide-title">Review / Reflect</h2></div>
+    <div class="two-column">
+      <div style="text-align:center;">
+        <img class="slide-image" src="assets/img/llm-dev-phase-1.webp" alt="Phase 1: Review and Reflect">
+      </div>
+      <div>
+        <p class="lead">Load the context. Decide what you're actually working with.</p>
+        <p>Point the model at the right material — past decks, notes, a topic outline —
+           and have it summarize requirements and constraints. On later iterations, this
+           is also where you <strong>reflect</strong> on what the previous pass taught you.</p>
+        <div class="callout"><p><strong>For a presentation:</strong> who's the audience,
+           how will it be delivered, and what must it run on?</p></div>
+      </div>
+    </div>
+    <div class="speaker-notes"><h2>Review / Reflect</h2>
+      <p>The discipline here is <em>narrowing</em>, not expanding — eliminate options,
+         surface gaps. For a deck, the audience + delivery + runtime constraints decide
+         almost everything downstream (e.g. "offline classroom" forced vanilla HTML).</p></div>
+  </section>
+
+  <!-- Phase 2 -->
+  <section class="slide">
+    <span class="slide-number">05</span>
+    <div class="slide-content centered"><div class="eyebrow">Phase 2</div>
+      <h2 class="slide-title">Brainstorm</h2></div>
+    <div class="two-column">
+      <div>
+        <p class="lead">Decide <em>what</em> to build — through conversation, not a menu.</p>
+        <p>Explore the idea with the model: what's the simplest version, what's the
+           narrative arc, what's in and out of scope. Converge on one approach and write
+           down the alternatives you rejected and why.</p>
+        <div class="callout"><p><strong>For a presentation:</strong> the story comes
+           first. Decide the arc before any slide exists.</p></div>
+      </div>
+      <div style="text-align:center;">
+        <img class="slide-image" src="assets/img/llm-dev-phase-2.webp" alt="Phase 2: Brainstorm">
+      </div>
+    </div>
+    <div class="speaker-notes"><h2>Brainstorm</h2>
+      <p>It's a dialogue. The model should ask questions and push back, not just produce
+         options. The output is a scoped concept with explicit boundaries — what you will
+         and won't build. Rejecting things on purpose is half the value.</p></div>
+  </section>
+
+  <!-- Phase 3 -->
+  <section class="slide">
+    <span class="slide-number">06</span>
+    <div class="slide-content centered"><div class="eyebrow">Phase 3</div>
+      <h2 class="slide-title">Research</h2></div>
+    <div class="two-column">
+      <div style="text-align:center;">
+        <img class="slide-image" src="assets/img/llm-dev-phase-3.webp" alt="Phase 3: Research">
+      </div>
+      <div>
+        <p class="lead">Pick the tools — and verify they're real.</p>
+        <p>Choose the simplest thing that meets the requirements, and check it actually
+           works before committing. Confirm what you can lift from an existing example
+           rather than building from scratch.</p>
+        <div class="callout"><p><strong>For a presentation:</strong> usually "vanilla
+           HTML/CSS/JS, reuse a known-good template." Verify it runs offline.</p></div>
+      </div>
+    </div>
+    <div class="speaker-notes"><h2>Research</h2>
+      <p>The honest note: models sometimes recommend packages that don't exist or are
+         deprecated. Verify. For our decks this phase mostly confirms the template lifts
+         cleanly and that nothing reaches for the network.</p></div>
+  </section>
+
+  <!-- Phase 4 -->
+  <section class="slide">
+    <span class="slide-number">07</span>
+    <div class="slide-content centered"><div class="eyebrow">Phase 4</div>
+      <h2 class="slide-title">Plan</h2></div>
+    <div class="two-column">
+      <div>
+        <p class="lead">Turn research into an ordered build sequence.</p>
+        <p>What gets built first, second, third — with <strong>acceptance criteria</strong>:
+           specific, testable conditions that define "done." A good plan is self-contained;
+           you could hand it to someone else and they'd know what to do.</p>
+        <div class="callout"><p><strong>For a presentation:</strong> build the template
+           first, then slides; "done" = plays start to finish, offline, no console errors.</p></div>
+      </div>
+      <div style="text-align:center;">
+        <img class="slide-image" src="assets/img/llm-dev-phase-4.webp" alt="Phase 4: Plan">
+      </div>
+    </div>
+    <div class="speaker-notes"><h2>Plan</h2>
+      <p>If a step would take more than an hour, break it down. The acceptance criteria
+         are what Verify checks against later — write them as pass/fail, not vibes.</p></div>
+  </section>
+
+  <!-- Phase 5 -->
+  <section class="slide">
+    <span class="slide-number">08</span>
+    <div class="slide-content centered"><div class="eyebrow">Phase 5</div>
+      <h2 class="slide-title">Execute</h2></div>
+    <div class="two-column">
+      <div style="text-align:center;">
+        <img class="slide-image" src="assets/img/llm-dev-phase-5.webp" alt="Phase 5: Execute">
+      </div>
+      <div>
+        <p class="lead">Build it — and test each piece as you go.</p>
+        <p>Work through the plan step by step. Don't wait until the end to check things;
+           smoke-test as each slide or component lands. When something breaks, fix it or
+           adjust the plan.</p>
+        <div class="callout"><p><strong>For a presentation:</strong> open it in the
+           browser after each slide. Catch the broken image path now, not at the podium.</p></div>
+      </div>
+    </div>
+    <div class="speaker-notes"><h2>Execute</h2>
+      <p>"Test early and often" is the whole lesson. Describe errors precisely to the
+         model — "this returns X, I expected Y." Read the code it writes; understand it
+         enough to explain it.</p></div>
+  </section>
+
+  <!-- Phase 6 -->
+  <section class="slide">
+    <span class="slide-number">09</span>
+    <div class="slide-content centered"><div class="eyebrow">Phase 6</div>
+      <h2 class="slide-title">Verify</h2></div>
+    <div class="two-column">
+      <div>
+        <p class="lead">Prove it works — assume it doesn't until you've checked.</p>
+        <p>Execute reports on its own work, so Verify is the adversarial counterpart.
+           Walk every acceptance criterion and confirm pass or fail <strong>with
+           evidence</strong>, not assertions.</p>
+        <div class="callout good"><p><strong>For a presentation:</strong> open it offline,
+           click through every slide, watch the console, confirm no network requests.</p></div>
+      </div>
+      <div style="text-align:center;">
+        <img class="slide-image" src="assets/img/llm-dev-phase-6.webp" alt="Phase 6: Verify">
+      </div>
+    </div>
+    <div class="speaker-notes"><h2>Verify</h2>
+      <p>Evidence before assertions. "It works" is not verification; "I opened it via
+         file://, clicked all 11 slides, console was clean, Network tab showed zero
+         requests" is. If it fails, you don't mark it done — you fix or carry it forward.</p></div>
+  </section>
+
+  <!-- ============ 10. HOW TO DRIVE IT ====================================== -->
+  <section class="slide">
+    <span class="slide-number">10</span>
+    <div class="slide-content">
+      <div class="eyebrow">Driving the cycle</div>
+      <h2 class="slide-title">Gates, iteration, and parallel work</h2>
+      <div class="stats-row">
+        <div class="stat-box"><div class="value">Gates</div><div class="label">Approve between phases</div></div>
+        <div class="stat-box"><div class="value">Iterate</div><div class="label">Each pass smaller</div></div>
+        <div class="stat-box"><div class="value">Parallel</div><div class="label">Fan out independent work</div></div>
+      </div>
+      <ul>
+        <li><strong>Gates are guided, not rigid.</strong> At each phase you say "next,"
+           "revise," "skip," or "back" — you stay in control.</li>
+        <li><strong>Iteration is the point.</strong> Ship a small slice, learn, then the
+           next pass reflects on what happened. This deck was iteration 1 of its project.</li>
+        <li><strong>Parallel dispatch</strong> when work is independent — e.g. summarizing
+           several reference docs at once. The skill suggests it; you decide.</li>
+      </ul>
+    </div>
+    <div class="speaker-notes"><h2>Driving the cycle</h2>
+      <p>This is the "how it feels to use it" slide. The model proposes; you approve.
+         Emphasize that skipping and revising are normal — not every phase needs the same
+         weight. Iteration keeps scope honest.</p></div>
+  </section>
+
+  <!-- ============ 11. YOUR TURN ============================================= -->
+  <section class="slide title-slide">
+    <div class="eyebrow">Your turn</div>
+    <h1>Copy. Cycle. Build.</h1>
+    <p class="subtitle">Grab the starter template, run <code>llm-dev:cycle</code>, and
+      make your first deck. Deck 2 shows a full run, start to finish.</p>
+
+    <div class="speaker-notes"><h2>Hand-off to practice</h2>
+      <p>Concrete next step: copy the <code>starter/</code> folder, open it, and start a
+         cycle on a real topic they need a deck for. Tell them Deck 2 narrates an actual
+         build — transcripts and all — so they can see the process applied before doing
+         it solo.</p></div>
+  </section>
+
+  <!-- ============ CHROME =================================================== -->
+  <div class="slide-dots" id="slideDots"></div>
+  <div class="slide-counter" id="slideCounter">1 / 11</div>
+  <div class="nav-hint">&larr; &rarr; navigate &middot; S speaker notes</div>
+
+  <aside class="speaker-notes-panel" id="speakerNotesPanel">
+    <button class="close-notes" onclick="toggleSpeakerNotes()" aria-label="Close speaker notes">&times;</button>
+    <h3>Speaker Notes</h3>
+    <div id="speakerNotesContent"></div>
+  </aside>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>

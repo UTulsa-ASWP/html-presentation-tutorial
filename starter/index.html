@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentation Starter</title>
+  <meta name="description" content="A re-themeable vanilla HTML/CSS/JS presentation starter.">
+  <!-- One local stylesheet. No CDN, no web fonts: works fully offline. -->
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <!-- Progress bar (filled by script.js as you advance). -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ============ SLIDE 1 — TITLE ============================================
+       Use the .title-slide variant for an opening slide on the brand color. -->
+  <section class="slide title-slide">
+    <div class="eyebrow">Eyebrow label</div>
+    <h1>Your Presentation Title</h1>
+    <p class="subtitle">A one-line subtitle that frames what this deck is about.</p>
+    <div class="attribution">Your Name · Course / Event · 2026</div>
+
+    <div class="speaker-notes">
+      <h2>Opening</h2>
+      <p>Speaker notes live in a hidden block on each slide. Press <strong>S</strong>
+         during the talk to open the notes panel; it shows the notes for whatever
+         slide you're on. The audience never sees them.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2 — TEXT + LIST =====================================
+       The standard content slide: eyebrow, title, lead paragraph, bullets. -->
+  <section class="slide">
+    <span class="slide-number">02</span>
+    <div class="slide-content">
+      <div class="eyebrow">Section</div>
+      <h2 class="slide-title">A content slide</h2>
+      <p class="lead">Lead with one strong sentence in serif — it sets the idea.</p>
+      <p>Then a supporting paragraph in sans. Keep on-screen text sparse; put the
+         detail in your <strong>speaker notes</strong>, not on the slide.</p>
+      <ul>
+        <li>Short, scannable bullet</li>
+        <li>One idea per line — let the <span class="mark">highlight</span> draw the eye</li>
+        <li>Three to five bullets max</li>
+      </ul>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>A content slide</h2>
+      <p>This is where the real script goes — everything you want to say but don't
+         want crowding the slide. Edit the <code>.speaker-notes</code> block to change it.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3 — TWO COLUMN (text + image) =======================
+       Drop an image on one side. Use a LOCAL path under assets/ — never a URL. -->
+  <section class="slide">
+    <span class="slide-number">03</span>
+    <div class="slide-content centered">
+      <div class="eyebrow">Layout</div>
+      <h2 class="slide-title">Text beside an image</h2>
+    </div>
+    <div class="two-column">
+      <div>
+        <p>The <code>.two-column</code> grid puts content side by side and collapses
+           to one column on narrow screens.</p>
+        <div class="callout">
+          <p>A <strong>callout</strong> highlights a key point. Add
+             <code>.warn</code> or <code>.good</code> for red/green accents.</p>
+        </div>
+      </div>
+      <div>
+        <!-- Replace with your own local image, e.g. assets/img/diagram.png -->
+        <div class="callout good"><p>Image goes here.<br>Use
+          <code>&lt;img class="slide-image" src="assets/img/your-file.png" alt="..."&gt;</code></p></div>
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Text beside an image</h2>
+      <p>Remember: every asset must be local for the deck to work offline in a
+         classroom. No hot-linking to the web.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4 — COMPONENTS ======================================
+       Reusable building blocks: stat boxes and a data table. -->
+  <section class="slide">
+    <span class="slide-number">04</span>
+    <div class="slide-content">
+      <div class="eyebrow">Components</div>
+      <h2 class="slide-title">Stats and tables</h2>
+      <div class="stats-row">
+        <div class="stat-box"><div class="value">87%</div><div class="label">A statistic</div></div>
+        <div class="stat-box"><div class="value">3.2x</div><div class="label">Another one</div></div>
+        <div class="stat-box"><div class="value">12</div><div class="label">A count</div></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Column A</th><th>Column B</th><th>Column C</th></tr></thead>
+        <tbody>
+          <tr><td>Row one</td><td>Value</td><td>Value</td></tr>
+          <tr><td>Row two</td><td>Value</td><td>Value</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Stats and tables</h2>
+      <p>These components are styled in <code>styles.css</code> (section 5). Copy the
+         markup and change the content; no new CSS needed.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5 — CLOSING ========================================= -->
+  <section class="slide title-slide">
+    <div class="eyebrow">Closing</div>
+    <h1>Thank you</h1>
+    <p class="subtitle">Copy this folder, re-theme the tokens, and make it yours.</p>
+
+    <div class="speaker-notes">
+      <h2>Closing</h2>
+      <p>See <code>starter/README.md</code> for how to copy and re-theme this deck,
+         and the HTML&lt;-&gt;JS contract you need to keep intact.</p>
+    </div>
+  </section>
+
+  <!-- ============ PRESENTATION CHROME =======================================
+       Driven by script.js. Don't rename these IDs. -->
+  <div class="slide-dots" id="slideDots"></div>
+  <div class="slide-counter" id="slideCounter">1 / 5</div>
+  <div class="nav-hint">&larr; &rarr; navigate &middot; S speaker notes</div>
+
+  <aside class="speaker-notes-panel" id="speakerNotesPanel">
+    <button class="close-notes" onclick="toggleSpeakerNotes()" aria-label="Close speaker notes">&times;</button>
+    <h3>Speaker Notes</h3>
+    <div id="speakerNotesContent"></div>
+  </aside>
+
+  <!-- One local script. -->
+  <script src="assets/script.js"></script>
+</body>
+</html>

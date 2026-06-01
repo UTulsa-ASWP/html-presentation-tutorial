@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive HTML Presentations — ASWP Tutorial Suite</title>
+  <meta name="description" content="A team tutorial on building interactive HTML presentations with LLM assistance.">
+  <style>
+    /* Self-contained landing page — same token palette as the decks, inline so
+       this page has zero dependencies of its own. */
+    :root {
+      --bg: #0f1419; --bg-slide: #fafaf7; --bg-panel: #ffffff;
+      --border: #e2dfd8; --ink: #1a1a2e; --ink-muted: #55556b; --ink-dim: #8a8a9e;
+      --navy: #1d3557; --navy-light: #2c5282; --gold: #b8860b; --gold-light: #d4a017;
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      --mono: 'SF Mono', Menlo, Consolas, monospace;
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.12); --shadow-lg: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--navy);
+      color: var(--bg-slide);
+      font-family: var(--sans);
+      min-height: 100vh;
+      padding: 64px 24px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .wrap { max-width: 920px; width: 100%; }
+    .eyebrow {
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold-light); margin-bottom: 18px;
+    }
+    h1 {
+      font-family: var(--serif); font-weight: 700;
+      font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.08; margin-bottom: 20px;
+    }
+    .intro {
+      font-family: var(--serif); font-size: 1.25rem; font-style: italic;
+      color: rgba(250,250,247,0.85); max-width: 680px; margin-bottom: 12px;
+    }
+    .sub { color: rgba(250,250,247,0.7); max-width: 680px; margin-bottom: 48px; line-height: 1.6; }
+    .cards { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .card {
+      background: var(--bg-slide); color: var(--ink);
+      border-radius: 12px; padding: 28px 32px;
+      box-shadow: var(--shadow-md); text-decoration: none;
+      display: block; transition: transform 0.15s, box-shadow 0.15s;
+      border-left: 5px solid var(--gold);
+    }
+    a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .card.soon { opacity: 0.72; border-left-color: var(--ink-dim); cursor: default; }
+    .card-num {
+      font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em;
+      color: var(--gold); text-transform: uppercase;
+    }
+    .card.soon .card-num { color: var(--ink-dim); }
+    .card h2 {
+      font-family: var(--serif); font-size: 1.6rem; color: var(--navy);
+      margin: 6px 0 8px;
+    }
+    .card p { color: var(--ink-muted); line-height: 1.55; }
+    .badge {
+      display: inline-block; font-family: var(--mono); font-size: 0.7rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--ink-dim); color: #fff;
+      padding: 3px 10px; border-radius: 12px; margin-top: 14px;
+    }
+    .extras {
+      margin-top: 40px; padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      color: rgba(250,250,247,0.7); font-size: 0.95rem; line-height: 1.7;
+    }
+    .extras a { color: var(--gold-light); }
+    code { font-family: var(--mono); font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">ASWP Summer 2026 · Tutorial Suite</div>
+    <h1>Interactive HTML Presentations</h1>
+    <p class="intro">Build classroom-ready, interactive presentations with an LLM —
+       no slide software, no internet required.</p>
+    <p class="sub">Three short decks take you from the method, to a worked example, to
+       making your slides richer. Every deck is itself a plain HTML file that runs
+       offline in any browser — the exact thing you'll be making. Start with Deck 1.</p>
+
+    <div class="cards">
+      <a class="card" href="decks/01-the-method/index.html">
+        <div class="card-num">Deck 1 · Available</div>
+        <h2>The Method</h2>
+        <p>The <code>llm-dev:cycle</code> process: six phases for going from a topic to a
+           finished deck, with an LLM doing the building. Start here.</p>
+      </a>
+
+      <div class="card soon">
+        <div class="card-num">Deck 2 · Coming soon</div>
+        <h2>The Worked Example</h2>
+        <p>How a real interactive explainer was built, step by step — narrated from the
+           actual session transcripts and the cycle artifacts they produced.</p>
+        <span class="badge">In progress</span>
+      </div>
+
+      <div class="card soon">
+        <div class="card-num">Deck 3 · Coming soon</div>
+        <h2>Enrichment &amp; What's Next</h2>
+        <p>Turning thin slides into rich, well-sourced ones — and a look at reveal.js as
+           a framework to explore down the road.</p>
+        <span class="badge">In progress</span>
+      </div>
+    </div>
+
+    <div class="extras">
+      Building your own? Copy the <a href="starter/index.html"><code>starter/</code></a>
+      template — a re-themeable, fully offline deck skeleton. See the repository
+      <code>README.md</code> for how the pieces fit together.
+    </div>
+  </div>
+</body>
+</html>
