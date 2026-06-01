@@ -230,11 +230,12 @@
                 </div>
                 <div>
                     <p class="lead">
-                        The <code>llm-dev:cycle</code> creates an artifact for
-                        each phase.
+                        This helps track progress and creates an easy entry
+                        point for future sessions.
                     </p>
                     <br />
-                    <div class="file-tree"><span class="dir">workspace/cycle/</span>
+                    <!-- prettier-ignore -->
+                    <pre class="file-tree"><span class="dir">workspace/cycle/</span>
 ├── <span class="dir">iteration-1/</span>
 │   ├── <span class="file">review.md</span>
 │   ├── <span class="file">brainstorm.md</span>
@@ -245,12 +246,12 @@
 ├── <span class="dir">iteration-2/</span>
 │   └── <span class="muted">... (same six files)</span>
 └── <span class="dir">iteration-3/</span>
-    └── <span class="muted">... and so on</span></div>
+    └── <span class="muted">... and so on</span></pre>
                     <br />
                     <div class="callout">
                         <p>
-                            Each iteration is its own folder; each phase leaves a
-                            short markdown artifact behind. The thinking is
+                            Each iteration is its own folder; each phase leaves
+                            a short markdown artifact behind. The thinking is
                             written down before — and as — the thing gets built.
                         </p>
                     </div>
@@ -260,11 +261,12 @@
             <div class="speaker-notes">
                 <h2>An artifact for each phase</h2>
                 <p>
-                    These markdown files are the durable record of the work: what
-                    was decided, what was tried, what was verified. They make the
-                    reasoning reviewable and reusable, and they're what a later
-                    iteration reflects on. This very deck was built this way — its
-                    own <code>workspace/cycle/</code> folder looks just like this.
+                    These markdown files are the durable record of the work:
+                    what was decided, what was tried, what was verified. They
+                    make the reasoning reviewable and reusable, and they're what
+                    a later iteration reflects on. This very deck was built this
+                    way — its own <code>workspace/cycle/</code> folder looks
+                    just like this.
                 </p>
             </div>
         </section>
