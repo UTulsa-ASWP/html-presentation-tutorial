@@ -115,14 +115,15 @@
         <img class="slide-image" src="assets/img/llm-dev-phase-1.webp" alt="Phase 1: Review and Reflect">
       </div>
       <div>
+        <p class="lead">Bring the LLM up to speed.</p>
         <ul>
           <li><strong>On first <code>llm-dev:cycle</code> iteration:</strong> Review and load
              context to prime the LLM.</li>
           <li><strong>On subsequent <code>llm-dev:cycle</code> iterations:</strong> Reflect on
              what's been built and guide the next cycle.</li>
         </ul>
-        <p>This phase is where you provide background for the LLM about what you want to
-           build. You could include:</p>
+        <p>Treat the LLM as a highly competent design partner. Bring it up to speed by
+           providing necessary background about what you want to build. You could include:</p>
         <ul>
           <li>markdown files</li>
           <li>rough draft <code>.pptx</code> presentation files</li>
@@ -130,8 +131,8 @@
           <li>a list of goals to achieve</li>
           <li>a design template or description, etc.</li>
         </ul>
-        <div class="callout"><p>Treat the LLM as a highly competent design partner, and
-           bring it up to speed on everything you know about what you want to build.</p></div>
+        <div class="callout"><p>This phase is about building a foundation for your project:
+           <code>review.md</code>. In the next phase, you'll ideate and elaborate.</p></div>
       </div>
     </div>
     <div class="speaker-notes"><h2>Review / Reflect</h2>
@@ -157,8 +158,9 @@
            What might be reserved for future iterations? The LLM will help you converge on
            one approach, and then write down the alternatives you considered / rejected, and
            why.</p>
-        <div class="callout"><p>This phase is about choosing a conceptual path forward. In the
-           next phase, you'll consider and research technical implementation options.</p></div>
+        <div class="callout"><p>This phase is about choosing a conceptual path forward, which
+           the LLM records in <code>brainstorm.md</code>. In the next phase, you'll consider
+           and research technical implementation options.</p></div>
       </div>
     </div>
     <div class="speaker-notes"><h2>Brainstorm</h2>
@@ -177,12 +179,15 @@
         <img class="slide-image" src="assets/img/llm-dev-phase-3.webp" alt="Phase 3: Research">
       </div>
       <div>
-        <p class="lead">Pick the tools — and verify they're real.</p>
-        <p>Choose the simplest thing that meets the requirements, and check it actually
-           works before committing. Confirm what you can lift from an existing example
-           rather than building from scratch.</p>
-        <div class="callout"><p><strong>For a presentation:</strong> usually "vanilla
-           HTML/CSS/JS, reuse a known-good template." Verify it runs offline.</p></div>
+        <p class="lead">Work with the LLM to identify and verify your tech stack.</p>
+        <p>For our purposes, vanilla HTML and JS will be sufficient and should accommodate our
+           users' technical limitations (Chromebook-only, limited network access, etc.).
+           Depending on the outputs of the Brainstorming phase, the LLM may research several
+           implementation options and present them to you. Trust your LLM to give good advice,
+           but be careful not to lazily outsource your own judgement too much : )</p>
+        <div class="callout"><p>This phase is about settling on a technical implementation
+           approach, which the LLM will record in <code>research.md</code>. In the next phase,
+           your LLM will help you create a detailed step-by-step implementation plan.</p></div>
       </div>
     </div>
     <div class="speaker-notes"><h2>Research</h2>
@@ -204,9 +209,13 @@
         <p class="lead">Turn research into an ordered build sequence.</p>
         <p>What gets built first, second, third — with <strong>acceptance criteria</strong>:
            specific, testable conditions that define "done." A good plan is self-contained;
-           you could hand it to someone else and they'd know what to do.</p>
-        <div class="callout"><p><strong>For a presentation:</strong> build the template
-           first, then slides; "done" = plays start to finish, offline, no console errors.</p></div>
+           you could hand it to someone else and they'd know what to do. The LLM will record
+           this as <code>plan.md</code>; your job is to review and verify / modify if needed
+           before moving on. Make sure that your plan includes sufficient testing along the
+           way to verify build quality — when in doubt, ask your LLM whether the plan includes
+           sufficient tests for the build.</p>
+        <div class="callout"><p>Once your Plan is solid, you'll move on to the Execution
+           phase.</p></div>
       </div>
     </div>
     <div class="speaker-notes"><h2>Plan</h2>
@@ -224,10 +233,13 @@
         <img class="slide-image" src="assets/img/llm-dev-phase-5.webp" alt="Phase 5: Execute">
       </div>
       <div>
-        <p class="lead">Build it — and test each piece as you go.</p>
-        <p>Work through the plan step by step. Don't wait until the end to check things;
-           smoke-test as each slide or component lands. When something breaks, fix it or
-           adjust the plan.</p>
+        <p class="lead">Build according to <code>plan.md</code>, and test each piece as you go.</p>
+        <p>Your LLM will work through <code>plan.md</code> step by step, testing as it builds.
+           It may ask whether to execute the plan in-line or via subagent-driven development;
+           either of these options is probably fine, but there are trade-offs: subagent-driven
+           dev will better preserve the main session context window, but in-line dev may better
+           preserve the original intent of your build. The LLM records what it built in
+           <code>execute.md</code>.</p>
         <div class="callout"><p><strong>For a presentation:</strong> open it in the
            browser after each slide. Catch the broken image path now, not at the podium.</p></div>
       </div>
@@ -252,8 +264,9 @@
         <p>Execute reports on its own work, so Verify is the adversarial counterpart.
            Walk every acceptance criterion and confirm pass or fail <strong>with
            evidence</strong>, not assertions.</p>
-        <div class="callout good"><p><strong>For a presentation:</strong> open it offline,
-           click through every slide, watch the console, confirm no network requests.</p></div>
+        <div class="callout good"><p>The LLM records the results in <code>verify.md</code>.
+           For a presentation: open it offline, click through every slide, watch the console,
+           confirm no network requests.</p></div>
       </div>
     </div>
     <div class="speaker-notes"><h2>Verify</h2>
