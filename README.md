@@ -25,12 +25,26 @@ Copy the **`starter/`** folder — a re-themeable, fully offline presentation sk
 [`starter/README.md`](starter/README.md) for how to copy, re-theme, and the small
 HTML ↔ JS contract to keep intact.
 
+## The cycle skill
+
+These decks are built using **`llm-dev:cycle`** — a structured six-phase development
+loop (Review → Brainstorm → Research → Plan → Execute → Verify). A reference copy of the
+skill definition is bundled here under [`skills/cycle/`](skills/cycle/SKILL.md) so you can
+read what each phase does.
+
+To actually *run* the skill in Claude Code, install the **llm-dev plugin**:
+<https://github.com/DallasElleman/llm-dev>. Deck 1 ("The Method") walks through the cycle
+as a concept; the bundled `SKILL.md` is the full specification.
+
 ## Layout
 
 ```
 html-presentation-tutorial/
 ├── index.html                 # landing page (links the decks + starter)
 ├── assets/shared/theme.css     # canonical design tokens (copy into a deck to re-theme)
+├── skills/cycle/               # bundled reference copy of the llm-dev:cycle skill
+│   ├── SKILL.md
+│   └── references/phase-details.md
 ├── starter/                    # the template you copy to start a new deck
 │   ├── index.html
 │   ├── assets/styles.css
