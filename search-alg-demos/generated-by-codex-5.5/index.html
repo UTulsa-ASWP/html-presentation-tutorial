@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Algorithm Workbench</title>
+  <meta name="description" content="Offline interactive demos for linear search, binary search, BFS, and DFS.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Interactive demo</p>
+      <h1>Search Algorithm Workbench</h1>
+      <p class="intro">Step through array and grid searches, inspect the frontier, and compare recent runs.</p>
+    </div>
+    <div class="status-card" aria-live="polite">
+      <span class="status-label">Current decision</span>
+      <p id="statusText">Choose an algorithm and press Step or Run.</p>
+    </div>
+  </header>
+
+  <main class="workbench">
+    <aside class="panel controls-panel" aria-label="Workbench controls">
+      <section class="control-section">
+        <h2>Algorithm</h2>
+        <label for="algorithmSelect">Choose search</label>
+        <select id="algorithmSelect">
+          <option value="linear">Linear search</option>
+          <option value="binary">Binary search</option>
+          <option value="bfs">Breadth-first search</option>
+          <option value="dfs">Depth-first search</option>
+        </select>
+      </section>
+
+      <section class="control-section" id="arrayControls">
+        <h2>Array problem</h2>
+        <label for="targetInput">Target value</label>
+        <input id="targetInput" type="number" min="1" max="99" value="42">
+      </section>
+
+      <section class="control-section" id="gridControls" hidden>
+        <h2>Grid problem</h2>
+        <label for="densityInput">Wall density: <span id="densityValue">24%</span></label>
+        <input id="densityInput" type="range" min="0" max="42" value="24">
+        <p class="hint">Click grid cells to toggle walls. Start and goal stay fixed.</p>
+      </section>
+
+      <section class="control-section">
+        <h2>Playback</h2>
+        <div class="button-row">
+          <button id="runBtn" type="button">Run</button>
+          <button id="stepBtn" type="button">Step</button>
+        </div>
+        <div class="button-row">
+          <button id="resetBtn" type="button">Reset</button>
+          <button id="regenBtn" type="button">Regenerate</button>
+        </div>
+        <label for="speedInput">Speed: <span id="speedValue">5</span></label>
+        <input id="speedInput" type="range" min="1" max="10" value="5">
+      </section>
+
+      <section class="guide">
+        <h2>Guide</h2>
+        <p id="guideText">Linear search checks one item at a time until it finds the target or runs out of cells.</p>
+      </section>
+    </aside>
+
+    <section class="panel visual-panel" aria-label="Algorithm visualization">
+      <div class="visual-header">
+        <div>
+          <p class="eyebrow">Visualization</p>
+          <h2 id="visualTitle">Linear search</h2>
+        </div>
+        <span id="resultBadge" class="result-badge">Ready</span>
+      </div>
+
+      <div id="arrayView" class="array-view" aria-label="Array search visualization"></div>
+      <div id="gridView" class="grid-view" aria-label="Grid search visualization" hidden></div>
+
+      <div class="legend" id="legend"></div>
+    </section>
+
+    <aside class="panel insight-panel" aria-label="Metrics and history">
+      <section>
+        <h2>Live metrics</h2>
+        <dl class="metrics">
+          <div><dt>Steps</dt><dd id="stepsMetric">0</dd></div>
+          <div><dt>Visited</dt><dd id="visitedMetric">0</dd></div>
+          <div><dt>Frontier</dt><dd id="frontierMetric">0</dd></div>
+          <div><dt>Path</dt><dd id="pathMetric">-</dd></div>
+        </dl>
+      </section>
+
+      <section>
+        <h2>Internal state</h2>
+        <pre id="stateText" class="state-readout">No run started.</pre>
+      </section>
+
+      <section>
+        <h2>Recent runs</h2>
+        <div class="history-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Algorithm</th>
+                <th>Result</th>
+                <th>Steps</th>
+                <th>Visited</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody">
+              <tr><td colspan="4">No completed runs yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
