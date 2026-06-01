@@ -206,11 +206,74 @@
             </div>
         </section>
 
-        <!-- ============ 4–9. ONE SLIDE PER PHASE ================================== -->
+        <!-- ============ 3b. THE ARTIFACTS ======================================== -->
+        <section class="slide">
+            <span class="slide-number">04</span>
+            <div class="slide-content centered">
+                <div class="eyebrow">The shape of the work</div>
+                <h2 class="slide-title">
+                    The <code>llm-dev:cycle</code> creates an artifact for each
+                    phase
+                </h2>
+            </div>
+            <div class="two-column">
+                <div style="text-align: center">
+                    <img
+                        class="slide-image"
+                        src="assets/img/llm-dev-cycle-6.webp"
+                        alt="Diagram of the six-phase llm-dev cycle as a loop"
+                    />
+                    <div class="image-caption">
+                        The loop: Review → Brainstorm → Research → Plan →
+                        Execute → Verify → (repeat as necessary)
+                    </div>
+                </div>
+                <div>
+                    <p class="lead">
+                        The <code>llm-dev:cycle</code> creates an artifact for
+                        each phase.
+                    </p>
+                    <br />
+                    <div class="file-tree"><span class="dir">workspace/cycle/</span>
+├── <span class="dir">iteration-1/</span>
+│   ├── <span class="file">review.md</span>
+│   ├── <span class="file">brainstorm.md</span>
+│   ├── <span class="file">research.md</span>
+│   ├── <span class="file">plan.md</span>
+│   ├── <span class="file">execute.md</span>
+│   └── <span class="file">verify.md</span>
+├── <span class="dir">iteration-2/</span>
+│   └── <span class="muted">... (same six files)</span>
+└── <span class="dir">iteration-3/</span>
+    └── <span class="muted">... and so on</span></div>
+                    <br />
+                    <div class="callout">
+                        <p>
+                            Each iteration is its own folder; each phase leaves a
+                            short markdown artifact behind. The thinking is
+                            written down before — and as — the thing gets built.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="speaker-notes">
+                <h2>An artifact for each phase</h2>
+                <p>
+                    These markdown files are the durable record of the work: what
+                    was decided, what was tried, what was verified. They make the
+                    reasoning reviewable and reusable, and they're what a later
+                    iteration reflects on. This very deck was built this way — its
+                    own <code>workspace/cycle/</code> folder looks just like this.
+                </p>
+            </div>
+        </section>
+
+        <!-- ============ 5–10. ONE SLIDE PER PHASE ================================= -->
 
         <!-- Phase 1 -->
         <section class="slide">
-            <span class="slide-number">04</span>
+            <span class="slide-number">05</span>
             <div class="slide-content centered">
                 <div class="eyebrow">Phase 1</div>
                 <h2 class="slide-title">Review / Reflect</h2>
@@ -281,7 +344,7 @@
 
         <!-- Phase 2 -->
         <section class="slide">
-            <span class="slide-number">05</span>
+            <span class="slide-number">06</span>
             <div class="slide-content centered">
                 <div class="eyebrow">Phase 2</div>
                 <h2 class="slide-title">Brainstorm</h2>
@@ -332,7 +395,7 @@
 
         <!-- Phase 3 -->
         <section class="slide">
-            <span class="slide-number">06</span>
+            <span class="slide-number">07</span>
             <div class="slide-content centered">
                 <div class="eyebrow">Phase 3</div>
                 <h2 class="slide-title">Research</h2>
@@ -384,7 +447,7 @@
 
         <!-- Phase 4 -->
         <section class="slide">
-            <span class="slide-number">07</span>
+            <span class="slide-number">08</span>
             <div class="slide-content centered">
                 <div class="eyebrow">Phase 4</div>
                 <h2 class="slide-title">Plan</h2>
@@ -433,7 +496,7 @@
 
         <!-- Phase 5 -->
         <section class="slide">
-            <span class="slide-number">08</span>
+            <span class="slide-number">09</span>
             <div class="slide-content centered">
                 <div class="eyebrow">Phase 5</div>
                 <h2 class="slide-title">Execute</h2>
@@ -483,7 +546,7 @@
 
         <!-- Phase 6 -->
         <section class="slide">
-            <span class="slide-number">09</span>
+            <span class="slide-number">10</span>
             <div class="slide-content centered">
                 <div class="eyebrow">Phase 6</div>
                 <h2 class="slide-title">Verify</h2>
@@ -529,7 +592,7 @@
 
         <!-- ============ 10. HOW TO DRIVE IT ====================================== -->
         <section class="slide">
-            <span class="slide-number">10</span>
+            <span class="slide-number">11</span>
             <div class="slide-content">
                 <div class="eyebrow">Driving the cycle</div>
                 <h2 class="slide-title">Gates, iteration, and parallel work</h2>
@@ -613,7 +676,7 @@
 
         <!-- ============ CHROME =================================================== -->
         <div class="slide-dots" id="slideDots"></div>
-        <div class="slide-counter" id="slideCounter">1 / 11</div>
+        <div class="slide-counter" id="slideCounter">1 / 12</div>
         <div class="nav-hint">
             &larr; &rarr; navigate &middot; S speaker notes
         </div>

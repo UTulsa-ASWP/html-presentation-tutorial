@@ -393,6 +393,25 @@ section.slide.title-slide .attribution {
 /* The per-slide notes source is hidden on the slide itself; the panel reads it. */
 .speaker-notes { display: none; }
 
+/* File-tree illustration — monospace, for showing artifact/folder structure. */
+.file-tree {
+  font-family: var(--mono);
+  font-size: 1rem;
+  line-height: 1.7;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  padding: 24px 28px;
+  margin: 0;
+  white-space: pre;
+  color: var(--ink-muted);
+  overflow-x: auto;
+}
+.file-tree .dir { color: var(--navy); font-weight: 700; }
+.file-tree .file { color: var(--ink); }
+.file-tree .muted { color: var(--ink-dim); }
+
 /* ---- 7. RESPONSIVE ------------------------------------------------------- */
 @media (max-width: 760px) {
   section.slide { padding: 48px 28px; }
