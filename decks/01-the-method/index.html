@@ -14,7 +14,7 @@
   <!-- ============ 1. TITLE =================================================== -->
   <section class="slide title-slide">
     <div class="eyebrow">ASWP Summer 2026 · Deck 1 of 3</div>
-    <h1>Vibe Engineering Slide Decks</h1>
+    <h1>Vibe-Engineering<br>HTML Slide Decks</h1>
     <p class="subtitle">Using <code>llm-dev:cycle</code> — an iterative framework for
       structured LLM-assisted development.</p>
     <div class="attribution">A tool for the Summer 2026 ASWP team · Tutorial Suite ·
@@ -38,7 +38,7 @@
       <div class="eyebrow">Why this exists</div>
       <h2 class="slide-title">Because we have a lot of stuff to build this summer.</h2>
       <p class="lead">This is the first of three slide decks that will guide you through a
-        structured methodology for productive building with an LLM assistant.</p>
+        structured methodology for building productively with an LLM assistant.</p>
       <p>We're building HTML-based presentations that teachers can launch in a browser
          window with <strong>zero dependencies</strong>. LLMs are great at this, but
          <strong>you</strong> have to guide them well. This presentation was built with the
@@ -46,7 +46,7 @@
          use here.</p>
       <div class="callout">
         <p><code>llm-dev:cycle</code> is a framework for guiding LLMs well, built by Dallas
-           Elleman. Download the entire plugin here:
+           Elleman. You can download the entire plugin here (optional):
            <a href="https://github.com/DallasElleman/llm-dev" target="_blank" rel="noopener">github.com/DallasElleman/llm-dev</a>.</p>
       </div>
     </div>
@@ -73,13 +73,15 @@
       <div style="text-align:center;">
         <img class="slide-image" src="assets/img/llm-dev-cycle-6.webp"
              alt="Diagram of the six-phase llm-dev cycle as a loop">
-        <div class="image-caption">The cycle: Review → Brainstorm → Research → Plan → Execute → Verify</div>
+        <div class="image-caption">The cycle: Review → Brainstorm → Research → Plan → Execute → Verify → Repeat as necessary</div>
       </div>
       <div>
-        <p>Each of the six phases is defined by the <code>llm-dev:cycle/SKILL.md</code> file,
-           with further details in <code>cycle/references/phase-details.md</code>. Loading
-           these two short files into the context of an LLM conversation gives your LLM
-           everything it needs to walk through each phase of the cycle automatically.</p>
+        <p>Each of the six phases is defined by the
+           <a href="https://github.com/DallasElleman/llm-dev/blob/main/skills/cycle/SKILL.md" target="_blank" rel="noopener"><code>SKILL.md</code></a>
+           file, with further details in
+           <a href="https://github.com/DallasElleman/llm-dev/blob/main/skills/cycle/references/phase-details.md" target="_blank" rel="noopener"><code>phase-details.md</code></a>.
+           Loading these two short files into the context of an LLM conversation gives your
+           LLM everything it needs to walk through each phase of the cycle automatically.</p>
         <ol>
           <li><strong>Review / Reflect</strong> — load context</li>
           <li><strong>Brainstorm</strong> — decide what to build</li>
@@ -113,13 +115,21 @@
         <img class="slide-image" src="assets/img/llm-dev-phase-1.webp" alt="Phase 1: Review and Reflect">
       </div>
       <div>
-        <p class="lead">On the first <code>llm-dev:cycle</code> iteration, review and load
-           context to prime the LLM. On subsequent cycle iterations, reflect on what's been
-           built and guide the next cycle.</p>
-        <p>This is where you give the LLM background about what you want to build — a
-           presentation outline, reference materials, an overarching goal to achieve, design
-           templates. Higher input context quality in this phase will translate to higher
-           output quality of the final result.</p>
+        <ul>
+          <li><strong>On first <code>llm-dev:cycle</code> iteration:</strong> Review and load
+             context to prime the LLM.</li>
+          <li><strong>On subsequent <code>llm-dev:cycle</code> iterations:</strong> Reflect on
+             what's been built and guide the next cycle.</li>
+        </ul>
+        <p>This phase is where you provide background for the LLM about what you want to
+           build. You could include:</p>
+        <ul>
+          <li>markdown files</li>
+          <li>rough draft <code>.pptx</code> presentation files</li>
+          <li>other reference materials (URLs, research papers, etc.)</li>
+          <li>a list of goals to achieve</li>
+          <li>a design template or description, etc.</li>
+        </ul>
         <div class="callout"><p>Treat the LLM as a highly competent design partner, and
            bring it up to speed on everything you know about what you want to build.</p></div>
       </div>
@@ -140,12 +150,15 @@
         <img class="slide-image" src="assets/img/llm-dev-phase-2.webp" alt="Phase 2: Brainstorm">
       </div>
       <div>
-        <p class="lead">Decide <em>what</em> to build — through conversation, not a menu.</p>
-        <p>Explore the idea with the model: what's the simplest version, what's the
-           narrative arc, what's in and out of scope. Converge on one approach and write
-           down the alternatives you rejected and why.</p>
-        <div class="callout"><p><strong>For a presentation:</strong> the story comes
-           first. Decide the arc before any slide exists.</p></div>
+        <p class="lead">Explore ideas with the LLM through conversation.</p>
+        <p>Get creative. Ask questions, and ask the LLM to ask you questions. You might think
+           about the following: what's the simplest version of what you want to create?
+           What's the narrative arc or story you want to tell? What's in and out of scope?
+           What might be reserved for future iterations? The LLM will help you converge on
+           one approach, and then write down the alternatives you considered / rejected, and
+           why.</p>
+        <div class="callout"><p>This phase is about choosing a conceptual path forward. In the
+           next phase, you'll consider and research technical implementation options.</p></div>
       </div>
     </div>
     <div class="speaker-notes"><h2>Brainstorm</h2>
