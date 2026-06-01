@@ -10,13 +10,13 @@ the finished decks go to classrooms that may have no network.
 ## Start here
 
 Open **`index.html`** in a browser for the landing page, then work through the decks in
-order. Deck 1 is ready now; Decks 2 and 3 are in progress.
+order. Decks 1 and 2 are ready now; Deck 3 is in progress.
 
-| | Deck | What it covers |
-| --- | --- | --- |
-| 1 | **The Method** (`decks/01-the-method/`) | The `llm-dev:cycle` process — six phases from a topic to a finished deck. |
-| 2 | **The Worked Example** *(coming soon)* | A real interactive explainer, built step by step from session transcripts + cycle artifacts. |
-| 3 | **Enrichment & What's Next** *(coming soon)* | Making slides richer and better-sourced; reveal.js as a future option. |
+| | Deck | Status | What it covers |
+| --- | --- | --- | --- |
+| 1 | **The Method** (`decks/01-the-method/`) | Ready | The `llm-dev:cycle` process — six phases from a topic to a finished deck. |
+| 2 | **The Worked Example** (`decks/02-worked-example/`) | Ready | How a real interactive explainer was built, phase by phase, with verbatim quotes from the cycle artifacts. Bundles the **live DP explainer** to explore plus the source cycle docs. |
+| 3 | **Enrichment & What's Next** | Coming soon | Making slides richer and better-sourced; reveal.js as a future option. |
 
 ## Build your own
 
@@ -51,10 +51,18 @@ html-presentation-tutorial/
 │   ├── assets/script.js
 │   └── README.md
 └── decks/
-    └── 01-the-method/          # Deck 1, built on the starter
+    ├── 01-the-method/          # Deck 1, built on the starter
+    │   ├── index.html
+    │   └── assets/{styles.css, script.js, img/}
+    └── 02-worked-example/      # Deck 2, built on the starter
         ├── index.html
-        └── assets/{styles.css, script.js, img/}
+        ├── assets/{styles.css, script.js, img/}
+        ├── artifact/          # the live DP explainer (offline copy you can open)
+        └── cycle-artifacts/   # the 6 source cycle .md docs Deck 2 quotes from
 ```
+
+(There is also a `search-alg-demos/` directory of exploratory cycle runs from
+different AI tools — reference material, not part of the tutorial flow.)
 
 ## How to view
 

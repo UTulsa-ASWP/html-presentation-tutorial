@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pathfinding Race — BFS · Dijkstra · Greedy · A*</title>
+<style>
+  :root{
+    --bg:#0b0e13; --panel:#10151d; --panel-2:#0d121a; --ink:#e7edf5; --ink-dim:#8b97a8;
+    --line:#1d2733; --line-soft:#161e29;
+    /* shared cell-state language (identical in all four grids) */
+    --empty:#141b24; --wall:#05070b; --start:#34d399; --end:#fb7185;
+    --open:#5eead4; --closed:#214a73; --path:#fde047; --mud:#d9a441;
+    /* per-algorithm header accents (labels only, never cells) */
+    --bfs:#60a5fa; --dijkstra:#f59e0b; --greedy:#f472b6; --astar:#a3e635;
+    --cell:18px;
+    --mono:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #11202e 0%, transparent 60%),
+      repeating-linear-gradient(0deg, var(--line-soft) 0 1px, transparent 1px 44px),
+      repeating-linear-gradient(90deg, var(--line-soft) 0 1px, transparent 1px 44px),
+      var(--bg);
+    color:var(--ink); font-family:var(--sans);
+    padding:26px 22px 40px; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px; margin:0 auto}
+  header.top{margin-bottom:18px; animation:rise .5s ease both}
+  .eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--ink-dim); margin:0 0 6px}
+  h1{font-family:var(--mono); font-weight:600; font-size:26px; letter-spacing:-.01em; margin:0 0 8px;
+    background:linear-gradient(90deg,var(--bfs),var(--astar) 40%,var(--greedy) 75%,var(--dijkstra));
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  header.top p{margin:0; max-width:62ch; color:var(--ink-dim); font-size:13.5px; line-height:1.6}
+  header.top b{color:var(--ink); font-weight:600}
+
+  .bar{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center;
+    background:linear-gradient(180deg,var(--panel),var(--panel-2)); border:1px solid var(--line);
+    border-radius:12px; padding:12px 14px; margin:16px 0 12px;
+    box-shadow:0 1px 0 #ffffff08 inset, 0 18px 40px -28px #000; animation:rise .55s .04s ease both}
+  .grp{display:flex; align-items:center; gap:6px}
+  .grp+.grp{padding-left:14px; border-left:1px solid var(--line)}
+  .glabel{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--ink-dim); margin-right:2px}
+  button{font-family:var(--mono); font-size:12.5px; color:var(--ink); cursor:pointer;
+    background:#18212d; border:1px solid var(--line); border-radius:8px; padding:7px 11px;
+    transition:.14s ease; line-height:1}
+  button:hover{background:#1f2a38; border-color:#2a3a4d}
+  button:active{transform:translateY(1px)}
+  button[aria-pressed="true"]{background:#0e2a3a; border-color:#2dd4bf; color:#bdf5ec;
+    box-shadow:0 0 0 1px #2dd4bf55, 0 0 14px -4px #2dd4bf}
+  button.primary{background:linear-gradient(180deg,#15663f,#0f4f31); border-color:#1c7a4c; color:#d6ffe9}
+  button.primary:hover{background:linear-gradient(180deg,#1a7a4a,#11603a)}
+  button:disabled{opacity:.42; cursor:not-allowed; transform:none}
+  input[type=range]{accent-color:#2dd4bf; width:128px}
+  .speedval{font-family:var(--mono); font-size:11px; color:var(--ink-dim); min-width:30px; text-align:right}
+
+  .legend{display:flex; flex-wrap:wrap; gap:6px 16px; align-items:center; padding:2px 2px 4px;
+    margin-bottom:14px; font-family:var(--mono); font-size:11px; color:var(--ink-dim);
+    animation:rise .6s .08s ease both}
+  .legend .item{display:flex; align-items:center; gap:7px}
+  .sw{width:14px; height:14px; border-radius:3px; border:1px solid #ffffff14; position:relative; flex:none}
+  .sw.start{background:var(--start)} .sw.end{background:var(--end)}
+  .sw.wall{background:var(--wall); border-color:#1a2330}
+  .sw.weight{background:var(--empty)} .sw.weight::after{content:""; position:absolute; inset:3px;
+    border-radius:2px; background:var(--mud); box-shadow:0 0 5px -1px var(--mud)}
+  .sw.open{background:var(--open)} .sw.closed{background:var(--closed)} .sw.path{background:var(--path)}
+
+  .panels{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+  .panel{background:linear-gradient(180deg,var(--panel),var(--panel-2)); border:1px solid var(--line);
+    border-radius:12px; padding:13px 13px 11px; box-shadow:0 18px 44px -30px #000, 0 1px 0 #ffffff08 inset;
+    animation:rise .6s ease both}
+  .panel:nth-child(1){animation-delay:.10s} .panel:nth-child(2){animation-delay:.16s}
+  .panel:nth-child(3){animation-delay:.22s} .panel:nth-child(4){animation-delay:.28s}
+  .phead{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:3px}
+  .pname{font-family:var(--mono); font-weight:600; font-size:14px; letter-spacing:.02em}
+  .panel[data-algo=bfs] .pname{color:var(--bfs)} .panel[data-algo=dijkstra] .pname{color:var(--dijkstra)}
+  .panel[data-algo=greedy] .pname{color:var(--greedy)} .panel[data-algo=astar] .pname{color:var(--astar)}
+  .pstatus{font-family:var(--mono); font-size:10.5px; color:var(--ink-dim); text-transform:uppercase;
+    letter-spacing:.12em}
+  .pdesc{font-size:11.5px; color:var(--ink-dim); line-height:1.45; margin:0 0 9px; min-height:32px}
+
+  .grid{display:grid; gap:1px; background:var(--line); border:1px solid var(--line);
+    border-radius:6px; overflow:hidden; width:max-content; margin:0 auto; user-select:none;
+    touch-action:none}
+  .cell{width:var(--cell); height:var(--cell); background:var(--empty); position:relative}
+  .cell.wall{background:var(--wall)}
+  .cell.open{background:var(--open)}
+  .cell.closed{background:var(--closed)}
+  .cell.path{background:var(--path)}
+  .cell.weight::after{content:""; position:absolute; inset:3px; border-radius:2px;
+    background:var(--mud); opacity:.92; box-shadow:0 0 5px -1px var(--mud)}
+  .cell.start::after,.cell.end::after{content:""; position:absolute; inset:2px; border-radius:50%}
+  .cell.start::after{background:var(--start); box-shadow:0 0 8px -1px var(--start)}
+  .cell.end::after{background:var(--end); box-shadow:0 0 8px -1px var(--end)}
+  .cell.start,.cell.end{cursor:grab}
+
+  .score{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:11px}
+  .stat{background:#0c121a; border:1px solid var(--line-soft); border-radius:7px; padding:6px 4px; text-align:center}
+  .stat .k{font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-dim)}
+  .stat .v{font-family:var(--mono); font-size:15px; font-weight:600; margin-top:2px; color:var(--ink)}
+  .stat .v.opt-yes{color:var(--start)} .stat .v.opt-no{color:var(--end)}
+
+  footer{margin-top:22px; font-family:var(--mono); font-size:11px; color:var(--ink-dim); line-height:1.6}
+  .hint{font-family:var(--mono); font-size:11px; color:var(--ink-dim); margin:2px 2px 0}
+
+  @keyframes rise{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+  @media (max-width:880px){
+    .panels{grid-template-columns:1fr}
+    :root{--cell:16px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Search Algorithms · Live Comparison</p>
+    <h1>Pathfinding Race</h1>
+    <p>Four algorithms search the <b>same weighted maze</b> in lockstep — one step each per tick.
+       Paint <b>walls</b> and <b>mud</b> (mud costs more to cross), drag the start and goal, then
+       press play. Watch how each strategy explores differently, and check the scoreboard: the
+       cheapest path isn't always the one with the fewest steps.</p>
+  </header>
+
+  <div class="bar">
+    <div class="grp">
+      <button id="play" class="primary">▶ Play</button>
+      <button id="step">Step</button>
+      <button id="reset">Reset</button>
+    </div>
+    <div class="grp">
+      <span class="glabel">Paint</span>
+      <button id="tool-wall" aria-pressed="true">Wall</button>
+      <button id="tool-weight">Mud</button>
+      <button id="tool-erase">Erase</button>
+    </div>
+    <div class="grp">
+      <span class="glabel">Maze</span>
+      <button id="random">Random</button>
+      <button id="clear">Clear</button>
+    </div>
+    <div class="grp">
+      <span class="glabel">Speed</span>
+      <input id="speed" type="range" min="1" max="100" value="42">
+      <span id="speedval" class="speedval">—</span>
+    </div>
+  </div>
+
+  <div class="legend" id="legend">
+    <div class="item"><span class="sw start"></span>Start</div>
+    <div class="item"><span class="sw end"></span>Goal</div>
+    <div class="item"><span class="sw wall"></span>Wall</div>
+    <div class="item"><span class="sw weight"></span>Mud&nbsp;(cost&nbsp;×<span id="mudfac">9</span>)</div>
+    <div class="item"><span class="sw open"></span>Frontier&nbsp;(open)</div>
+    <div class="item"><span class="sw closed"></span>Visited&nbsp;(closed)</div>
+    <div class="item"><span class="sw path"></span>Final&nbsp;path</div>
+  </div>
+  <p class="hint" id="hint">Tip: drag the green start or rose goal node to move it. Editing the maze resets the race.</p>
+
+  <div class="panels" id="panels"></div>
+
+  <footer>
+    Runs entirely offline — no network, no libraries. Each algorithm reimplemented in plain JavaScript.<br>
+    Heuristic: Manhattan distance (4-directional movement). Mud raises the cost to <em>enter</em> a cell,
+    which is why Dijkstra and A* (cost-aware) can beat BFS and Greedy on total path cost.
+  </footer>
+</div>
+
+<script>
+"use strict";
+(function(){
+  // ====================== CONFIG ======================
+  var ROWS = 17, COLS = 25, MUD = 9;
+  var START = { r: 8, c: 2 }, END = { r: 8, c: 22 };
+  var WALL_DENSITY = 0.22, MUD_DENSITY = 0.10;
+  var ALGOS = [
+    { mode:"bfs",      name:"Breadth-First",     desc:"Uninformed. Explores in rings, ignoring cost — finds the path with the fewest steps, not the cheapest." },
+    { mode:"dijkstra", name:"Dijkstra",          desc:"Uniform-cost. Always expands the cheapest-so-far cell — guaranteed to find the lowest-cost path." },
+    { mode:"greedy",   name:"Greedy Best-First", desc:"Pure heuristic. Beelines toward the goal — fast and focused, but the path it returns may not be optimal." },
+    { mode:"astar",    name:"A*",                desc:"Cost + heuristic. Combines distance travelled with distance remaining — optimal, and far more directed than Dijkstra." }
+  ];
+
+  // ====================== ENGINE (validated in Node, 44 assertions) ======================
+  var DIRS = [[-1,0],[1,0],[0,-1],[0,1]];
+  function keyOf(cell){ return cell.r + "," + cell.c; }
+
+  function makeMaze(rows, cols, start, end){
+    var grid = [];
+    for (var r=0; r<rows; r++){ var row=[];
+      for (var c=0; c<cols; c++) row.push({ r:r, c:c, wall:false, weight:1 });
+      grid.push(row); }
+    return { rows:rows, cols:cols, grid:grid, start:start, end:end };
+  }
+  function neighbors(maze, cell){
+    var out=[];
+    for (var i=0;i<DIRS.length;i++){
+      var nr=cell.r+DIRS[i][0], nc=cell.c+DIRS[i][1];
+      if (nr<0||nr>=maze.rows||nc<0||nc>=maze.cols) continue;
+      var n=maze.grid[nr][nc]; if (n.wall) continue; out.push(n);
+    }
+    return out;
+  }
+
+  function MinHeap(){ this.a=[]; }
+  MinHeap.prototype.size=function(){ return this.a.length; };
+  MinHeap.prototype.push=function(item){ var a=this.a; a.push(item); var i=a.length-1;
+    while(i>0){ var p=(i-1)>>1; if(a[p].key<=a[i].key) break; var t=a[p];a[p]=a[i];a[i]=t; i=p; } };
+  MinHeap.prototype.pop=function(){ var a=this.a, top=a[0], last=a.pop();
+    if(a.length){ a[0]=last; var i=0, n=a.length;
+      for(;;){ var l=2*i+1, rr=2*i+2, s=i;
+        if(l<n&&a[l].key<a[s].key) s=l; if(rr<n&&a[rr].key<a[s].key) s=rr;
+        if(s===i) break; var t=a[s];a[s]=a[i];a[i]=t; i=s; } }
+    return top; };
+
+  var EMPTY = { opened:[], closedCell:null };
+
+  function makeSearch(maze, mode){
+    var startK=keyOf(maze.start), goalK=keyOf(maze.end);
+    var gScore={}; gScore[startK]=0;
+    var cameFrom={}, closed={}, inOpen={}; inOpen[startK]=true;
+    var relaxes = (mode==="dijkstra"||mode==="astar");
+    var fifo=null, head=0, heap=null, visited=0, done=false, found=false;
+    var startCell=maze.grid[maze.start.r][maze.start.c];
+    function h(cell){ return Math.abs(cell.r-maze.end.r)+Math.abs(cell.c-maze.end.c); }
+    function priority(k, cell){ return mode==="dijkstra" ? gScore[k]
+      : mode==="astar" ? gScore[k]+h(cell) : h(cell); }
+    if (mode==="bfs") fifo=[startCell];
+    else { heap=new MinHeap(); heap.push({ key:priority(startK,startCell), cell:startCell, k:startK }); }
+
+    function step(){
+      if (done) return EMPTY;
+      var cur;
+      if (mode==="bfs"){
+        while(head<fifo.length && closed[keyOf(fifo[head])]) head++;
+        if (head>=fifo.length){ done=true; return EMPTY; }
+        cur=fifo[head++];
+      } else {
+        var top;
+        do { if(heap.size()===0){ done=true; return EMPTY; } top=heap.pop(); } while(closed[top.k]);
+        cur=top.cell;
+      }
+      var curK=keyOf(cur);
+      delete inOpen[curK]; closed[curK]=true; visited++;
+      if (curK===goalK){ done=true; found=true; return { opened:[], closedCell:cur }; }
+      var opened=[], ns=neighbors(maze,cur);
+      for (var i=0;i<ns.length;i++){
+        var nb=ns[i], nk=keyOf(nb); if (closed[nk]) continue;
+        if (relaxes){
+          var tentative=gScore[curK]+nb.weight;
+          if (!(nk in gScore) || tentative<gScore[nk]){
+            gScore[nk]=tentative; cameFrom[nk]=curK;
+            heap.push({ key:priority(nk,nb), cell:nb, k:nk });
+            if (!inOpen[nk]){ inOpen[nk]=true; opened.push(nb); }
+          }
+        } else {
+          if (inOpen[nk]) continue;
+          gScore[nk]=gScore[curK]+nb.weight; cameFrom[nk]=curK; inOpen[nk]=true; opened.push(nb);
+          if (mode==="bfs") fifo.push(nb); else heap.push({ key:h(nb), cell:nb, k:nk });
+        }
+      }
+      return { opened:opened, closedCell:cur };
+    }
+    function path(){
+      if (!found) return null;
+      var out=[], k=goalK;
+      while (k!==startK){ var p=k.split(","); out.push(maze.grid[+p[0]][+p[1]]);
+        k=cameFrom[k]; if (k===undefined) return null; }
+      out.push(startCell); out.reverse(); return out;
+    }
+    return {
+      mode:mode, step:step, path:path,
+      isDone:function(){ return done; }, isFound:function(){ return found; },
+      visited:function(){ return visited; },
+      cost:function(){ return found ? gScore[goalK] : null; },
+      steps:function(){ var p=path(); return p ? p.length-1 : null; }
+    };
+  }
+
+  // quick reachability test for random-maze solvability
+  function reachable(maze){
+    var s=makeSearch(maze,"bfs"), guard=0;
+    while(!s.isDone() && guard++<ROWS*COLS*4) s.step();
+    return s.isFound();
+  }
+
+  // ====================== STATE ======================
+  var maze = makeMaze(ROWS, COLS, { r:START.r, c:START.c }, { r:END.r, c:END.c });
+  var panels = [];               // {algo, cells:[r][c]=div, visitedEl, costEl, stepsEl, optEl, statusEl, search, finished}
+  var searches = [];
+  var state = "idle";            // idle | running | paused | done
+  var tool = "wall";
+  var painting = false, draggingEndpoint = null, paintValue = null;
+  var rafId = null, lastT = 0, acc = 0;
+
+  // ====================== RENDER ======================
+  function cellClasses(r, c, overlay){
+    var cell = maze.grid[r][c], cls = "cell";
+    if (cell.wall) cls += " wall";
+    else if (cell.weight > 1) cls += " weight";
+    if (maze.start.r===r && maze.start.c===c) cls += " start";
+    if (maze.end.r===r && maze.end.c===c) cls += " end";
+    if (overlay && !cell.wall) cls += " " + overlay;
+    return cls;
+  }
+  function renderBaseCell(r, c){
+    var cls = cellClasses(r, c, null);
+    for (var p=0;p<panels.length;p++) panels[p].cells[r][c].className = cls;
+  }
+  function renderBaseAll(){
+    for (var r=0;r<ROWS;r++) for (var c=0;c<COLS;c++) renderBaseCell(r,c);
+  }
+  function setOverlay(p, r, c, overlay){
+    panels[p].cells[r][c].className = cellClasses(r, c, overlay);
+  }
+
+  function buildPanels(){
+    var container = document.getElementById("panels");
+    for (var i=0;i<ALGOS.length;i++){
+      var algo = ALGOS[i];
+      var panel = document.createElement("div");
+      panel.className = "panel"; panel.setAttribute("data-algo", algo.mode);
+
+      var phead = document.createElement("div"); phead.className = "phead";
+      var pname = document.createElement("div"); pname.className = "pname"; pname.textContent = algo.name;
+      var pstatus = document.createElement("div"); pstatus.className = "pstatus"; pstatus.textContent = "ready";
+      phead.appendChild(pname); phead.appendChild(pstatus); panel.appendChild(phead);
+
+      var pdesc = document.createElement("p"); pdesc.className = "pdesc"; pdesc.textContent = algo.desc;
+      panel.appendChild(pdesc);
+
+      var grid = document.createElement("div"); grid.className = "grid";
+      grid.style.gridTemplateColumns = "repeat(" + COLS + ", var(--cell))";
+      var cells = [];
+      for (var r=0;r<ROWS;r++){
+        var rowArr = [];
+        for (var c=0;c<COLS;c++){
+          var d = document.createElement("div");
+          d.setAttribute("data-r", r); d.setAttribute("data-c", c); d.setAttribute("data-p", i);
+          grid.appendChild(d); rowArr.push(d);
+        }
+        cells.push(rowArr);
+      }
+      attachGridEvents(grid);
+      panel.appendChild(grid);
+
+      var score = document.createElement("div"); score.className = "score";
+      var visited = makeStat("visited"), cost = makeStat("cost"), steps = makeStat("steps"), opt = makeStat("optimal");
+      score.appendChild(visited.box); score.appendChild(cost.box); score.appendChild(steps.box); score.appendChild(opt.box);
+      panel.appendChild(score);
+
+      container.appendChild(panel);
+      panels.push({ algo:algo, cells:cells, statusEl:pstatus,
+        visitedEl:visited.v, costEl:cost.v, stepsEl:steps.v, optEl:opt.v, finished:false });
+    }
+  }
+  function makeStat(label){
+    var box=document.createElement("div"); box.className="stat";
+    var k=document.createElement("div"); k.className="k"; k.textContent=label;
+    var v=document.createElement("div"); v.className="v"; v.textContent="—";
+    box.appendChild(k); box.appendChild(v); return { box:box, v:v };
+  }
+  function clearScores(){
+    for (var p=0;p<panels.length;p++){
+      panels[p].visitedEl.textContent="—"; panels[p].costEl.textContent="—";
+      panels[p].stepsEl.textContent="—"; panels[p].optEl.textContent="—";
+      panels[p].optEl.className="v"; panels[p].statusEl.textContent="ready"; panels[p].finished=false;
+    }
+  }
+
+  // ====================== INTERACTION ======================
+  function attachGridEvents(grid){
+    grid.addEventListener("mousedown", onDown);
+    grid.addEventListener("mouseover", onOver);
+    grid.addEventListener("dragstart", function(e){ e.preventDefault(); });
+  }
+  function cellFromEvent(e){
+    var t=e.target; if (!t || !t.hasAttribute || !t.hasAttribute("data-r")) return null;
+    return { r:+t.getAttribute("data-r"), c:+t.getAttribute("data-c") };
+  }
+  function canEdit(){
+    if (state==="running") return false;        // ignore edits mid-animation
+    if (state!=="idle") resetRace();             // editing after a run clears it
+    return true;
+  }
+  function onDown(e){
+    var pos=cellFromEvent(e); if (!pos) return;
+    if (state==="running") return;
+    e.preventDefault();
+    if (maze.start.r===pos.r && maze.start.c===pos.c){ if(!canEdit())return; draggingEndpoint="start"; return; }
+    if (maze.end.r===pos.r && maze.end.c===pos.c){ if(!canEdit())return; draggingEndpoint="end"; return; }
+    if (!canEdit()) return;
+    painting=true; paintValue=tool; applyPaint(pos.r,pos.c);
+  }
+  function onOver(e){
+    if (!painting && !draggingEndpoint) return;
+    var pos=cellFromEvent(e); if (!pos) return;
+    if (draggingEndpoint){ moveEndpoint(draggingEndpoint,pos.r,pos.c); return; }
+    if (painting) applyPaint(pos.r,pos.c);
+  }
+  function onUp(){ painting=false; draggingEndpoint=null; paintValue=null; }
+  document.addEventListener("mouseup", onUp);
+
+  function isEndpoint(r,c){ return (maze.start.r===r&&maze.start.c===c)||(maze.end.r===r&&maze.end.c===c); }
+  function applyPaint(r,c){
+    if (isEndpoint(r,c)) return;                 // never paint over start/goal
+    var cell=maze.grid[r][c];
+    if (paintValue==="wall"){ cell.wall=true; cell.weight=1; }
+    else if (paintValue==="weight"){ cell.wall=false; cell.weight=MUD; }
+    else { cell.wall=false; cell.weight=1; }     // erase
+    renderBaseCell(r,c);
+  }
+  function moveEndpoint(which,r,c){
+    var other = which==="start" ? maze.end : maze.start;
+    if (other.r===r && other.c===c) return;      // keep start != goal
+    var prev = which==="start" ? maze.start : maze.end;
+    if (prev.r===r && prev.c===c) return;
+    var cell=maze.grid[r][c]; cell.wall=false; cell.weight=1; // endpoints sit on passable, cost-1 cells
+    var or=prev.r, oc=prev.c;
+    if (which==="start") maze.start={r:r,c:c}; else maze.end={r:r,c:c};
+    renderBaseCell(or,oc); renderBaseCell(r,c);
+  }
+
+  function clearMaze(){
+    if (state==="running") return; if (state!=="idle") resetRace();
+    for (var r=0;r<ROWS;r++) for (var c=0;c<COLS;c++){ maze.grid[r][c].wall=false; maze.grid[r][c].weight=1; }
+    renderBaseAll();
+  }
+  function randomMaze(){
+    if (state==="running") return; if (state!=="idle") resetRace();
+    var tries=0;
+    do {
+      for (var r=0;r<ROWS;r++) for (var c=0;c<COLS;c++){
+        var cell=maze.grid[r][c]; cell.wall=false; cell.weight=1;
+        if (isEndpoint(r,c)) continue;
+        if (nearEndpoint(r,c)) continue;          // keep endpoints breathable
+        var x=Math.random();
+        if (x < WALL_DENSITY) cell.wall=true;
+        else if (x < WALL_DENSITY + MUD_DENSITY) cell.weight=MUD;
+      }
+      tries++;
+    } while (!reachable(maze) && tries<40);
+    renderBaseAll();
+  }
+  function nearEndpoint(r,c){
+    var d1=Math.abs(r-maze.start.r)+Math.abs(c-maze.start.c);
+    var d2=Math.abs(r-maze.end.r)+Math.abs(c-maze.end.c);
+    return d1<=1 || d2<=1;
+  }
+
+  // ====================== RACE CONTROLLER ======================
+  function initSearches(){
+    searches = ALGOS.map(function(a){ return makeSearch(maze, a.mode); });
+    for (var p=0;p<panels.length;p++){
+      panels[p].search=searches[p]; panels[p].finished=false;
+      panels[p].visitedEl.textContent="0"; panels[p].costEl.textContent="—";
+      panels[p].stepsEl.textContent="—"; panels[p].optEl.textContent="—"; panels[p].optEl.className="v";
+      panels[p].statusEl.textContent="searching";
+    }
+  }
+  function allDone(){ for (var i=0;i<searches.length;i++) if(!searches[i].isDone()) return false; return searches.length>0; }
+
+  function doTick(){
+    for (var p=0;p<searches.length;p++){
+      var s=searches[p]; if (s.isDone()) continue;
+      var delta=s.step();
+      var op=delta.opened;
+      for (var i=0;i<op.length;i++) setOverlay(p, op[i].r, op[i].c, "open");
+      if (delta.closedCell) setOverlay(p, delta.closedCell.r, delta.closedCell.c, "closed");
+      panels[p].visitedEl.textContent = s.visited();
+      if (s.isDone()) finishPanel(p);
+    }
+    if (allDone()) finalizeRace();
+  }
+  function finishPanel(p){
+    if (panels[p].finished) return; panels[p].finished=true;
+    var s=searches[p];
+    if (s.isFound()){
+      var path=s.path();
+      for (var i=0;i<path.length;i++) setOverlay(p, path[i].r, path[i].c, "path");
+      panels[p].costEl.textContent=s.cost(); panels[p].stepsEl.textContent=s.steps();
+      panels[p].statusEl.textContent="done";
+    } else {
+      panels[p].costEl.textContent="∞"; panels[p].stepsEl.textContent="—";
+      panels[p].optEl.textContent="—"; panels[p].statusEl.textContent="no path";
+    }
+  }
+  function finalizeRace(){
+    var best=Infinity;
+    for (var p=0;p<searches.length;p++) if (searches[p].isFound()) best=Math.min(best, searches[p].cost());
+    for (var q=0;q<searches.length;q++){
+      if (searches[q].isFound()){
+        var opt = searches[q].cost()===best;
+        panels[q].optEl.textContent = opt ? "✓ yes" : "✗ no";
+        panels[q].optEl.className = "v " + (opt ? "opt-yes" : "opt-no");
+      }
+    }
+    state="done"; stopLoop(); setPlayLabel();
+  }
+
+  function speedToMsPerTick(){
+    var s=+document.getElementById("speed").value; // 1..100
+    return Math.max(0.5, 160 - (s-1)/99*159);
+  }
+  function frame(now){
+    if (state!=="running") return;
+    var dt=now-lastT; lastT=now; acc+=dt;
+    var mpt=speedToMsPerTick(), ticks=0;
+    while (acc>=mpt && !allDone() && ticks<400){ doTick(); acc-=mpt; ticks++; }
+    if (state==="running") rafId=requestAnimationFrame(frame);
+  }
+  function startLoop(){ lastT=performance.now(); acc=0; rafId=requestAnimationFrame(frame); }
+  function stopLoop(){ if (rafId){ cancelAnimationFrame(rafId); rafId=null; } }
+
+  function togglePlay(){
+    if (state==="idle"){ initSearches(); state="running"; startLoop(); }
+    else if (state==="running"){ state="paused"; stopLoop(); }
+    else if (state==="paused"){ state="running"; startLoop(); }
+    else if (state==="done"){ resetRace(); initSearches(); state="running"; startLoop(); }
+    setPlayLabel();
+  }
+  function stepOnce(){
+    if (state==="running"){ state="paused"; stopLoop(); }
+    if (state==="idle"){ initSearches(); state="paused"; }
+    else if (state==="done"){ resetRace(); initSearches(); state="paused"; }
+    if (!allDone()) doTick();
+    setPlayLabel();
+  }
+  function resetRace(){
+    stopLoop(); searches=[]; state="idle"; renderBaseAll(); clearScores(); setPlayLabel();
+  }
+  function setPlayLabel(){
+    var b=document.getElementById("play");
+    b.textContent = state==="running" ? "⏸ Pause" : state==="done" ? "▶ Replay" : "▶ Play";
+  }
+
+  // ====================== WIRE-UP ======================
+  function setTool(t){
+    tool=t;
+    document.getElementById("tool-wall").setAttribute("aria-pressed", String(t==="wall"));
+    document.getElementById("tool-weight").setAttribute("aria-pressed", String(t==="weight"));
+    document.getElementById("tool-erase").setAttribute("aria-pressed", String(t==="erase"));
+  }
+  function updateSpeedLabel(){
+    var s=+document.getElementById("speed").value;
+    document.getElementById("speedval").textContent = s>=90 ? "max" : s<=8 ? "slow" : s+"";
+  }
+  function init(){
+    document.getElementById("mudfac").textContent = MUD;
+    buildPanels(); renderBaseAll();
+    document.getElementById("play").addEventListener("click", togglePlay);
+    document.getElementById("step").addEventListener("click", stepOnce);
+    document.getElementById("reset").addEventListener("click", resetRace);
+    document.getElementById("tool-wall").addEventListener("click", function(){ setTool("wall"); });
+    document.getElementById("tool-weight").addEventListener("click", function(){ setTool("weight"); });
+    document.getElementById("tool-erase").addEventListener("click", function(){ setTool("erase"); });
+    document.getElementById("random").addEventListener("click", randomMaze);
+    document.getElementById("clear").addEventListener("click", clearMaze);
+    document.getElementById("speed").addEventListener("input", updateSpeedLabel);
+    setTool("wall"); updateSpeedLabel(); setPlayLabel();
+  }
+  if (document.readyState==="loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+</body>
+</html>
