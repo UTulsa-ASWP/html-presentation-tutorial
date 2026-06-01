@@ -14,10 +14,11 @@
   <!-- ============ 1. TITLE =================================================== -->
   <section class="slide title-slide">
     <div class="eyebrow">ASWP Summer 2026 · Deck 1 of 3</div>
-    <h1>The Method</h1>
-    <p class="subtitle">Using <code>llm-dev:cycle</code> to build interactive HTML
-      presentations — the same loop that built this deck.</p>
-    <div class="attribution">A tool for the team · Tutorial Suite</div>
+    <h1>Vibe Engineering Slide Decks</h1>
+    <p class="subtitle">Using <code>llm-dev:cycle</code> — an iterative framework for
+      structured LLM-assisted development.</p>
+    <div class="attribution">A tool for the Summer 2026 ASWP team · Tutorial Suite ·
+      Written by Dallas Elleman and Claude Opus 4.8</div>
 
     <div class="speaker-notes">
       <h2>Welcome</h2>
@@ -35,15 +36,18 @@
     <span class="slide-number">02</span>
     <div class="slide-content">
       <div class="eyebrow">Why this exists</div>
-      <h2 class="slide-title">From "I have a topic" to a finished deck</h2>
-      <p class="lead">By the end of these three decks, you'll be able to build an
-        interactive HTML presentation on your own — with an LLM doing the heavy lifting.</p>
-      <p>No slide software, no framework, no build step. Just a folder of files that
-         opens in any browser and <strong>runs fully offline</strong> — which is exactly
-         what the teachers we hand these to need in a classroom with no internet.</p>
+      <h2 class="slide-title">Because we have a lot of stuff to build this summer.</h2>
+      <p class="lead">This is the first of three slide decks that will guide you through a
+        structured methodology for productive building with an LLM assistant.</p>
+      <p>We're building HTML-based presentations that teachers can launch in a browser
+         window with <strong>zero dependencies</strong>. LLMs are great at this, but
+         <strong>you</strong> have to guide them well. This presentation was built with the
+         same guidance methodology — <code>llm-dev:cycle</code> — that you'll be learning to
+         use here.</p>
       <div class="callout">
-        <p>You don't need to write the HTML by hand. You need to know how to
-           <strong>drive the LLM</strong> well — and that's what the cycle is for.</p>
+        <p><code>llm-dev:cycle</code> is a framework for guiding LLMs well, built by Dallas
+           Elleman. Download the entire plugin here:
+           <a href="https://github.com/DallasElleman/llm-dev" target="_blank" rel="noopener">github.com/DallasElleman/llm-dev</a>.</p>
       </div>
     </div>
 
@@ -63,7 +67,7 @@
     <span class="slide-number">03</span>
     <div class="slide-content centered">
       <div class="eyebrow">The shape of the work</div>
-      <h2 class="slide-title">Six phases, one loop</h2>
+      <h2 class="slide-title">The <code>llm-dev:cycle</code> is an iterative loop with 6 phases</h2>
     </div>
     <div class="two-column">
       <div style="text-align:center;">
@@ -72,9 +76,10 @@
         <div class="image-caption">The cycle: Review → Brainstorm → Research → Plan → Execute → Verify</div>
       </div>
       <div>
-        <p>The <code>llm-dev:cycle</code> skill structures a build into six phases.
-           Each produces a short markdown file, so the thinking is written down before
-           any code exists.</p>
+        <p>Each of the six phases is defined by the <code>llm-dev:cycle/SKILL.md</code> file,
+           with further details in <code>cycle/references/phase-details.md</code>. Loading
+           these two short files into the context of an LLM conversation gives your LLM
+           everything it needs to walk through each phase of the cycle automatically.</p>
         <ol>
           <li><strong>Review / Reflect</strong> — load context</li>
           <li><strong>Brainstorm</strong> — decide what to build</li>
@@ -108,12 +113,15 @@
         <img class="slide-image" src="assets/img/llm-dev-phase-1.webp" alt="Phase 1: Review and Reflect">
       </div>
       <div>
-        <p class="lead">Load the context. Decide what you're actually working with.</p>
-        <p>Point the model at the right material — past decks, notes, a topic outline —
-           and have it summarize requirements and constraints. On later iterations, this
-           is also where you <strong>reflect</strong> on what the previous pass taught you.</p>
-        <div class="callout"><p><strong>For a presentation:</strong> who's the audience,
-           how will it be delivered, and what must it run on?</p></div>
+        <p class="lead">On the first <code>llm-dev:cycle</code> iteration, review and load
+           context to prime the LLM. On subsequent cycle iterations, reflect on what's been
+           built and guide the next cycle.</p>
+        <p>This is where you give the LLM background about what you want to build — a
+           presentation outline, reference materials, an overarching goal to achieve, design
+           templates. Higher input context quality in this phase will translate to higher
+           output quality of the final result.</p>
+        <div class="callout"><p>Treat the LLM as a highly competent design partner, and
+           bring it up to speed on everything you know about what you want to build.</p></div>
       </div>
     </div>
     <div class="speaker-notes"><h2>Review / Reflect</h2>
