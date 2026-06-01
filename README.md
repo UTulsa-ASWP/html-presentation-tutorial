@@ -61,8 +61,28 @@ html-presentation-tutorial/
         └── cycle-artifacts/   # the 6 source cycle .md docs Deck 2 quotes from
 ```
 
-(There is also a `search-alg-demos/` directory of exploratory cycle runs from
-different AI tools — reference material, not part of the tutorial flow.)
+## Bonus: cross-tool demos (`search-alg-demos/`)
+
+To show that `llm-dev:cycle` is a *tool-agnostic* method, two fully offline interactive
+demos were built by running the same cycle skill through different AI coding tools. Each
+folder keeps its cycle artifacts (`review` → `verify`) alongside the artifact it produced.
+These are reference material, not part of the three-deck tutorial flow.
+
+- **`generated-by-codex-5.5/`** — a **Search Algorithm Workbench**
+  ([`index.html`](search-alg-demos/generated-by-codex-5.5/index.html)) built with the
+  Codex CLI (GPT-5.5-codex). One vanilla HTML/CSS/JS page that teaches **linear search,
+  binary search, BFS, and DFS** — step/run/reset controls, a tunable problem, visible
+  algorithm state with live metrics, and a trace panel for comparing recent runs.
+  One cycle iteration.
+- **`generated-by-claude-desktop-app/`** — a **Pathfinding Race**
+  ([`pathfinding-race.html`](search-alg-demos/generated-by-claude-desktop-app/cycle/iteration-2/pathfinding-race.html))
+  built with the Claude desktop app. A single offline HTML file that races **BFS,
+  Dijkstra, Greedy Best-First, and A\*** in lockstep across one shared weighted maze, with
+  a per-panel scoreboard (cells visited, path cost, length, optimal?) so the behavioural
+  differences are visible and quantitative. Two cycle iterations.
+
+Both are self-contained and run from `file://` with no network — the same offline bar the
+tutorial decks hold to.
 
 ## How to view
 

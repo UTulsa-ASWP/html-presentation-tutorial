@@ -272,17 +272,19 @@ function stepGraph(kind) {
   }
 
   const neighbors = getNeighbors(current);
+  let added = 0;
   neighbors.forEach((next) => {
     const id = key(next.row, next.col);
     if (!run.visited.has(id) && !cellAt(next).wall) {
       run.visited.add(id);
       run.parents.set(id, key(current.row, current.col));
       run.frontier.push(next);
+      added += 1;
     }
   });
 
   const frontierName = kind === "queue" ? "queue" : "stack";
-  run.status = `Expanded (${current.row}, ${current.col}); added ${neighbors.length} candidates to the ${frontierName}.`;
+  run.status = `Expanded (${current.row}, ${current.col}); added ${added} cells to the ${frontierName}.`;
 }
 
 function finish(result, message) {
@@ -361,9 +363,6 @@ function renderGrid() {
     const cell = document.createElement("button");
     cell.type = "button";
     cell.className = "grid-cell";
-    cell.setAttribute("aria-label", `Cell ${cellData.row}, ${cellData.col}`);
-    cell.addEventListener("click", () => toggleWall(cellData.row, cellData.col));
-
     if (cellData.wall) cell.classList.add("wall");
     if (run.visited.has(id)) cell.classList.add("visited");
     if (frontierKeys.has(id)) cell.classList.add("frontier");
@@ -371,8 +370,22 @@ function renderGrid() {
     if (id === currentKey) cell.classList.add("current");
     if (id === key(0, 0)) cell.classList.add("start");
     if (id === key(GRID_SIZE - 1, GRID_SIZE - 1)) cell.classList.add("goal");
+    cell.setAttribute("aria-label", gridCellLabel(cellData, id, frontierKeys, pathKeys, currentKey));
+    cell.addEventListener("click", () => toggleWall(cellData.row, cellData.col));
     els.gridView.appendChild(cell);
   });
+}
+
+function gridCellLabel(cellData, id, frontierKeys, pathKeys, currentKey) {
+  const labels = [`Cell ${cellData.row}, ${cellData.col}`];
+  if (id === key(0, 0)) labels.push("start");
+  if (id === key(GRID_SIZE - 1, GRID_SIZE - 1)) labels.push("goal");
+  if (cellData.wall) labels.push("wall");
+  if (id === currentKey) labels.push("current");
+  if (frontierKeys.has(id)) labels.push("frontier");
+  if (state.run.visited.has(id)) labels.push("visited");
+  if (pathKeys.has(id)) labels.push("path");
+  return labels.join(", ");
 }
 
 function renderLegend() {
