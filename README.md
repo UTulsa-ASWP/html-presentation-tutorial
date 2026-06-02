@@ -106,7 +106,8 @@ html-presentation-tutorial/
 ## How to view
 
 Just open any `index.html` directly in a browser (double-click, or `file://`). No server
-needed. To present: arrow keys to navigate, **S** for speaker notes, **Esc** to close them.
+needed. To present: arrow keys to navigate, **P** for presenter view, **S** for speaker
+notes, **Esc** to close them.
 
 ## The offline rule
 
