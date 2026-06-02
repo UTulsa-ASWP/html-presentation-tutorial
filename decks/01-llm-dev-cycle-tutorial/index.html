@@ -292,6 +292,44 @@
             </div>
         </section>
 
+        <!-- ============ 3a-ii. PAUSE / RESUME (HANDOFF) ========================== -->
+        <section class="slide">
+            <span class="slide-number"></span>
+            <div class="slide-content centered">
+                <div class="eyebrow">Context window management friendly</div>
+                <h2 class="slide-title">
+                    <code>llm-dev:cycle</code> can be paused and resumed
+                </h2>
+                <div style="text-align: center; margin-top: 8px">
+                    <img
+                        class="slide-image"
+                        src="assets/img/llm-dev-cycle-linear-with-handoff.webp"
+                        alt="The llm-dev:cycle phases laid out left to right with a handoff / re-entry point between iterations — the loop can be paused after a phase and resumed later from the saved artifacts"
+                    />
+                </div>
+            </div>
+
+            <div class="speaker-notes">
+                <h2>Pause and resume</h2>
+                <p>
+                    The phase artifacts double as <strong>save points</strong>.
+                    Because each phase writes a markdown file (and each iteration
+                    gets its own folder), you can stop after any phase — when the
+                    context window fills up, when the day ends, or when you hand
+                    off to a teammate — and a fresh session can read those files
+                    and pick up exactly where you left off.
+                </p>
+                <p>
+                    That's what the handoff / re-entry point in the diagram
+                    represents: the loop doesn't have to run start-to-finish in a
+                    single sitting. This matters most on longer builds, where one
+                    continuous LLM conversation would otherwise lose the thread as
+                    its context fills — the written artifacts are what let the work
+                    survive a clean break and a fresh start.
+                </p>
+            </div>
+        </section>
+
         <!-- ============ 3b. THE ARTIFACTS ======================================== -->
         <section class="slide">
             <span class="slide-number">05</span>
@@ -1062,7 +1100,7 @@
 
         <!-- ============ CHROME =================================================== -->
         <div class="slide-dots" id="slideDots"></div>
-        <div class="slide-counter" id="slideCounter">1 / 13</div>
+        <div class="slide-counter" id="slideCounter">1 / 14</div>
         <div class="nav-hint">
             &larr; &rarr; navigate &middot; P presenter view &middot; F
             fullscreen
