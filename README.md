@@ -24,6 +24,30 @@ through the decks in order; Decks 1 and 2 are ready now, Deck 3 is in progress.
 > share. The decks are still fully offline: clone the repo (or download a deck folder)
 > and open any `index.html` from `file://` with no network.
 
+## Getting Started
+
+Ready to build your own decks and artifacts for the team? The quick path:
+
+1. **Work through the decks above.** Deck 1 teaches the `llm-dev:cycle` process; Deck 2
+   shows two real builds end to end. You can launch both in your browser — no setup needed.
+
+2. **Clone the team presentations repo.** All Summer 2026 ASWP decks and artifacts live in
+   **[`summer-2026-presentations`](https://github.com/UTulsa-ASWP/summer-2026-presentations)**
+   (private to the team). It ships a starter template and its own README that walks you
+   through your first deck:
+
+   ```sh
+   git clone https://github.com/UTulsa-ASWP/summer-2026-presentations.git
+   cd summer-2026-presentations
+   ```
+
+3. **Copy the starter and run the cycle.** Duplicate the starter template, then run
+   `llm-dev:cycle` (or load the bundled skill files into any LLM chat) and build. See
+   [Build your own](#build-your-own) and [The cycle skill](#the-cycle-skill) below for details.
+
+> This tutorial suite is your **reference**; the team repo
+> (`summer-2026-presentations`) is where your actual **work** lives.
+
 ## Build your own
 
 Copy the **`starter/`** folder — a re-themeable, fully offline presentation skeleton

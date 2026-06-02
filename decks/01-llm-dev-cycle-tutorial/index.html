@@ -415,6 +415,7 @@
                         <li>a list of goals to achieve</li>
                         <li>a design template or description, etc.</li>
                     </ul>
+                    <br />
                     <div class="callout">
                         <p>
                             This phase is about building a foundation for your
@@ -476,9 +477,9 @@
                     <br />
                     <p>
                         Get creative. Ask questions and ask the LLM to ask you
-                        questions. You might think about the following:
+                        questions.<br />
+                        <strong>You might think about the following:</strong>
                     </p>
-                    <br />
                     <ul>
                         <li>
                             What's the simplest version of what you want to
@@ -494,7 +495,15 @@
                     <p>
                         The LLM will help you converge on one approach and then
                         write down the alternatives you considered and rejected,
-                        and why.
+                        and why.<br />
+                        <em
+                            >Note: In Claude Code, you may be offered the choice
+                            to use the <code>superpowers:brainstorming</code>
+                            skill, if it's installed. This option may be better
+                            for code-heavy work, but for developing HTML
+                            presentations the <code>llm-dev:cycle</code>
+                            Brainstorm version is probably sufficient.</em
+                        >
                     </p>
                     <div class="callout">
                         <p>
@@ -551,8 +560,8 @@
                 </div>
                 <div>
                     <p class="lead">
-                        Work with the LLM to identify and verify your tech
-                        stack.
+                        Work with the LLM to identify and verify tech stack,
+                        limitations, special considerations, etc.
                     </p>
                     <br />
                     <ul>
@@ -663,6 +672,16 @@
                         </li>
                     </ul>
                     <br />
+                    <p>
+                        <em
+                            >Note: In Claude Code, you may be offered the choice
+                            to use the <code>superpowers:writing-plans</code>
+                            skill, if it's installed. This option may be better
+                            for code-heavy work, but for developing HTML
+                            presentations the <code>llm-dev:cycle</code> Plan
+                            version is probably sufficient.</em
+                        >
+                    </p>
                     <div class="callout">
                         <p>
                             The LLM records the plan in
@@ -742,6 +761,16 @@
                         </li>
                     </ul>
                     <br />
+                    <p>
+                        <em
+                            >Note: In Claude Code, you may be offered the choice
+                            to use the <code>superpowers:executing-plans</code>
+                            skill, if it's installed. This option may be better
+                            for code-heavy work, but for developing HTML
+                            presentations the <code>llm-dev:cycle</code> Execute
+                            version is probably sufficient.</em
+                        >
+                    </p>
                     <div class="callout">
                         <p>
                             The LLM records results in
@@ -800,8 +829,8 @@
                 </div>
                 <div>
                     <p class="lead">
-                        Congratulations, you've built something! Time to take it
-                        for a test drive.
+                        Congratulations, you've built something!<br />
+                        Time to take it for a test drive.
                     </p>
                     <br />
                     <ul>
@@ -824,6 +853,19 @@
                         </li>
                     </ul>
                     <br />
+                    <p>
+                        <em
+                            >Note: In Claude Code, you may be offered the choice
+                            to use the
+                            <code
+                                >superpowers:verification-before-completion</code
+                            >
+                            skill, if it's installed. This option may be better
+                            for code-heavy work, but for developing HTML
+                            presentations the <code>llm-dev:cycle</code> Verify
+                            version is probably sufficient.</em
+                        >
+                    </p>
                     <div class="callout good">
                         <p>
                             The LLM records the results in
@@ -871,39 +913,48 @@
             <div class="slide-content">
                 <div class="eyebrow">Driving the cycle</div>
                 <h2 class="slide-title">Gates, iteration, and parallel work</h2>
-                <div class="stats-row">
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: auto 1fr;
+                        gap: 28px 56px;
+                        align-items: center;
+                        width: 100%;
+                        margin-top: 8px;
+                    "
+                >
                     <div class="stat-box">
                         <div class="value">Gates</div>
                         <div class="label">Approve between phases</div>
                     </div>
+                    <p style="margin: 0">
+                        <strong>Gates are guided, not rigid.</strong> At each
+                        phase you say "next," "revise," "skip," or "back" — you
+                        stay in control.
+                    </p>
+
                     <div class="stat-box">
                         <div class="value">Iterate</div>
                         <div class="label">Each pass smaller</div>
                     </div>
-                    <div class="stat-box">
-                        <div class="value">Parallel</div>
-                        <div class="label">Fan out independent work</div>
-                    </div>
-                </div>
-                <ul>
-                    <li>
-                        <strong>Gates are guided, not rigid.</strong> At each
-                        phase you say "next," "revise," "skip," or "back" — you
-                        stay in control.
-                    </li>
-                    <li>
+                    <p style="margin: 0">
                         <strong>Iterate through the loop at least once</strong>,
                         but don't let the structure slow you down. (To build the
                         slide deck that you are currently viewing, Claude and I
                         completed a single cycle and then moved across the deck
                         polishing slides until coherence emerged.)
-                    </li>
-                    <li>
+                    </p>
+
+                    <div class="stat-box">
+                        <div class="value">Parallel</div>
+                        <div class="label">Fan out independent work</div>
+                    </div>
+                    <p style="margin: 0">
                         <strong>Parallel dispatch</strong> when work is
                         independent — e.g. summarizing several reference docs at
                         once. The skill suggests it; you decide.
-                    </li>
-                </ul>
+                    </p>
+                </div>
             </div>
             <div class="speaker-notes">
                 <h2>How it feels to use it</h2>
@@ -941,15 +992,36 @@
 
         <!-- ============ 11. YOUR TURN ============================================= -->
         <section class="slide title-slide">
-            <div class="eyebrow">Your turn</div>
-            <h1>Copy. Cycle. Build.</h1>
+            <div class="eyebrow">Next steps</div>
+            <h1>Choose your path:</h1>
             <p class="subtitle">
-                Grab the starter template, run <code>llm-dev:cycle</code>, and
-                make your first deck. Deck 2 shows a full run, start to finish.
+                A couple of options from here.<br />
+                Check out Slide Deck 2 to walk through how an interactive HTML
+                presentation and a complex interactive HTML artifact were
+                created using the <code>llm-dev:cycle</code> framework, or<br />
+                Head over to the private ASWP Summer 2026 Presentations repo to
+                get started building on your own.
             </p>
+            <div class="cta-row">
+                <a
+                    class="cta-btn primary"
+                    href="../02-worked-examples/index.html"
+                >
+                    &#9654;&nbsp; Launch Deck 2 — Worked Examples
+                </a>
+                <a
+                    class="cta-btn ghost"
+                    href="https://github.com/UTulsa-ASWP/html-presentation-tutorial#getting-started"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Get started on your own &rarr;
+                </a>
+            </div>
             <p class="attribution">
-                Install the skill: the <strong>llm-dev</strong> plugin for
-                Claude Code &middot; github.com/DallasElleman/llm-dev<br />
+                Optional, but recommended: install the
+                <strong>llm-dev</strong> plugin for Claude Code &middot;
+                github.com/DallasElleman/llm-dev<br />
                 (a reference copy of the skill is bundled in this repo under
                 <code>skills/cycle/</code>)
             </p>
