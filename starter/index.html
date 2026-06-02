@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Presentation Starter</title>
   <meta name="description" content="A re-themeable vanilla HTML/CSS/JS presentation starter.">
-  <!-- One local stylesheet. No CDN, no web fonts: works fully offline. -->
-  <link rel="stylesheet" href="assets/styles.css">
+  <!-- One local stylesheet. No CDN, no web fonts: works fully offline.
+       The ?v=N is a cache-buster — bump it when you edit styles.css so browsers
+       (and reviewers reloading the deck) reliably pick up your changes. -->
+  <link rel="stylesheet" href="assets/styles.css?v=1">
 </head>
 <body>
 
@@ -112,7 +114,53 @@
     </div>
   </section>
 
-  <!-- ============ SLIDE 5 — CLOSING ========================================= -->
+  <!-- ============ SLIDE 5 — SPLIT LAYOUT (OPTIONAL EXAMPLE) =================
+       Demonstrates the optional .split layout (styles.css section 5b): a left
+       column flows into a right pane embedding a rendered Markdown doc (built by
+       scripts/render-markdown.sh). If your deck won't embed docs/artifacts,
+       DELETE this slide plus docs/, scripts/, and assets/doc.css — nothing else
+       depends on them. (Slide numbers auto-set from position, so deleting is safe.) -->
+  <section class="slide">
+    <span class="slide-number">05</span>
+    <div class="slide-content split-slide">
+      <div class="eyebrow">Optional layout</div>
+      <h2 class="slide-title">Notes beside the real thing</h2>
+      <p class="intro">A <code>.split</code> slide pairs a left column (chat bubbles
+        or highlights) with a right pane that embeds a rendered doc or a live
+        artifact — offline-safe, because the doc is pre-rendered to HTML.</p>
+      <div class="split">
+        <div class="col-left bubbles">
+          <div class="bubble user"><span class="who">You</span>
+            <p>Can I show a Markdown doc inside a slide without a server?</p></div>
+          <div class="bubble assistant"><span class="who">LLM</span>
+            <p>Yes — pre-render it to self-contained HTML and embed that in an
+               <code>&lt;iframe&gt;</code>. Fetching a local <code>.md</code> at
+               runtime would fail offline.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-label">Rendered Markdown (docs/example-notes.md)</div>
+          <div class="doc-pane">
+            <iframe src="docs/example-notes.html" title="Example embedded doc"
+              loading="lazy"></iframe>
+          </div>
+          <a class="pane-link" href="docs/example-notes.html" target="_blank"
+            rel="noopener">Open the doc in a new tab &#8599;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Optional split layout</h2>
+      <p>A live demo of the optional <code>.split</code> pattern. The right pane
+         embeds <code>docs/example-notes.html</code>, produced from a <code>.md</code>
+         by <code>scripts/render-markdown.sh</code>. Delete this slide (and
+         <code>docs/</code>, <code>scripts/</code>, <code>assets/doc.css</code>) if
+         your deck doesn't embed docs.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6 — CLOSING ========================================= -->
   <section class="slide title-slide">
     <div class="eyebrow">Closing</div>
     <h1>Thank you</h1>
@@ -128,7 +176,7 @@
   <!-- ============ PRESENTATION CHROME =======================================
        Driven by script.js. Don't rename these IDs. -->
   <div class="slide-dots" id="slideDots"></div>
-  <div class="slide-counter" id="slideCounter">1 / 5</div>
+  <div class="slide-counter" id="slideCounter">1 / 6</div>
   <div class="nav-hint">&larr; &rarr; navigate &middot; P presenter view &middot; F fullscreen</div>
 
   <aside class="speaker-notes-panel" id="speakerNotesPanel">
@@ -137,7 +185,7 @@
     <div id="speakerNotesContent"></div>
   </aside>
 
-  <!-- One local script. -->
-  <script src="assets/script.js"></script>
+  <!-- One local script. Bump ?v=N when you edit script.js (cache-buster). -->
+  <script src="assets/script.js?v=1"></script>
 </body>
 </html>

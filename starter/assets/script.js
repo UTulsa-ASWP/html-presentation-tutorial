@@ -32,12 +32,34 @@ function initSlides() {
 
   const dots = document.getElementById('slideDots');
   dots.innerHTML = '';
-  slideElements.forEach((_, i) => {
+  slideElements.forEach((slide, i) => {
     const dot = document.createElement('div');
     dot.className = 'slide-dot';
     dot.dataset.idx = i;
     dot.addEventListener('click', () => goToSlide(i));
     dots.appendChild(dot);
+
+    // Auto-number the per-slide ".slide-number" badge from its position, so
+    // inserting or reordering slides never leaves a hardcoded number stale.
+    // Slides without the badge (e.g. title / closing slides) are simply skipped.
+    const label = slide.querySelector('.slide-number');
+    if (label) label.textContent = String(i + 1).padStart(2, '0');
+  });
+
+  // Route in-page anchor links (e.g. a title-slide "jump to section" <a href="#part2">)
+  // to the matching slide. Bare hash jumps and smooth scrolls fight scroll-snap, so we
+  // jump INSTANTLY to the target slide and update the chrome. The "#id" must be on a
+  // <section class="slide">; links with no matching slide are left to default behavior.
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const target = document.getElementById(a.getAttribute('href').slice(1));
+      const idx = target ? slideElements.indexOf(target) : -1;
+      if (idx < 0) return;
+      e.preventDefault();
+      currentSlide = idx;
+      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+      updateSlideChrome();
+    });
   });
 
   updateSlideChrome();
