@@ -81,8 +81,9 @@ html-presentation-tutorial/
 │   └── references/phase-details.md
 ├── starter/                    # the template you copy to start a new deck
 │   ├── index.html
-│   ├── assets/styles.css
-│   ├── assets/script.js
+│   ├── assets/{styles.css, script.js, doc.css}
+│   ├── docs/                   # optional: Markdown to embed (example-notes.md + .html)
+│   ├── scripts/render-markdown.sh   # optional: pre-render docs/*.md → self-contained HTML
 │   └── README.md
 └── decks/
     ├── 01-llm-dev-cycle-tutorial/  # Deck 1, built on the starter

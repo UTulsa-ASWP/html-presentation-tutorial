@@ -39,8 +39,8 @@ your-deck/
 Open `assets/styles.css` and edit the `:root` block at the top (section 1). Every
 color, font, and shadow flows from those custom properties — change `--navy` and
 `--gold` first; that's most of the visual identity. You rarely need to touch anything
-below the token block. The canonical token set lives in
-`../assets/shared/theme.css`; copy it if you want to start from the suite default.
+below the token block. That `:root` block **is** the canonical token set — copy it into
+a new deck whenever you want to start from the suite default.
 
 ## Keyboard controls (built in)
 
