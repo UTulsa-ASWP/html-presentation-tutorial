@@ -18,8 +18,8 @@
             <div class="eyebrow">ASWP Summer 2026 · Deck 1 of 3</div>
             <h1>Vibe-Engineering<br />HTML Slide Decks</h1>
             <p class="subtitle">
-                Using <code>llm-dev:cycle</code> — an iterative framework for
-                structured LLM-assisted development.
+                Using <code>llm-dev:cycle</code> — a flexible framework for
+                structuring LLM-assisted development.
             </p>
             <div class="attribution">
                 A tool for the Summer 2026 ASWP team · Tutorial Suite · Written
@@ -29,16 +29,30 @@
             <div class="speaker-notes">
                 <h2>Welcome</h2>
                 <p>
-                    This is the first of three decks. This one teaches the
-                    <em>process</em> we use to build presentations with an LLM.
-                    Deck 2 walks a real example end to end; Deck 3 covers
-                    enrichment and what to explore next.
+                    This is the first of three decks in the ASWP tutorial suite.
+                    <strong>Deck 1 (this one)</strong> teaches the
+                    <code>llm-dev:cycle</code> process for building things with
+                    an LLM. <strong>Deck 2</strong> walks through a real example
+                    end to end — the differential-privacy explainer — using the
+                    actual session transcripts and cycle artifacts.
+                    <strong>Deck 3</strong> covers enriching your slides with
+                    well-sourced content and points to reveal.js as a future
+                    option.
                 </p>
                 <p>
-                    Point out the mechanics as you go: arrow keys to navigate,
-                    and press S to see these notes. This deck is itself a
-                    vanilla HTML presentation — the thing we're teaching them to
-                    make.
+                    The deck is itself a vanilla HTML presentation built with the
+                    very process it teaches — so as you read it, you're looking
+                    at an example of the output. It runs entirely offline from a
+                    browser, no internet or software required.
+                </p>
+                <p>
+                    <strong>Controls:</strong> arrow keys (or PageUp/Down, Space)
+                    move between slides; <strong>P</strong> opens a presenter
+                    view in a second window (these notes, the next slide, and a
+                    timer); <strong>F</strong> toggles fullscreen;
+                    <strong>S</strong> toggles this notes panel inline. Arrow
+                    keys work in the presenter window too, so you can drive the
+                    talk from either screen.
                 </p>
             </div>
         </section>
@@ -49,19 +63,19 @@
             <div class="slide-content">
                 <div class="eyebrow">Why this exists</div>
                 <h2 class="slide-title">
-                    LLMs can help us build amazing things this summer.
+                    LLMs can help us build amazing things. Consistent guidance
+                    is key.
                 </h2>
                 <p class="lead">
-                    To consistently produce amazing results, though, LLMs need
-                    <i>consistent guidance</i>.
-                </p>
-                <p>
                     <strong
                         ><i><code>llm-dev:cycle</code></i></strong
                     >
-                    is a methodology for providing consistent guidance to LLM
-                    assistants. In fact, the HTML slide deck you are reading now
-                    was built following this methodology.
+                    is a framework for providing LLMs with consistent
+                    guidance.
+                </p>
+                <p>
+                    The HTML slide deck you are reading right now was built
+                    following this framework.
                     <br /><br />
                     In the following slides, you will learn how to use
                     <strong
@@ -93,18 +107,36 @@
             </div>
 
             <div class="speaker-notes">
-                <h2>From topic to deck</h2>
+                <h2>Why this exists</h2>
                 <p>
-                    Set the bar plainly: solo authorship. The audience is mixed
-                    — some code, some don't. The honest message is that the
-                    skill being taught is <em>directing the model</em>, not
-                    memorizing CSS. The cycle is the structure that makes that
-                    reliable instead of a chaotic chat.
+                    The goal of this tutorial is solo authorship: by the end,
+                    each of us should be able to take a topic and produce a
+                    finished, interactive HTML deck with an LLM doing the heavy
+                    lifting. You do <em>not</em> need to know HTML or CSS to do
+                    this. The real skill being taught is
+                    <em>directing the model well</em> — and that's what
+                    <code>llm-dev:cycle</code> structures.
                 </p>
                 <p>
-                    The offline constraint is the reason we use plain HTML
-                    rather than a hosted tool — say so, because it justifies
-                    everything that follows.
+                    Without structure, building with an LLM tends to drift into a
+                    long, meandering chat that loses the thread. The cycle
+                    replaces that with a repeatable set of phases, so results are
+                    consistent across people and projects rather than dependent
+                    on any one person's prompting instincts.
+                </p>
+                <p>
+                    Why plain HTML instead of PowerPoint or a hosted slide tool?
+                    The decks we build will be handed to teachers whose
+                    classrooms may have no internet. A single self-contained HTML
+                    file opens in any browser with zero dependencies — that
+                    offline guarantee is the constraint that drives most of the
+                    technical choices in this suite.
+                </p>
+                <p>
+                    The <code>llm-dev</code> plugin (linked on the slide) is
+                    optional. If you use Claude Code, installing it gives you the
+                    <code>/llm-dev:cycle</code> command directly; otherwise you
+                    can just load the two small skill files into any LLM chat.
                 </p>
             </div>
         </section>
@@ -113,10 +145,12 @@
         <section class="slide">
             <span class="slide-number">03</span>
             <div class="slide-content centered">
-                <div class="eyebrow">The shape of the work</div>
+                <div class="eyebrow">
+                    Say, what is this <code>llm-dev:cycle</code>, anyway?
+                </div>
                 <h2 class="slide-title">
-                    The <code>llm-dev:cycle</code> is an iterative loop with 6
-                    phases
+                    <code>llm-dev:cycle</code> is just a<br />
+                    skill-guided 6-phase iterative loop
                 </h2>
             </div>
             <div class="two-column">
@@ -133,75 +167,81 @@
                 </div>
                 <div>
                     <p class="lead">
-                        All six phases are defined by two files:
+                        Two files drive the loop automatically:<br />
                         <i><code>SKILL.md</code></i> and
-                        <i><code>references/phase-details.md</code></i> in the
+                        <i><code>references/phase-details.md</code></i><br />
                         <a
                             href="https://github.com/UTulsa-ASWP/html-presentation-tutorial/tree/main/skills/cycle"
                             target="_blank"
                             rel="noopener"
-                            >ASWP repo</a
-                        >.
-                    </p>
-                    <br />
-                    <p>
-                        Loading these two short files into the context of an LLM
-                        session provides everything needed to walk through and /
-                        or iterate the cycle automatically. Here's a brief
-                        description of each phase:
+                            >(found at
+                            html-presentation-tutorial/skills/cycle)</a
+                        ><br />
+                        Here's a brief description of each phase:
                     </p>
                     <br />
                     <ol>
                         <li>
-                            <strong>Review / Reflect</strong>: Load context for
-                            a new loop by reviewing requirements or reflecting
-                            on past progress.
+                            <strong>Review / Reflect</strong>: Load context, or
+                            reflect on past progress.
                         </li>
                         <li>
-                            <strong>Brainstorm</strong>: Ideate, discuss, and
-                            decide conceptually before actually building the
-                            thing.
+                            <strong>Brainstorm</strong>: Decide conceptually
+                            what to build.
                         </li>
                         <li>
-                            <strong>Research</strong>: Select and verify the
-                            languages, tools, tech stack, etc. that your thing
-                            will be built from.
+                            <strong>Research</strong>: Choose and verify the
+                            tech stack.
                         </li>
                         <li>
-                            <strong>Plan</strong>: Create an ordered, step by
-                            step sequence to guide building and testing of your
-                            thing.
+                            <strong>Plan</strong>: Sequence the build and its
+                            tests.
                         </li>
                         <li>
-                            <strong>Execute</strong>: Follow your plan to
-                            actually build and test the thing.
+                            <strong>Execute</strong>: Build and test the
+                            project.
                         </li>
                         <li>
-                            <strong>Verify</strong>: Spend more time with the
-                            thing you've built. Decide whether you're happy with
-                            it, and why.
+                            <strong>Verify</strong>: Confirm it works — and
+                            decide if you're happy.
                         </li>
                     </ol>
                     <br />
                     <div class="callout">
                         <p>
-                            If your thing needs more work: <em>iterate</em>.
+                            If you decide in Phase 6 that your project needs
+                            more work, <code>llm-dev:cycle</code> will help you
+                            automatically <em>iterate</em> through another loop.
                             Ideally, each loop will be smaller and sharper than
-                            the last.
+                            the last. More about this later.
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="speaker-notes">
-                <h2>Six phases, one loop</h2>
+                <h2>The six phases</h2>
                 <p>
-                    The key idea: the value is in
-                    <em>making decisions before committing to code</em>. Each
-                    phase has a gate — you approve before moving on. Nothing
-                    here is rigid; you can revise a phase or jump back. Stress
-                    that the markdown artifacts are the point: they make the
-                    reasoning reviewable and reusable.
+                    The core idea behind the cycle is
+                    <em>making decisions before committing to code</em>. Most of
+                    the value is front-loaded: thinking through what you're
+                    building, why, and how — before a single file is written —
+                    is what prevents wasted effort and rework.
+                </p>
+                <p>
+                    Each phase ends at a <strong>gate</strong>: the LLM pauses
+                    and you approve before it moves on. Nothing here is rigid —
+                    you can revise a phase, skip one that doesn't apply, or jump
+                    back to an earlier phase if something changes. You stay in
+                    control the whole way.
+                </p>
+                <p>
+                    The two files that drive this (<code>SKILL.md</code> and
+                    <code>phase-details.md</code>) are short and human-readable —
+                    worth opening and skimming once. Loading them into an LLM
+                    conversation is what lets the model walk you through the
+                    phases on its own. The next slide shows what each phase
+                    leaves behind on disk.
                 </p>
             </div>
         </section>
@@ -230,19 +270,19 @@
                 </div>
                 <div>
                     <p class="lead">
-                        These files track progress and create future entry
-                        points.
+                        These markdown files save your progress and create easy
+                        re-entry points for your project.
                     </p>
                     <br />
                     <!-- prettier-ignore -->
                     <pre class="file-tree"><span class="dir">workspace/cycle/</span>
 ├── <span class="dir">iteration-1/</span>
-│   ├── <span class="file">review.md</span>
-│   ├── <span class="file">brainstorm.md</span>
-│   ├── <span class="file">research.md</span>
-│   ├── <span class="file">plan.md</span>
-│   ├── <span class="file">execute.md</span>
-│   └── <span class="file">verify.md</span>
+│   ├── <span class="file">1-review.md</span>
+│   ├── <span class="file">2-brainstorm.md</span>
+│   ├── <span class="file">3-research.md</span>
+│   ├── <span class="file">4-plan.md</span>
+│   ├── <span class="file">5-execute.md</span>
+│   └── <span class="file">6-verify.md</span>
 ├── <span class="dir">iteration-2/</span>
 │   └── <span class="muted">... (same six files)</span>
 └── <span class="dir">iteration-3/</span>
@@ -260,12 +300,28 @@
             <div class="speaker-notes">
                 <h2>An artifact for each phase</h2>
                 <p>
-                    These markdown files are the durable record of the work:
-                    what was decided, what was tried, what was verified. They
-                    make the reasoning reviewable and reusable, and they're what
-                    a later iteration reflects on. This very deck was built this
-                    way — its own <code>workspace/cycle/</code> folder looks
-                    just like this.
+                    Each phase writes a short markdown file, and each pass
+                    through the loop gets its own <code>iteration-N/</code>
+                    folder. Together they're a durable record of the project:
+                    what was decided, what was tried, what was verified, and why.
+                </p>
+                <p>
+                    This matters for two practical reasons.
+                    <strong>Re-entry:</strong> if you stop and come back days
+                    later (or hand off to a teammate), reading these files
+                    rebuilds the full context fast — no need to remember the
+                    chat. <strong>Reflection:</strong> when you start a new
+                    iteration, the Review/Reflect phase reads the previous
+                    iteration's files to decide what to do next, so the cycle
+                    builds on itself instead of starting cold.
+                </p>
+                <p>
+                    This deck was built exactly this way — its own
+                    <code>workspace/cycle/</code> folder looks just like the tree
+                    on the slide. (One note: the numbered filenames here, like
+                    <code>1-review.md</code>, are a small convention we're adding
+                    to keep phase order obvious; the underlying files are the
+                    same.)
                 </p>
             </div>
         </section>
@@ -276,8 +332,8 @@
         <section class="slide">
             <span class="slide-number">05</span>
             <div class="slide-content centered">
-                <div class="eyebrow">Phase 1</div>
-                <h2 class="slide-title">Review / Reflect</h2>
+                <div class="eyebrow">Laying the foundation</div>
+                <h2 class="slide-title">Phase 1: Review / Reflect</h2>
             </div>
             <div class="two-column">
                 <div style="text-align: center">
@@ -288,29 +344,19 @@
                     />
                 </div>
                 <div>
-                    <p class="lead">Bring the LLM up to speed.</p>
-                    <ul>
-                        <li>
-                            <strong
-                                >On first
-                                <code>llm-dev:cycle</code> iteration:</strong
-                            >
-                            Review and load context to prime the LLM.
-                        </li>
-                        <li>
-                            <strong
-                                >On subsequent
-                                <code>llm-dev:cycle</code> iterations:</strong
-                            >
-                            Reflect on what's been built and guide the next
-                            cycle.
-                        </li>
-                    </ul>
-                    <p>
-                        Treat the LLM as a highly competent design partner.
-                        Bring it up to speed by providing necessary background
-                        about what you want to build. You could include:
+                    <p class="lead">
+                        <strong>First iteration:</strong> Review and load context
+                        and files to prime the LLM.<br />
+                        <strong>Subsequent iterations:</strong> Reflect on what's
+                        been built, and guide the next session.
                     </p>
+                    <br />
+                    <p>
+                        Treat the LLM as a highly competent design partner with
+                        zero knowledge of what you have in mind. Provide all
+                        necessary background information. This might include:
+                    </p>
+                    <br />
                     <ul>
                         <li>markdown files</li>
                         <li>
@@ -326,19 +372,37 @@
                     <div class="callout">
                         <p>
                             This phase is about building a foundation for your
-                            project: <code>review.md</code>. In the next phase,
-                            you'll ideate and elaborate.
+                            project and capturing it in
+                            <code>review.md</code>.<br />
+                            In the next phase, you'll ideate and elaborate.
                         </p>
                     </div>
                 </div>
             </div>
             <div class="speaker-notes">
-                <h2>Review / Reflect</h2>
+                <h2>Phase 1: Review / Reflect</h2>
                 <p>
-                    The discipline here is <em>narrowing</em>, not expanding —
-                    eliminate options, surface gaps. For a deck, the audience +
-                    delivery + runtime constraints decide almost everything
-                    downstream (e.g. "offline classroom" forced vanilla HTML).
+                    The mindset here is <em>narrowing</em>, not expanding —
+                    you're eliminating options and surfacing gaps, not generating
+                    ideas yet (that's the next phase). The quality of what you
+                    load in now sets a ceiling on everything downstream: garbage
+                    in, garbage out.
+                </p>
+                <p>
+                    A few constraints are worth pinning down explicitly every
+                    time, because they cascade through the whole build: who the
+                    <strong>audience</strong> is, how the result will be
+                    <strong>delivered</strong>, and what it has to
+                    <strong>run on</strong>. For this suite, "offline classroom
+                    on a Chromebook" is the constraint that forced vanilla HTML
+                    and ruled out anything needing a server or network.
+                </p>
+                <p>
+                    On <strong>later iterations</strong>, this phase changes
+                    character: instead of loading fresh context, the LLM reads
+                    the previous iteration's artifacts and reflects on what
+                    worked, what didn't, and what to change — then that
+                    reflection guides the new loop.
                 </p>
             </div>
         </section>
@@ -347,8 +411,8 @@
         <section class="slide">
             <span class="slide-number">06</span>
             <div class="slide-content centered">
-                <div class="eyebrow">Phase 2</div>
-                <h2 class="slide-title">Brainstorm</h2>
+                <div class="eyebrow">Exploring the space</div>
+                <h2 class="slide-title">Phase 2: Brainstorm</h2>
             </div>
             <div class="two-column">
                 <div style="text-align: center">
@@ -360,17 +424,31 @@
                 </div>
                 <div>
                     <p class="lead">
-                        Explore ideas with the LLM through conversation.
+                        Explore ideas for your project with your LLM through
+                        conversation, Q&amp;A, and divergent thinking.
                     </p>
+                    <br />
                     <p>
-                        Get creative. Ask questions, and ask the LLM to ask you
-                        questions. You might think about the following: what's
-                        the simplest version of what you want to create? What's
-                        the narrative arc or story you want to tell? What's in
-                        and out of scope? What might be reserved for future
-                        iterations? The LLM will help you converge on one
-                        approach, and then write down the alternatives you
-                        considered / rejected, and why.
+                        Get creative. Ask questions and ask the LLM to ask you
+                        questions. You might think about the following:
+                    </p>
+                    <br />
+                    <ul>
+                        <li>
+                            What's the simplest version of what you want to
+                            create?
+                        </li>
+                        <li>
+                            What's the narrative arc or story you want to tell?
+                        </li>
+                        <li>What's in and out of scope?</li>
+                        <li>What might be reserved for future iterations?</li>
+                    </ul>
+                    <br />
+                    <p>
+                        The LLM will help you converge on one approach and then
+                        write down the alternatives you considered and rejected,
+                        and why.
                     </p>
                     <div class="callout">
                         <p>
@@ -384,12 +462,28 @@
                 </div>
             </div>
             <div class="speaker-notes">
-                <h2>Brainstorm</h2>
+                <h2>Phase 2: Brainstorm</h2>
                 <p>
-                    It's a dialogue. The model should ask questions and push
-                    back, not just produce options. The output is a scoped
-                    concept with explicit boundaries — what you will and won't
-                    build. Rejecting things on purpose is half the value.
+                    This phase is a <em>dialogue</em>, not a request. A good
+                    brainstorm has the model asking <em>you</em> questions and
+                    pushing back on your assumptions — not just handing you a
+                    menu of options. If your LLM isn't asking questions, prompt
+                    it to ("ask me anything you need to know first").
+                </p>
+                <p>
+                    The output is a scoped concept with explicit boundaries:
+                    what you <em>will</em> build, and just as importantly, what
+                    you <em>won't</em>. Deliberately deciding what's out of scope
+                    (or deferred to a later iteration) is half the value here —
+                    it's what keeps a first pass achievable.
+                </p>
+                <p>
+                    A useful technique: ask for the simplest version first, then
+                    decide what to add. For a presentation specifically, settle
+                    the <strong>narrative arc</strong> — the story you want to
+                    tell — before worrying about any individual slide. The DP
+                    explainer in Deck 2 is a good example: its eight-act story
+                    was designed here, in Brainstorm, before any HTML existed.
                 </p>
             </div>
         </section>
@@ -398,8 +492,8 @@
         <section class="slide">
             <span class="slide-number">07</span>
             <div class="slide-content centered">
-                <div class="eyebrow">Phase 3</div>
-                <h2 class="slide-title">Research</h2>
+                <div class="eyebrow">Checking feasibility</div>
+                <h2 class="slide-title">Phase 3: Research</h2>
             </div>
             <div class="two-column">
                 <div style="text-align: center">
@@ -414,34 +508,69 @@
                         Work with the LLM to identify and verify your tech
                         stack.
                     </p>
-                    <p>
-                        For our purposes, vanilla HTML and JS will be sufficient
-                        and should accommodate our users' technical limitations
-                        (Chromebook-only, limited network access, etc.).
-                        Depending on the outputs of the Brainstorming phase, the
-                        LLM may research several implementation options and
-                        present them to you. Trust your LLM to give good advice,
-                        but be careful not to lazily outsource your own
-                        judgement too much : )
-                    </p>
+                    <br />
+                    <ul>
+                        <li>
+                            For our purposes, vanilla HTML and JS will be
+                            sufficient — and it runs on our users' Chromebooks
+                            with limited network access.
+                        </li>
+                        <li>
+                            The LLM may research several implementation options
+                            and present them to you.
+                        </li>
+                        <li>
+                            Planning interactive artifacts? Decide what powers
+                            the interactivity (e.g. plain JS, SVG, a small
+                            library that still runs offline).
+                        </li>
+                        <li>
+                            Make sure you and your LLM truly understand any math,
+                            algorithms, or data the build depends on.
+                        </li>
+                        <li>
+                            Trust your LLM's advice, but don't lazily outsource
+                            your own judgement : )
+                        </li>
+                    </ul>
+                    <br />
                     <div class="callout">
                         <p>
-                            This phase is about settling on a technical
-                            implementation approach, which the LLM will record
-                            in <code>research.md</code>. In the next phase, your
-                            LLM will help you create a detailed step-by-step
-                            implementation plan.
+                            This phase settles on a technical approach, recorded
+                            in <code>research.md</code>.<br />
+                            In the next phase, your LLM will help you create a
+                            detailed, step-by-step plan.
                         </p>
                     </div>
                 </div>
             </div>
             <div class="speaker-notes">
-                <h2>Research</h2>
+                <h2>Phase 3: Research</h2>
                 <p>
-                    The honest note: models sometimes recommend packages that
-                    don't exist or are deprecated. Verify. For our decks this
-                    phase mostly confirms the template lifts cleanly and that
-                    nothing reaches for the network.
+                    Research is where you commit to <em>how</em> you'll build,
+                    and verify that it'll actually work — before you've sunk time
+                    into building the wrong way. An honest caution: LLMs
+                    sometimes recommend libraries that don't exist, are
+                    deprecated, or won't run in your environment. Have the model
+                    confirm its suggestions, and prefer the simplest option that
+                    meets the need.
+                </p>
+                <p>
+                    For most of our decks this phase is short — vanilla
+                    HTML/CSS/JS, reuse the starter template, confirm nothing
+                    reaches for the network so the offline guarantee holds. It
+                    gets more involved when a build has real substance behind it.
+                </p>
+                <p>
+                    That's why the slide calls out <strong>interactive
+                    artifacts</strong> and <strong>understanding the
+                    math/algorithms/data</strong>. If you're building something
+                    that computes or animates (a chart, a simulation, a live
+                    demo), this is the moment to make sure both you and the LLM
+                    genuinely understand the underlying logic — not just that it
+                    "looks right." In Deck 2, the DP explainer's Laplace-noise
+                    math was worked out and verified here, in Research, which is
+                    exactly why the interactive demos behaved correctly later.
                 </p>
             </div>
         </section>
@@ -450,8 +579,8 @@
         <section class="slide">
             <span class="slide-number">08</span>
             <div class="slide-content centered">
-                <div class="eyebrow">Phase 4</div>
-                <h2 class="slide-title">Plan</h2>
+                <div class="eyebrow">Making it concrete</div>
+                <h2 class="slide-title">Phase 4: Plan</h2>
             </div>
             <div class="two-column">
                 <div style="text-align: center">
@@ -463,34 +592,65 @@
                 </div>
                 <div>
                     <p class="lead">
-                        Turn research into an ordered build sequence.
+                        Generate an ordered build sequence informed by all
+                        previous phases.
                     </p>
-                    <p>
-                        What gets built first, second, third — with
-                        <strong>acceptance criteria</strong>: specific, testable
-                        conditions that define "done." A good plan is
-                        self-contained; you could hand it to someone else and
-                        they'd know what to do. The LLM will record this as
-                        <code>plan.md</code>; your job is to review and verify /
-                        modify if needed before moving on. Make sure that your
-                        plan includes sufficient testing along the way to verify
-                        build quality — when in doubt, ask your LLM whether the
-                        plan includes sufficient tests for the build.
-                    </p>
+                    <br />
+                    <ul>
+                        <li>
+                            Lay out what gets built first, second, third — with
+                            <strong>acceptance criteria</strong>: specific,
+                            testable conditions that define "done."
+                        </li>
+                        <li>
+                            A good plan is self-contained: you could hand it to
+                            someone else and they'd know what to do.
+                        </li>
+                        <li>
+                            Make sure it includes enough testing to verify build
+                            quality. When in doubt, ask your LLM whether the plan
+                            tests enough.
+                        </li>
+                        <li>
+                            Your job: review and verify (or modify) before moving
+                            on.
+                        </li>
+                    </ul>
+                    <br />
                     <div class="callout">
                         <p>
-                            Once your Plan is solid, you'll move on to the
-                            Execution phase.
+                            The LLM records the plan in
+                            <code>plan.md</code>.<br />
+                            Once it's solid, you'll move on to the Execution
+                            phase.
                         </p>
                     </div>
                 </div>
             </div>
             <div class="speaker-notes">
-                <h2>Plan</h2>
+                <h2>Phase 4: Plan</h2>
                 <p>
-                    If a step would take more than an hour, break it down. The
-                    acceptance criteria are what Verify checks against later —
-                    write them as pass/fail, not vibes.
+                    The plan turns everything decided so far into an ordered,
+                    concrete build sequence — what gets built first, second,
+                    third. A good rule of thumb: if a single step looks like it'd
+                    take more than an hour, break it into smaller steps.
+                </p>
+                <p>
+                    <strong>Acceptance criteria</strong> are the most important
+                    part of a plan and the part people skip. They're specific,
+                    testable conditions that define "done" — and they're exactly
+                    what the Verify phase checks against later. Write them as
+                    pass/fail statements, not vibes: "opens offline with no
+                    console errors" is a criterion; "looks good" is not.
+                </p>
+                <p>
+                    Testing is planned <em>here</em>, not bolted on afterward.
+                    Make sure the plan builds in checks along the way. If you're
+                    not sure it tests enough, just ask the LLM directly — "does
+                    this plan include enough testing to be confident the build
+                    works?" Your role at the end of this phase is to actually
+                    read the plan and approve or adjust it; the LLM proposes, but
+                    you own the decision.
                 </p>
             </div>
         </section>
@@ -499,8 +659,8 @@
         <section class="slide">
             <span class="slide-number">09</span>
             <div class="slide-content centered">
-                <div class="eyebrow">Phase 5</div>
-                <h2 class="slide-title">Execute</h2>
+                <div class="eyebrow">Where the rubber meets the road</div>
+                <h2 class="slide-title">Phase 5: Execute</h2>
             </div>
             <div class="two-column">
                 <div style="text-align: center">
@@ -512,35 +672,67 @@
                 </div>
                 <div>
                     <p class="lead">
-                        Build according to <code>plan.md</code>, and test each
+                        Build according to <code>plan.md</code>, testing each
                         piece as you go.
                     </p>
-                    <p>
-                        Your LLM will work through <code>plan.md</code> step by
-                        step, testing as it builds. It may ask whether to
-                        execute the plan in-line or via subagent-driven
-                        development; either of these options is probably fine,
-                        but there are trade-offs: subagent-driven dev will
-                        better preserve the main session context window, but
-                        in-line dev may better preserve the original intent of
-                        your build.
-                    </p>
+                    <br />
+                    <ul>
+                        <li>
+                            Your LLM may ask to execute the plan
+                            <strong>in-line</strong> or via
+                            <strong>subagent-driven development</strong>. Either
+                            is fine, with trade-offs:
+                        </li>
+                        <li>
+                            <strong>Subagents</strong> will use less of the main
+                            session's context window, but will execute based on
+                            compressed context.
+                        </li>
+                        <li>
+                            <strong>In-line dev</strong> may better preserve the
+                            original intent of your build by operating on the
+                            original context, but will fill the main session's
+                            context window faster.
+                        </li>
+                    </ul>
+                    <br />
                     <div class="callout">
                         <p>
-                            Your LLM will record the results of the Execution
-                            phase in <code>execute.md</code>. Once complete,
-                            you'll move to the Verify phase for hands-on build
-                            validation.
+                            The LLM records results in
+                            <code>execute.md</code>.<br />
+                            Once complete, you'll move to Verify for hands-on
+                            build validation.
                         </p>
                     </div>
                 </div>
             </div>
             <div class="speaker-notes">
-                <h2>Execute</h2>
+                <h2>Phase 5: Execute</h2>
                 <p>
-                    "Test early and often" is the whole lesson. Describe errors
-                    precisely to the model — "this returns X, I expected Y."
-                    Read the code it writes; understand it enough to explain it.
+                    "Test early and often" is the whole lesson of this phase.
+                    Don't wait until the end to see if it works — check each
+                    piece as it lands. When something breaks, describe the
+                    problem to the LLM precisely: "this returns X, I expected Y,"
+                    or "the image doesn't load." Vague reports ("it's broken")
+                    get vague fixes.
+                </p>
+                <p>
+                    Even though the LLM writes the code, read it and ask for
+                    explanations until you understand it well enough to describe
+                    what it does. You don't need to be able to write it yourself,
+                    but you should not be shipping a black box.
+                </p>
+                <p>
+                    <strong>In-line vs. subagent execution</strong> (the slide's
+                    trade-off): "in-line" means the LLM builds directly in your
+                    main conversation; "subagent-driven" means it spins off
+                    separate helper sessions to do chunks of work and reports
+                    back. Subagents keep your main conversation from filling up
+                    (useful for big builds), but each subagent only sees a
+                    compressed summary of the context, so it can drift from your
+                    original intent. In-line keeps full fidelity to what you
+                    discussed but uses up the conversation's memory faster. For
+                    most single decks, either is fine — don't overthink it.
                 </p>
             </div>
         </section>
@@ -549,8 +741,8 @@
         <section class="slide">
             <span class="slide-number">10</span>
             <div class="slide-content centered">
-                <div class="eyebrow">Phase 6</div>
-                <h2 class="slide-title">Verify</h2>
+                <div class="eyebrow">Does it hold up?</div>
+                <h2 class="slide-title">Phase 6: Verify</h2>
             </div>
             <div class="two-column">
                 <div style="text-align: center">
@@ -562,31 +754,67 @@
                 </div>
                 <div>
                     <p class="lead">
-                        Prove it works — assume it doesn't until you've checked.
+                        Congratulations, you've built something! Time to take it
+                        for a test drive.
                     </p>
-                    <p>
-                        Execute reports on its own work, so Verify is the
-                        adversarial counterpart. Walk every acceptance criterion
-                        and confirm pass or fail <strong>with evidence</strong>,
-                        not assertions.
-                    </p>
+                    <br />
+                    <ul>
+                        <li>Find out where it works and where it breaks.</li>
+                        <li>
+                            Test it the way your users will — same device, same
+                            offline conditions.
+                        </li>
+                        <li>
+                            Walk every acceptance criterion and confirm pass or
+                            fail <strong>with evidence</strong>, not assertions.
+                        </li>
+                        <li>
+                            Tell your LLM everything you like about it, and
+                            everything you don't.
+                        </li>
+                        <li>
+                            Decide whether you're happy — and why. If not,
+                            iterate.
+                        </li>
+                    </ul>
+                    <br />
                     <div class="callout good">
                         <p>
                             The LLM records the results in
-                            <code>verify.md</code>. For a presentation: open it
-                            offline, click through every slide, watch the
-                            console, confirm no network requests.
+                            <code>verify.md</code>.<br />
+                            If your project needs more work, start a new loop back
+                            at Review / Reflect.
                         </p>
                     </div>
                 </div>
             </div>
             <div class="speaker-notes">
-                <h2>Verify</h2>
+                <h2>Phase 6: Verify</h2>
                 <p>
-                    Evidence before assertions. "It works" is not verification;
-                    "I opened it via file://, clicked all 11 slides, console was
-                    clean, Network tab showed zero requests" is. If it fails,
-                    you don't mark it done — you fix or carry it forward.
+                    Verify exists because Execute reports on its own work — and
+                    anything self-assessed deserves an independent check. The
+                    rule is <strong>evidence before assertions</strong>. "It
+                    works" is not verification; "I opened it offline via
+                    <code>file://</code>, clicked through all 12 slides, the
+                    console was clean, and the Network tab showed zero requests"
+                    is. Walk each acceptance criterion from the plan and confirm
+                    pass or fail with real evidence.
+                </p>
+                <p>
+                    Test it the way your users actually will — for us that means
+                    the same kind of device (a Chromebook) and the same offline
+                    conditions a classroom would have. A deck that works on your
+                    fast laptop with wifi but breaks on a Chromebook with no
+                    network has not been verified.
+                </p>
+                <p>
+                    This is also where your judgement comes in, beyond the
+                    checklist: spend real time with what you built, tell the LLM
+                    everything you like and don't like, and decide whether you're
+                    genuinely happy with it. If it falls short, you don't mark it
+                    done — you either fix it now or carry the issue into the next
+                    iteration. That decision is what kicks off another loop back
+                    at Review/Reflect.
                 </p>
             </div>
         </section>
@@ -618,9 +846,11 @@
                         stay in control.
                     </li>
                     <li>
-                        <strong>Iteration is the point.</strong> Ship a small
-                        slice, learn, then the next pass reflects on what
-                        happened. This deck was iteration 1 of its project.
+                        <strong>Iterate through the loop at least once</strong>,
+                        but don't let the structure slow you down. (To build this
+                        slide deck, we completed a single cycle and then moved
+                        across the deck polishing slides until coherence
+                        emerged.)
                     </li>
                     <li>
                         <strong>Parallel dispatch</strong> when work is
@@ -630,12 +860,35 @@
                 </ul>
             </div>
             <div class="speaker-notes">
-                <h2>Driving the cycle</h2>
+                <h2>How it feels to use it</h2>
                 <p>
-                    This is the "how it feels to use it" slide. The model
-                    proposes; you approve. Emphasize that skipping and revising
-                    are normal — not every phase needs the same weight.
-                    Iteration keeps scope honest.
+                    Three things shape what using the cycle actually feels like
+                    day to day:
+                </p>
+                <p>
+                    <strong>Gates.</strong> The model proposes and you approve at
+                    each phase boundary. In practice you'll say "next" a lot,
+                    sometimes "revise this," occasionally "skip this phase" or
+                    "go back." Not every phase deserves equal weight — a simple
+                    deck might breeze through Research in a sentence, while a
+                    complex build lingers there. You decide where to spend
+                    effort.
+                </p>
+                <p>
+                    <strong>Iteration.</strong> Plan to go through the loop at
+                    least once, but don't let the ceremony slow you down. Real
+                    work is messier than the diagram: this very deck was built
+                    with one full cycle, then a long stretch of moving back and
+                    forth across the slides polishing copy and layout until it
+                    felt coherent. That's normal and fine — the structure is a
+                    tool, not a rule.
+                </p>
+                <p>
+                    <strong>Parallel work.</strong> When subtasks are genuinely
+                    independent — say, summarizing five reference documents — the
+                    LLM can fan them out and work on them at once instead of one
+                    at a time. The skill will suggest this when it applies; you
+                    decide whether to take it.
                 </p>
             </div>
         </section>
@@ -656,21 +909,33 @@
             </p>
 
             <div class="speaker-notes">
-                <h2>Hand-off to practice</h2>
+                <h2>Your turn</h2>
                 <p>
-                    Concrete next step: copy the <code>starter/</code> folder,
-                    open it, and start a cycle on a real topic they need a deck
-                    for. Tell them Deck 2 narrates an actual build — transcripts
-                    and all — so they can see the process applied before doing
-                    it solo.
+                    Concrete next step: copy the <code>starter/</code> folder
+                    from the repo, open its <code>index.html</code> in a browser
+                    to see the template, then start a cycle on a real topic you
+                    need a deck for. The starter is a re-themeable, fully offline
+                    skeleton — scroll-snap slides, keyboard navigation, the
+                    presenter view, speaker notes — so you're not starting from a
+                    blank page.
                 </p>
                 <p>
-                    To run the cycle themselves, they install the
-                    <strong>llm-dev</strong> plugin in Claude Code
-                    (github.com/DallasElleman/llm-dev), then invoke
-                    <code>/llm-dev:cycle</code>. The bundled
-                    <code>skills/cycle/SKILL.md</code> is the full spec if they
-                    want to read what each phase does first.
+                    To run the cycle yourself: if you use Claude Code, install
+                    the <strong>llm-dev</strong> plugin
+                    (github.com/DallasElleman/llm-dev) and invoke
+                    <code>/llm-dev:cycle</code>. If you're working in a different
+                    LLM, just load the two skill files
+                    (<code>skills/cycle/SKILL.md</code> and
+                    <code>phase-details.md</code>) into the conversation and ask
+                    it to walk you through the cycle.
+                </p>
+                <p>
+                    Then keep going with the suite: <strong>Deck 2</strong>
+                    narrates a real build end to end — actual transcripts and
+                    cycle artifacts — so you can see all of this applied before
+                    doing it solo. <strong>Deck 3</strong> covers making your
+                    slides richer and better-sourced. Don't aim for perfect on
+                    the first loop; build something, then iterate.
                 </p>
             </div>
         </section>
@@ -679,7 +944,8 @@
         <div class="slide-dots" id="slideDots"></div>
         <div class="slide-counter" id="slideCounter">1 / 12</div>
         <div class="nav-hint">
-            &larr; &rarr; navigate &middot; S speaker notes
+            &larr; &rarr; navigate &middot; P presenter view &middot; F
+            fullscreen
         </div>
 
         <aside class="speaker-notes-panel" id="speakerNotesPanel">
