@@ -9,14 +9,19 @@ the finished decks go to classrooms that may have no network.
 
 ## Start here
 
-Open **`index.html`** in a browser for the landing page, then work through the decks in
-order. Decks 1 and 2 are ready now; Deck 3 is in progress.
+**▶ [Launch the suite in your browser](https://utulsa-aswp.github.io/html-presentation-tutorial/)** —
+no clone, no setup. Or open **`index.html`** locally for the same landing page. Work
+through the decks in order; Decks 1 and 2 are ready now, Deck 3 is in progress.
 
-| | Deck | Status | What it covers |
+| | Deck | Launch | What it covers |
 | --- | --- | --- | --- |
-| 1 | **The Method** (`decks/01-the-method/`) | Ready | The `llm-dev:cycle` process — six phases from a topic to a finished deck. |
-| 2 | **The Worked Example** (`decks/02-worked-example/`) | Ready | How a real interactive explainer was built, phase by phase, with verbatim quotes from the cycle artifacts. Bundles the **live DP explainer** to explore plus the source cycle docs. |
+| 1 | **The Method** (`decks/01-the-method/`) | [▶ Launch](https://utulsa-aswp.github.io/html-presentation-tutorial/decks/01-the-method/) | The `llm-dev:cycle` process — six phases from a topic to a finished deck. |
+| 2 | **The Worked Example** (`decks/02-worked-example/`) | [▶ Launch](https://utulsa-aswp.github.io/html-presentation-tutorial/decks/02-worked-example/) | How a real interactive explainer was built, phase by phase, with verbatim quotes from the cycle artifacts. Bundles the **live DP explainer** to explore plus the source cycle docs. |
 | 3 | **Enrichment & What's Next** | Coming soon | Making slides richer and better-sourced; reveal.js as a future option. |
+
+> The ▶ links open the rendered decks via GitHub Pages — handy for a quick look or to
+> share. The decks are still fully offline: clone the repo (or download a deck folder)
+> and open any `index.html` from `file://` with no network.
 
 ## Build your own
 
@@ -58,7 +63,8 @@ html-presentation-tutorial/
         ├── index.html
         ├── assets/{styles.css, script.js, img/}
         ├── artifact/          # the live DP explainer (offline copy you can open)
-        └── cycle-artifacts/   # the 6 source cycle .md docs Deck 2 quotes from
+        └── cycle-artifacts/   # the 6 source cycle .md docs Deck 2 quotes from,
+                               #   plus condensed-transcript.md (the build conversation)
 ```
 
 ## Bonus: cross-tool demos (`search-alg-demos/`)
