@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 6 — Verify (Iteration 3)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 6 — Verify (Iteration 3)</h1>
+</header>
+<h1 id="phase-6--verify-iteration-3">Phase 6 — Verify (Iteration 3)</h1>
+<p>Adversarial pass. The full suite was <strong>re-run from
+scratch</strong> against the shipped restyled file (not trusting
+Execute), and the redesign&#39;s actual deliverable — visual elegance — was
+confirmed by direct user sign-off.</p>
+<h2 id="test-suite--fresh-re-run">Test suite — fresh re-run</h2>
+<table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>Scope</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tests/i3_v2_verify.js</code> (engine)</td>
+<td>inlined engine re-extracted from the restyled HTML</td>
+<td><strong>42/42</strong></td>
+</tr>
+<tr>
+<td><code>tests/i3_v2_verify.js</code> (static)</td>
+<td>innerHTML/eval/Function/fetch/XHR/storage/external-URL scan</td>
+<td><strong>8/8 clean</strong></td>
+</tr>
+<tr>
+<td><code>tests/i3_v2_integration.js</code></td>
+<td>race behaviour unchanged</td>
+<td><strong>20/20</strong></td>
+</tr>
+<tr>
+<td><code>tests/i3_v2_study.js</code></td>
+<td>study behaviour unchanged</td>
+<td><strong>26/26</strong></td>
+</tr>
+<tr>
+<td><code>tests/i3_v2_verify_extra.js</code></td>
+<td>panel-click entry, blurb text, cursors</td>
+<td><strong>9/9</strong></td>
+</tr>
+<tr>
+<td><code>tests/i3_style.js</code></td>
+<td>light theme shipped, dark removed, IDs preserved</td>
+<td><strong>31/31</strong></td>
+</tr>
+<tr>
+<td><code>tests/contrast.js</code></td>
+<td>palette contrast on shipped values</td>
+<td><strong>all pass</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>128 assertions + 8 static checks + contrast — all
+pass.</strong> The behaviour suite (97 assertions) passed
+<strong>unchanged</strong> from iteration 2, confirming the restyle is
+behaviour-neutral.</p>
+<h2 id="acceptance-criteria--evidence">Acceptance criteria —
+evidence</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>Verdict</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>All 24 prior criteria pass</td>
+<td><strong>PASS</strong></td>
+<td>race 20/20 + study 26/26 + engine 42/42, identical to v2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Light palette; no graph-paper/glow/gradient</td>
+<td><strong>PASS</strong></td>
+<td>style test asserts dark colors +
+<code>repeating-linear-gradient</code> + gradient-text removed</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Single blue accent on interactive elements</td>
+<td><strong>PASS</strong></td>
+<td><code>--accent:#0071e3</code> tokens;
+primary/toggle/thumb/active-line use it</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Algorithm identity as small dots; neutral chrome</td>
+<td><strong>PASS</strong></td>
+<td><code>.pname::before</code> dots + thumbnail dots asserted</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Cards: large radius + soft shadow, not borders</td>
+<td><strong>PASS</strong></td>
+<td><code>box-shadow:var(--shadow)</code>,
+<code>border-radius:18px</code> asserted</td>
+</tr>
+<tr>
+<td>6</td>
+<td>SF type, larger/lighter heading, generous spacing</td>
+<td><strong>PASS</strong></td>
+<td>40px heading, <code>-apple-system</code> stack asserted</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Segmented paint control; blue-pill Play</td>
+<td><strong>PASS</strong></td>
+<td><code>.segmented</code> styles + wrap + pill radius asserted</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Cell states light palette; path non-colour cue</td>
+<td><strong>PASS</strong></td>
+<td>path inset ring asserted in shipped CSS</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Study view cohesive in new style</td>
+<td><strong>PASS</strong></td>
+<td>styled (light pseudocode card, accent line/narration/cursors);
+<strong>user: &quot;looks amazing&quot;</strong></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Contrast passes</td>
+<td><strong>PASS</strong></td>
+<td>text AA; states distinguishable; path via ring (documented)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Offline; no innerHTML/eval/fetch/URLs/web fonts</td>
+<td><strong>PASS</strong></td>
+<td>8/8 static; system fonts only, no external resources</td>
+</tr>
+<tr>
+<td>12</td>
+<td>No test-breaking id/class renames</td>
+<td><strong>PASS</strong></td>
+<td>all 13 critical IDs asserted present; suite green</td>
+</tr>
+</tbody>
+</table>
+<p><strong>12 / 12 acceptance criteria pass.</strong></p>
+<h2 id="security-check-results">Security check results</h2>
+<ul>
+<li>Posture unchanged: offline single file, no
+network/auth/storage/secrets, no web fonts/CDNs.</li>
+<li>Static scan clean across the restyled file: no
+<code>innerHTML</code>, <code>eval</code>, <code>new Function</code>,
+<code>fetch</code>, <code>XMLHttpRequest</code>, storage, or
+external/protocol-relative URLs.</li>
+<li>A pure CSS/markup-class restyle introduced no new input or execution
+surface.</li>
+</ul>
+<h2 id="regression-confirmation">Regression confirmation</h2>
+<p>The 97-assertion behaviour suite (engine, race, study, gap-closing)
+passed <strong>unchanged</strong> against the restyled file. The
+segmented-control wrapper did not affect tool selection or
+<code>aria-pressed</code>; all class/ID selectors still resolve. No
+behavioural regression.</p>
+<h2 id="issue-resolved-carried-from-execute">Issue resolved (carried
+from Execute)</h2>
+<p>The <code>#ffd60a</code> path vs light-gray closed state has low
+luminance contrast (1.11:1). Resolved by a non-colour <strong>inset
+ring</strong> on the final path (WCAG 1.4.1 — colour is not the sole
+channel), which is shipped and asserted. <code>contrast.js</code>
+documents the relationship rather than flagging a false fail. Verified
+clean.</p>
+<h2 id="user-human-verification--recorded">User (human) verification —
+recorded</h2>
+<p>User confirmed directly: the redesign looks great (&quot;looks amazing —
+love it&quot;). This closes criterion 9 and the iteration&#39;s core goal (a
+lighter, cleaner, elegant Apple-style look), which only a person can
+judge.</p>
+<h2 id="issues-found">Issues found</h2>
+<p>None. All criteria pass; no security findings; no behavioural
+regression.</p>
+<h2 id="outcome">Outcome</h2>
+<p><strong>Iteration 3 complete.</strong> R9 (lighter, cleaner, simple
+&amp; elegant — Apple-style) delivered and verified, with all prior race
++ study behaviour preserved unchanged.</p>
+</body>
+</html>

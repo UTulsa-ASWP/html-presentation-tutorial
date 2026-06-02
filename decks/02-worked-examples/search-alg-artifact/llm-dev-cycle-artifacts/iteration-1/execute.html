@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 5 — Execute</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 5 — Execute</h1>
+</header>
+<h1 id="phase-5--execute">Phase 5 — Execute</h1>
+<h2 id="what-was-built">What was built</h2>
+<p><code>pathfinding-race.html</code> — a single, fully offline HTML
+file (~520 lines) implementing the four-way lockstep pathfinding race
+from the plan. One inline <code>&lt;style&gt;</code>, one inline
+<code>&lt;script&gt;</code> (an IIFE), zero dependencies, zero network
+references.</p>
+<p>Sections, as planned: CONFIG → Engine (Maze/MinHeap/makeSearch) →
+State → Render → Interaction → Race controller → wire-up. Aesthetic
+direction: a dark &quot;instrument panel&quot; with a faint graph-paper
+background, monospace numerals, per-algorithm accent labels, and a
+single shared cell-state colour language across all four grids (driven
+by CSS variables).</p>
+<p>Build followed the 7-step sequence. Each step&#39;s test gate was met
+before moving on.</p>
+<h2 id="translation-note-the-one-real-risk">Translation note (the one
+real risk)</h2>
+<p>The engine was first written and unit-tested as a standalone module
+(<code>tests/engine.js</code>) using
+<code>Map</code>/<code>Set</code>/<code>class</code>. For the artifact I
+rewrote it to plain objects + ES5 prototypes (maximally robust over
+<code>file://</code>). Because that translation could have introduced
+subtle bugs, I <strong>extracted the actual inlined engine back out of
+the HTML and re-ran the full assertion suite against it</strong>
+(<code>tests/verify_inlined.js</code>). It reproduced the standalone
+results identically (BFS 28/14, Dijkstra 6/7, Greedy 28/5, A* 6/7),
+confirming a faithful port.</p>
+<h2 id="tests-run-all-green--saved-under-tests">Tests run (all green) —
+saved under <code>tests/</code></h2>
+<table>
+<thead>
+<tr>
+<th>Test file</th>
+<th>What it covers</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>engine.js</code> + <code>test.js</code></td>
+<td>Standalone engine: optimality, no-path, path validity, edge
+cases</td>
+<td>44/44 pass</td>
+</tr>
+<tr>
+<td><code>verify_inlined.js</code></td>
+<td>Re-tests the <em>actual shipped</em> engine + 8 static
+security/offline checks</td>
+<td>pass + 8/8</td>
+</tr>
+<tr>
+<td><code>integration.js</code> (jsdom)</td>
+<td>Headless DOM: build, paint propagation, endpoint protection, full
+race via the real Play/rAF path, single-step semantics, reset,
+no-path</td>
+<td>20/20 pass</td>
+</tr>
+</tbody>
+</table>
+<p>Headless race result on a muddy-band maze (proves the teaching
+contrast end-to-end):
+<code>cost [BFS 44, Dijkstra 36, Greedy 44, A* 36]</code>,
+<code>visited [319, 417, 21, 261]</code>,
+<code>optimal [✗, ✓, ✗, ✓]</code>.</p>
+<h2 id="bugs-found-and-fixed">Bugs found and fixed</h2>
+<ul>
+<li><strong>No artifact bugs surfaced.</strong> The upfront Research
+prototype + Step-2 unit tests caught the algorithmic issues before they
+reached the file, so Execute was unusually clean.</li>
+<li>Bugs fixed were all in the <strong>test harness</strong>, not the
+artifact: jsdom&#39;s <code>performance</code> is read-only (switched to
+<code>Object.defineProperty</code>), and assertions initially ran before
+the script&#39;s <code>DOMContentLoaded</code> <code>init()</code> (wrapped
+the suite to await load).</li>
+</ul>
+<h2 id="acceptance-criteria-results-vs-plan-checklist">Acceptance
+criteria results (vs. plan checklist)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Offline, no network, no console errors</td>
+<td>Static: no external URLs / no errors in jsdom ✓ · real-browser
+console = Verify (human)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Four panels, same maze, shared legend</td>
+<td>✓ integration</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Paint walls/weights/erase + drag endpoints reflect in all four</td>
+<td>Paint propagation ✓ tested; endpoint-drag <em>movement</em>
+implemented, not auto-asserted → Verify</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Random + Clear never strand start/end</td>
+<td><code>reachable()</code> retry + endpoint guards implemented; not
+auto-asserted → Verify</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Play lockstep · Step one each · Reset clears</td>
+<td>✓ integration (Step→visited==1 each; reset clears overlays)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Speed slider changes pace</td>
+<td>Logic wired (<code>speedToMsPerTick</code>); pace change is visual →
+Verify</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Dijkstra &amp; A* equal optimal cost; A* visits ≤ Dijkstra</td>
+<td>✓ (36==36; 261 ≤ 417)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>BFS/Greedy can be costlier than optimal</td>
+<td>✓ (44 &gt; 36)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Scoreboard live visited/cost/steps/optimal</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Final path drawn per panel</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Seal goal → &quot;No path&quot;, no crash</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>12</td>
+<td>No innerHTML/eval/fetch/external URLs</td>
+<td>✓ 8/8 static checks</td>
+</tr>
+</tbody>
+</table>
+<h2 id="honest-handoff-to-verify">Honest handoff to Verify</h2>
+<p>Everything testable without a real browser is green. The items that
+an automated headless run <em>cannot</em> fully judge — actual visual
+rendering, colour/layout fidelity, real-browser console cleanliness, the
+feel of the speed slider, and endpoint-drag + random-maze behaviour by
+hand — are explicitly flagged above and are the right targets for the
+adversarial Verify pass.</p>
+</body>
+</html>

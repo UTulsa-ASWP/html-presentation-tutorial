@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 4 — Plan (Iteration 3)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 4 — Plan (Iteration 3)</h1>
+</header>
+<h1 id="phase-4--plan-iteration-3">Phase 4 — Plan (Iteration 3)</h1>
+<p>Self-contained plan to restyle <code>pathfinding-race.html</code>
+into a light, clean, Apple-style design. <strong>Appearance
+only</strong> — no change to structure, controls, modes, algorithms, or
+class names. The iteration-2 behaviour suite (111 assertions) is the
+regression guard and must stay green throughout.</p>
+<h2 id="deliverable">Deliverable</h2>
+<p><code>iteration-3/pathfinding-race.html</code> — evolved from the
+iteration-2 file (copied in as baseline; v2 left intact as a
+record).</p>
+<h2 id="strategy">Strategy</h2>
+<p>Concentrate the change in CSS: rewrite the <code>:root</code> token
+block and the component rules, remove the dark-theme
+texture/glow/gradient effects, and add the segmented-control +
+soft-depth styling. Touch markup only where a class/wrapper is needed
+for the segmented control or identity dots — <strong>without renaming
+any existing id/class</strong> the tests rely on. JS untouched.</p>
+<h2 id="build-sequence-each-ends-in-a-regression-check">Build sequence
+(each ends in a regression check)</h2>
+<p><strong>Step 1 — Baseline + token swap.</strong> Copy v2 →
+iteration-3. Replace <code>:root</code> variables with the validated
+light palette (page, card, ink, secondary, hairline, accent, and
+re-derived cell-state colors incl. path <code>#ffd60a</code>).
+<em>Check:</em> file opens; re-run the full v2 suite against the
+iteration-3 file (paths repointed). Must stay green (palette change
+can&#39;t affect behaviour/classes).</p>
+<p><strong>Step 2 — Body + surfaces.</strong> Remove the graph-paper
+<code>repeating-linear-gradient</code> body background and radial glow →
+flat <code>#f5f5f7</code>. Convert panels/cards/bars to white + large
+radius + soft diffuse shadow (drop borders to hairlines where needed).
+Remove glow/gradient on headings and buttons. <em>Check:</em> re-run
+suite (green); visual self-check of structure via class presence.</p>
+<p><strong>Step 3 — Typography + spacing.</strong> Apply the
+heading/body type scale, secondary-gray body text, generous line-height
+and padding. Keep the existing <code>-apple-system</code> /
+<code>ui-monospace</code> stacks (already Apple-correct).
+<em>Check:</em> suite green.</p>
+<p><strong>Step 4 — Controls: segmented paint control + pill buttons +
+accent.</strong> Wrap the three paint-tool buttons in a
+segmented-control container (CSS + a wrapper element only; <strong>ids
+<code>tool-wall</code>/<code>tool-weight</code>/<code>tool-erase</code>
+preserved</strong>). Primary &quot;Play&quot; → filled blue pill; secondary →
+light pill; <code>studytoggle</code> active → blue; slider accent →
+blue; focus rings → accent. <em>Check (critical):</em> re-run suite —
+the segmented wrapper must not break tool selection,
+<code>aria-pressed</code>, or any selector. Green required before
+proceeding.</p>
+<p><strong>Step 5 — Cell states + grid + study cursors.</strong> Restyle
+<code>.cell</code> states to the new palette on white; add the path
+inset-ring (non-colour cue); recolour study <code>.pl.active</code> to
+accent, <code>.cur-node</code> to blue ring, <code>.cur-nb</code> to red
+ring; identity dots use the algorithm-dot colors. Grid gridlines →
+hairline on white. <em>Check:</em> suite green (class-based assertions
+unaffected); confirm <code>.cell.path</code>, <code>.cell.open</code>,
+<code>.cell.closed</code>, <code>.cur-node</code>, <code>.cur-nb</code>
+still apply.</p>
+<p><strong>Step 6 — Polish + full regression + static security.</strong>
+Hairline/shadow consistency pass, segmented-control active styling,
+hover/active states, legend swatches updated to match new palette,
+spacing rhythm. Then the <strong>entire suite + contrast + static
+security scan</strong>. <em>Check:</em> all green; no
+<code>innerHTML</code>/<code>eval</code>/<code>fetch</code>/external
+URLs; contrast still passes.</p>
+<h2 id="testing-strategy">Testing strategy</h2>
+<ul>
+<li><strong>Regression (primary):</strong> the v2 suite — engine, oracle
+equivalence, race integration, study integration, gap-closing — re-run
+against the iteration-3 file after <strong>every</strong> step. The
+restyle must not change a single assertion. This is the core safety
+net.</li>
+<li><strong>Palette:</strong> <code>contrast.js</code> re-run to confirm
+the shipped values match the validated palette.</li>
+<li><strong>Static/security:</strong> re-grep for
+<code>innerHTML</code>/<code>eval</code>/<code>new Function</code>/<code>fetch</code>/external
+URLs.</li>
+<li><strong>Human visual:</strong> appearance/elegance is the actual
+deliverable and only a person can judge it → explicit hand-off in Verify
+(as in prior iterations).</li>
+</ul>
+<h2 id="boundaries--risks">Boundaries / risks</h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Segmented-control wrapper breaks tool selection</td>
+<td>Preserve button ids/handlers; wrapper is presentational; re-run
+suite at Step 4</td>
+</tr>
+<tr>
+<td>A class rename for styling breaks a test selector</td>
+<td>Avoid renames; if unavoidable, update the test selector in lockstep,
+preserve intent</td>
+</tr>
+<tr>
+<td>Light cell states too low-contrast</td>
+<td>Already validated in Research; path uses a non-colour ring cue</td>
+</tr>
+<tr>
+<td>Accidental JS edit changes behaviour</td>
+<td>JS is out of scope this iteration; diff stays in
+<code>&lt;style&gt;</code> + minimal markup</td>
+</tr>
+</tbody>
+</table>
+<h2 id="acceptance-criteria-checklist">Acceptance criteria
+checklist</h2>
+<ol type="1">
+<li>[ ] All 24 prior acceptance criteria (12 race + 12 study) still pass
+— full v2 suite green.</li>
+<li>[ ] Page uses the light palette: <code>#f5f5f7</code> page, white
+cards, no graph-paper/glow/gradient.</li>
+<li>[ ] Single blue accent (<code>#0071e3</code>) on primary button,
+active toggle, slider, focus, active pseudocode line; UI otherwise
+neutral.</li>
+<li>[ ] Algorithm identity survives as small colored dots; UI chrome is
+otherwise neutral.</li>
+<li>[ ] Cards use large radius + soft diffuse shadow (not borders);
+hairlines only where needed.</li>
+<li>[ ] Typography: system (SF) stack, larger/lighter heading,
+secondary-gray body, generous spacing.</li>
+<li>[ ] Paint tools render as a segmented control; Play is a filled blue
+pill.</li>
+<li>[ ] Cell states use the validated light palette; final path has a
+non-colour ring cue.</li>
+<li>[ ] Study view (pseudocode, narration, cursors, table) is cohesive
+in the new style.</li>
+<li>[ ] Contrast checks pass (text AA; states distinguishable).</li>
+<li>[ ] Still offline single file; no
+<code>innerHTML</code>/<code>eval</code>/<code>fetch</code>/external
+URLs/web fonts.</li>
+<li>[ ] No id/class renames that break tests (or selectors updated in
+lockstep).</li>
+</ol>
+<pre><code></code></pre>
+</body>
+</html>

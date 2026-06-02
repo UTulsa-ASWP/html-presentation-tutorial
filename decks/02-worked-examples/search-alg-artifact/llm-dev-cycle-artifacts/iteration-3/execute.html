@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 5 — Execute (Iteration 3)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 5 — Execute (Iteration 3)</h1>
+</header>
+<h1 id="phase-5--execute-iteration-3">Phase 5 — Execute (Iteration
+3)</h1>
+<h2 id="what-was-built">What was built</h2>
+<p><code>iteration-3/pathfinding-race.html</code> — the iteration-2
+artifact restyled into a light, Apple-style design. <strong>Appearance
+only</strong>; no JS, structure, control, mode, or algorithm change. v2
+left intact as a record.</p>
+<p>Changes, all concentrated in <code>&lt;style&gt;</code> plus two tiny
+markup touches:</p>
+<ul>
+<li><strong>Palette:</strong> rewrote <code>:root</code> to the
+validated light tokens — page <code>#f5f5f7</code>, white cards, ink
+<code>#1d1d1f</code>, secondary <code>#6e6e73</code>, accent
+<code>#0071e3</code>; cell states re-derived for white (start green,
+goal red, ink walls, orange mud, cyan frontier, light-gray visited,
+<code>#ffd60a</code> path + inset ring).</li>
+<li><strong>Surfaces/depth:</strong> removed the graph-paper
+<code>repeating-linear-gradient</code> body, radial glow, all gradients
+and neon glows; cards now use large radius (18px) + soft diffuse shadow,
+hairlines only where needed.</li>
+<li><strong>Typography:</strong> large light heading (40px), system (SF)
+stack, secondary-gray body, generous spacing/line-height. Eyebrow
+recolored to accent.</li>
+<li><strong>Controls:</strong> paint tools wrapped in an Apple-style
+<strong>segmented control</strong> (<code>.segmented</code>, button IDs
+preserved); pill buttons; primary Play = filled blue pill; active
+toggle/thumbs = blue; custom range thumb. Study toggle emoji → clean
+&quot;Study Mode&quot; text.</li>
+<li><strong>Identity:</strong> four algorithm hues reduced to small dots
+via <code>.pname::before</code> and thumbnail dots.</li>
+<li><strong>Study view:</strong> light pseudocode card, accent
+active-line, accent-tinted narration in dark blue, blue node cursor +
+red neighbor cursor, accent focus-row in the table.</li>
+</ul>
+<h2 id="two-markup-touches-only-non-css-edits">Two markup touches (only
+non-CSS edits)</h2>
+<ol type="1">
+<li>Wrapped the three existing paint buttons in
+<code>&lt;span class=&quot;segmented&quot;&gt;</code> — <strong>IDs
+unchanged</strong>.</li>
+<li>Replaced the <code>📖</code> toggle label with text &quot;Study
+Mode&quot;.</li>
+</ol>
+<p>No JavaScript was modified.</p>
+<h2 id="tests-all-green--saved-under-iteration-3tests">Tests (all green)
+— saved under <code>iteration-3/tests/</code></h2>
+<table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>Scope</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>i3_v2_verify.js</code></td>
+<td>inlined engine re-test + static security</td>
+<td>42/42 + 8/8</td>
+</tr>
+<tr>
+<td><code>i3_v2_integration.js</code></td>
+<td>race behaviour unchanged</td>
+<td>20/20</td>
+</tr>
+<tr>
+<td><code>i3_v2_study.js</code></td>
+<td>study behaviour unchanged</td>
+<td>26/26</td>
+</tr>
+<tr>
+<td><code>i3_v2_verify_extra.js</code></td>
+<td>panel-click, blurb, cursors</td>
+<td>9/9</td>
+</tr>
+<tr>
+<td><code>i3_style.js</code></td>
+<td>new style shipped + dark removed + IDs preserved</td>
+<td>31/31</td>
+</tr>
+<tr>
+<td><code>contrast.js</code></td>
+<td>palette contrast (shipped values)</td>
+<td>all pass</td>
+</tr>
+</tbody>
+</table>
+<p><strong>97 behaviour assertions + 8 static + 31 style + contrast —
+all pass.</strong> The full v2 regression suite passed unchanged against
+the restyled file, confirming the redesign is behaviour-neutral.</p>
+<h2 id="issue-found-and-resolved">Issue found and resolved</h2>
+<ul>
+<li><strong>path vs closed luminance (1.11:1).</strong> Brightening the
+path to <code>#ffd60a</code> (to separate it from the cyan frontier, per
+Research) brought it close in luminance to the light-gray
+<em>closed</em> state. This is the documented three-way squeeze.
+<strong>Resolved by design, not by recolour:</strong> the final path
+carries a non-colour <strong>inset ring</strong>
+(<code>box-shadow:inset 0 0 0 2px #d4a800</code>), so it&#39;s never
+distinguished by fill alone (WCAG 1.4.1). The shipped ring is asserted
+in <code>i3_style.js</code>; <code>contrast.js</code> was updated to
+document this relationship honestly rather than flag a false fail.</li>
+<li>No behavioural bugs — the regression suite stayed green at every
+step.</li>
+</ul>
+<h2 id="acceptance-criteria-results-vs-plan-checklist">Acceptance
+criteria results (vs. plan checklist)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>All 24 prior criteria pass (full v2 suite green)</td>
+<td><strong>PASS</strong> — 97/97 behaviour + 8 static</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Light palette; no graph-paper/glow/gradient</td>
+<td><strong>PASS</strong> — style asserts old colors + texture
+removed</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Single blue accent on interactive elements</td>
+<td><strong>PASS</strong> — tokens + style checks</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Algorithm identity as small dots; chrome neutral</td>
+<td><strong>PASS</strong> — <code>.pname::before</code> + thumb
+dots</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Cards: large radius + soft shadow, not borders</td>
+<td><strong>PASS</strong> — <code>box-shadow:var(--shadow)</code>
+asserted</td>
+</tr>
+<tr>
+<td>6</td>
+<td>SF type, larger/lighter heading, generous spacing</td>
+<td><strong>PASS</strong> — 40px heading, system stack</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Segmented paint control; blue-pill Play</td>
+<td><strong>PASS</strong> — <code>.segmented</code> + wrap asserted</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Cell states light palette; path non-colour cue</td>
+<td><strong>PASS</strong> — ring asserted</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Study view cohesive in new style</td>
+<td>Styled; <strong>visual cohesion → Verify (human)</strong></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Contrast passes</td>
+<td><strong>PASS</strong> — text AA; states distinguishable (path via
+ring)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Offline; no innerHTML/eval/fetch/URLs/web fonts</td>
+<td><strong>PASS</strong> — 8/8 static; system fonts only</td>
+</tr>
+<tr>
+<td>12</td>
+<td>No test-breaking id/class renames</td>
+<td><strong>PASS</strong> — all IDs asserted present; suite green</td>
+</tr>
+</tbody>
+</table>
+<h2 id="honest-handoff-to-verify">Honest handoff to Verify</h2>
+<p>Functional behaviour is fully green (regression unchanged). What
+automation can&#39;t judge — whether the redesign actually <em>looks</em>
+light, clean, and elegant; visual cohesion of race + study views; how
+the segmented control, shadows, and palette read on screen — is the
+deliverable&#39;s real point and needs a human look in Verify.</p>
+</body>
+</html>

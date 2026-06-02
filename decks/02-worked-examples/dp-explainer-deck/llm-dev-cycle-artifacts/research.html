@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Research — Iteration 1 (DP Artifact)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Research — Iteration 1 (DP Artifact)</h1>
+</header>
+<h1 id="research--iteration-1-dp-artifact">Research — Iteration 1 (DP
+Artifact)</h1>
+<h2 id="tech-stack-decision">Tech Stack Decision</h2>
+<p><strong>Selection: Vanilla HTML/CSS/JavaScript in a single
+self-contained file. No framework, no build step, no external JS
+libraries.</strong></p>
+<h3 id="rationale">Rationale</h3>
+<p>The existing course demo
+(<code>course_materials/demos/data-control-vulnerability.html</code>) is
+a 1,019-line self-contained HTML file with zero external JS
+dependencies. This is the established pattern in this repo and it&#39;s the
+right pattern for several reasons:</p>
+<ol type="1">
+<li><strong>Zero dependency risk</strong> — no <code>npm install</code>,
+no lockfile drift, no CVEs, nothing to break between now and class
+tomorrow</li>
+<li><strong>Offline-capable</strong> — works even if the podium has no
+network (important given the user&#39;s earlier stated concern)</li>
+<li><strong>Easy to deploy</strong> — one file, drop into
+<code>course_materials/demos/</code> and add a website wrapper</li>
+<li><strong>Easy to debug live</strong> — open browser devtools,
+inspect, done</li>
+<li><strong>Established pattern</strong> — matches the existing
+<code>data-control-vulnerability</code> demo, so follow-on demos benefit
+from consistency</li>
+</ol>
+<h3 id="alternatives-rejected">Alternatives Rejected</h3>
+<table>
+<thead>
+<tr>
+<th>Alternative</th>
+<th>Rejected because</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>React/Vite</strong></td>
+<td>Build step overhead; framework learning curve during a same-day
+build; heavier for deployment</td>
+</tr>
+<tr>
+<td><strong>Svelte</strong></td>
+<td>Same as React but even less familiar to this project</td>
+</tr>
+<tr>
+<td><strong>D3.js</strong></td>
+<td>Powerful but adds ~250KB CDN dependency; visualizations we need
+(histograms, bar charts, table filtering) are simple enough to do with
+raw SVG or Canvas</td>
+</tr>
+<tr>
+<td><strong>Chart.js</strong></td>
+<td>Simpler than D3 but still an external dependency; adds a CDN failure
+point; our charts need custom animation/interaction that doesn&#39;t fit
+Chart.js idioms cleanly</td>
+</tr>
+<tr>
+<td><strong>Observable notebook</strong></td>
+<td>Not podium-friendly UX; looks like a notebook, not a
+presentation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="library-free-visualizations--feasibility-check">Library-free
+visualizations — feasibility check</h3>
+<p>All four interactive elements from <code>brainstorm.md</code> can be
+implemented with vanilla DOM + SVG manipulation:</p>
+<ol type="1">
+<li><strong>Act 2 linkage attack</strong> — HTML tables with JS
+filtering. Pure DOM, no library. Trivial.</li>
+<li><strong>Act 3 k-anonymity transformation</strong> — HTML tables with
+CSS transitions as rows get generalized/suppressed. Trivial.</li>
+<li><strong>Act 4 epsilon slider + histogram</strong> — SVG histogram
+(10-20 rectangles) + Laplace noise sampling. See math verification
+below.</li>
+<li><strong>Act 6 minority erasure bar chart</strong> — SVG bar chart,
+same pattern as Act 4. Trivial.</li>
+</ol>
+<h2 id="mathematical-foundation">Mathematical Foundation</h2>
+<h3 id="laplace-mechanism--implementation">Laplace Mechanism —
+implementation</h3>
+<p>The Laplace mechanism for differential privacy adds noise drawn from
+Laplace(0, Δf/ε), where Δf is the sensitivity of the query and ε is the
+privacy budget.</p>
+<p>JavaScript implementation (verified working):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">laplaceNoise</span>(epsilon<span class="op">,</span> sensitivity <span class="op">=</span> <span class="dv">1</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> scale <span class="op">=</span> sensitivity <span class="op">/</span> epsilon<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> u <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="op">-</span>scale <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sign</span>(u) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(u))<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Inverse CDF sampling. ~5 lines. No library needed.</p>
+<p>For the epsilon slider demo:</p>
+<ul>
+<li><strong>ε = 0.1</strong> → scale = 10 → heavy noise</li>
+<li><strong>ε = 1.0</strong> → scale = 1 → moderate noise</li>
+<li><strong>ε = 10</strong> → scale = 0.1 → light noise</li>
+<li><strong>ε = 20</strong> → scale = 0.05 → barely any noise</li>
+</ul>
+<p>This range maps naturally to the &quot;privacy budget dial&quot; narrative from
+the podcast.</p>
+<h3 id="sensitivity-assumption">Sensitivity assumption</h3>
+<p>For the demos, we&#39;ll assume sensitivity = 1 (a count query where any
+one individual can change the count by at most 1). This is the standard
+simple case and avoids the pedagogical complexity of explaining
+sensitivity before students have grasped the core concept.</p>
+<h3 id="histogramcount-stability-under-noise">Histogram/count stability
+under noise</h3>
+<p>For a bucket count of N people with noise drawn from Laplace(0,
+1/ε):</p>
+<ul>
+<li>Expected absolute error ≈ 1/ε</li>
+<li>For small buckets (N ≤ 5), noise at ε ≤ 0.5 can flip counts to
+negative (demonstrating minority erasure in Act 6)</li>
+<li>For large buckets (N ≥ 500), noise is lost in the rounding
+(demonstrating &quot;majority groups unaffected&quot;)</li>
+</ul>
+<p>This is exactly the pedagogical payoff we want.</p>
+<h2 id="data--content-sources">Data &amp; Content Sources</h2>
+<h3 id="mock-datasets-to-build">Mock datasets (to build)</h3>
+<ol type="1">
+<li><p><strong>Act 2 — Medical records + voter list</strong></p>
+<ul>
+<li>~20 fabricated medical records: {birth_date, zip, gender,
+diagnosis}</li>
+<li>~30 fabricated voter records: {name, birth_date, zip, gender}</li>
+<li>One record overlap: &quot;Governor William Weld&quot; or equivalent</li>
+<li>Synthetic, no real data</li>
+</ul></li>
+<li><p><strong>Act 3 — k-anonymity dataset</strong></p>
+<ul>
+<li>~12 rows with {age, zip, gender, diagnosis}</li>
+<li>Designed so that after generalization to k=5, one group has
+homogeneous diagnosis (for the homogeneity attack reveal)</li>
+</ul></li>
+<li><p><strong>Act 4 — Salary/population histogram</strong></p>
+<ul>
+<li>Either a normal distribution of ~1000 synthetic salaries (bucketed
+into histogram bins)</li>
+<li>Or a simple count query: &quot;How many people are in each age
+bucket?&quot;</li>
+</ul></li>
+<li><p><strong>Act 6 — Small community demographics</strong></p>
+<ul>
+<li>Mock town with: Majority group (950), then minorities (12, 7, 5,
+3)</li>
+<li>Bar chart with labeled groups</li>
+</ul></li>
+</ol>
+<h3 id="contentcopy">Content/copy</h3>
+<p>The script for each section will draw directly from the podcast
+transcript progression, lightly adapted for visual presentation (shorter
+sentences, callouts, key phrases). This is custom content, not
+scraped.</p>
+<h2 id="deployment-strategy">Deployment Strategy</h2>
+<h3 id="file-locations-following-existing-pattern">File locations
+(following existing pattern)</h3>
+<ul>
+<li><strong>Artifact</strong>:
+<code>course_materials/demos/differential-privacy-explainer.html</code>
+(the self-contained 1-file demo)</li>
+<li><strong>Website wrapper</strong>:
+<code>website/demos/differential-privacy-explainer/index.html</code>
+(iframe wrapper with course chrome)</li>
+</ul>
+<h3 id="publishing">Publishing</h3>
+<p>The website deploys via <code>scripts/deploy-website.sh</code> (based
+on repo pattern). The demo needs to live in a path that gets copied into
+the deployed site. Two options:</p>
+<ol type="1">
+<li><p><strong>Copy the self-contained HTML into the deployed
+tree</strong> — the existing deploy process handles
+<code>website/demos/{name}/</code> wrapper pages, but the actual demo
+file is referenced via relative path
+<code>../../course_materials/demos/data-control-vulnerability.html</code>.
+This relative path must resolve correctly in deployment.</p></li>
+<li><p><strong>Verify deployment path</strong> — check
+<code>.docs/website-deployment.md</code> during Plan phase to confirm
+the exact deployment mechanism and ensure the artifact will be publicly
+accessible.</p></li>
+</ol>
+<p>Public URL will be:
+<code>https://dallaselleman.github.io/cyb-4203-6203-spring-2026/demos/differential-privacy-explainer/</code></p>
+<h2 id="security-considerations">Security Considerations</h2>
+<ul>
+<li><strong>No user input accepted</strong> — purely display-only
+interaction (sliders, buttons). No XSS surface.</li>
+<li><strong>No external scripts</strong> — no CDN, no tracking. Matches
+existing demo pattern.</li>
+<li><strong>No real data</strong> — all datasets synthetic/fabricated.
+No FERPA exposure.</li>
+<li><strong>Static site</strong> — no backend, no authentication, no
+session management.</li>
+</ul>
+<h2 id="open-questions-resolved-in-plan-phase">Open Questions Resolved
+in Plan Phase</h2>
+<ul>
+<li>Exact dataset sizes and compositions for each act</li>
+<li>Visual design / aesthetic: match existing data-control-vulnerability
+cyberpunk style, or use a cleaner course-branded look?</li>
+<li>Transition/animation framework: pure CSS transitions, or a small JS
+animation helper?</li>
+<li>Accessibility: keyboard navigation, ARIA labels — target basic
+level</li>
+</ul>
+<h2 id="confidence-assessment">Confidence Assessment</h2>
+<p><strong>High confidence</strong> that this stack can deliver all four
+interactive elements + 8 narrative sections in a single-day build:</p>
+<ul>
+<li>Pattern is proven (existing demo works this way)</li>
+<li>Math is verified (Laplace noise is trivial)</li>
+<li>No dependency risk</li>
+<li>Deployment path is established</li>
+</ul>
+</body>
+</html>

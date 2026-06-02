@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Execute — Iteration 1 (DP Artifact)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Execute — Iteration 1 (DP Artifact)</h1>
+</header>
+<h1 id="execute--iteration-1-dp-artifact">Execute — Iteration 1 (DP
+Artifact)</h1>
+<h2 id="summary">Summary</h2>
+<p>Built a self-contained 1,766-line interactive HTML artifact
+(<code>course_materials/demos/differential-privacy-explainer.html</code>)
+teaching differential privacy fundamentals through an 8-act narrative
+structure, plus a course-website wrapper page
+(<code>website/demos/differential-privacy-explainer/index.html</code>).
+All four planned interactive elements work correctly and have been
+verified via Chrome automation against a local preview.</p>
+<p><strong>Deployment status</strong>: Dry-run succeeded. Real deploy
+deferred pending additional work in the iteration.</p>
+<h2 id="what-was-built">What Was Built</h2>
+<h3 id="file-1-course_materialsdemosdifferential-privacy-explainerhtml-1766-lines">File
+1:
+<code>course_materials/demos/differential-privacy-explainer.html</code>
+(1,766 lines)</h3>
+<p>Single self-contained HTML file with inline CSS and JavaScript. No
+build step, no framework, no external JS dependencies (only Google
+Fonts, matching the existing course demo pattern, with proper
+system-font fallbacks).</p>
+<p><strong>Structure</strong>:</p>
+<ul>
+<li>CSS design system with typography, color tokens, layout primitives
+(~500 lines)</li>
+<li>8 <code>&lt;section class=&quot;act&quot;&gt;</code> elements, one per
+narrative act (~600 lines)</li>
+<li>Inline <code>&lt;script&gt;</code> with datasets, utility functions,
+and all interactive handlers (~660 lines)</li>
+</ul>
+<p><strong>The 8 acts</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Act</th>
+<th>Title</th>
+<th>Content</th>
+<th>Interactive?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I</td>
+<td>The Illusion of Invisibility</td>
+<td>Incognito mode placebo hook</td>
+<td>Static</td>
+</tr>
+<tr>
+<td>II</td>
+<td>Patient Zero</td>
+<td>Latanya Sweeney / Governor Weld re-identification</td>
+<td><strong>Yes — live linkage attack</strong></td>
+</tr>
+<tr>
+<td>III</td>
+<td>The Spartacus Strategy</td>
+<td>k-anonymity and homogeneity attack</td>
+<td><strong>Yes — dataset transformation</strong></td>
+</tr>
+<tr>
+<td>IV</td>
+<td>The Revolution</td>
+<td>Differential privacy, frosted glass, epsilon budget</td>
+<td><strong>Yes — epsilon slider + histogram</strong></td>
+</tr>
+<tr>
+<td>V</td>
+<td>DP in the Wild</td>
+<td>Apple, Google, 2020 Census, SMPC</td>
+<td>Static + external links</td>
+</tr>
+<tr>
+<td>VI</td>
+<td>The Dark Side</td>
+<td>Minority erasure, Matthew effect, clipping</td>
+<td><strong>Yes — minority erasure visualization</strong></td>
+</tr>
+<tr>
+<td>VII</td>
+<td>Law, Theater, and Trust</td>
+<td>Quebec Law 25, privacy theater, trust gap</td>
+<td>Static</td>
+</tr>
+<tr>
+<td>VIII</td>
+<td>The Reframe</td>
+<td>Privacy as a dial, not a switch</td>
+<td>Static</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interactive-element-1--act-ii-linkage-attack">Interactive
+Element 1 — Act II: Linkage Attack</h3>
+<p>Two side-by-side tables (Anonymized Medical Records / Cambridge Voter
+Registration) with 20 and 30 rows respectively. Three filter buttons
+progressively narrow the visible rows: birth date → gender → ZIP. The
+datasets were carefully crafted so that the filter sequence matches the
+podcast narrative exactly:</p>
+<ul>
+<li>After birth filter: 20 → 6 rows on both sides</li>
+<li>After gender filter: 6 → 3 rows on both sides</li>
+<li>After ZIP filter: 3 → 1 row on both sides — reveals Governor William
+F. Weld&#39;s hypertension</li>
+</ul>
+<p>Verified in browser via automated filter sequence.</p>
+<h3 id="interactive-element-2--act-iii-k-anonymity-transformation">Interactive
+Element 2 — Act III: k-Anonymity Transformation</h3>
+<p>Three discrete buttons (k=1, k=3, k=5) that swap the dataset between
+raw, partially generalized, and fully generalized states. The data was
+designed so that at k=5:</p>
+<ul>
+<li>Five males in the &quot;30–40, 021**, M&quot; group all share &quot;Heart Disease&quot;
+diagnosis (homogeneity attack)</li>
+<li>Five females in the &quot;40–60, 021**, F&quot; group have varied diagnoses
+(protected)</li>
+<li>Two outliers (ages 72 and 104) are suppressed</li>
+</ul>
+<p>The &quot;Reveal Homogeneity Attack&quot; button activates only at k=5 and
+highlights the vulnerable group with an explanation.</p>
+<p>Verified: at k=5, exactly 5 rows show homogeneous Heart Disease in
+the first group, and the reveal button highlights them correctly.</p>
+<h3 id="interactive-element-3--act-iv-epsilon-slider--histogram">Interactive
+Element 3 — Act IV: Epsilon Slider + Histogram</h3>
+<p>The central pedagogical exhibit. An SVG histogram showing a synthetic
+salary distribution (10 bins, 1,000 people) with:</p>
+<ul>
+<li>Privacy budget slider mapping integer positions to ε via log scale:
+slider −10 → ε=0.1, slider 0 → ε=1.0, slider 13 → ε≈20</li>
+<li>Laplace noise applied client-side to each bucket count:
+<code>noise = -scale * sign(u) * ln(1 - 2|u|)</code> where scale =
+sensitivity/ε</li>
+<li>Ghosted true bars + solid noisy bars for comparison</li>
+<li>Three stat boxes: true mean, noisy mean, privacy error (signed
+delta)</li>
+<li>Dynamic interpretation text at threshold values (strong privacy /
+balance point / leaning utility / weak privacy)</li>
+<li>Re-roll button that draws fresh random noise to demonstrate the
+randomness</li>
+<li>CSS <code>backdrop-filter: blur()</code> overlay that scales
+inversely with ε (the &quot;frosted glass&quot; visual motif from the
+podcast)</li>
+</ul>
+<p>Verified across the full slider range:</p>
+<ul>
+<li>At ε=0.1: mean error ~$634, &quot;Strong privacy&quot; interpretation</li>
+<li>At ε=1.0: mean error ~$160, &quot;Balance point&quot; interpretation</li>
+<li>At ε=19.95: mean error ~$0, &quot;Weak privacy&quot; interpretation</li>
+</ul>
+<h3 id="interactive-element-4--act-vi-minority-erasure">Interactive
+Element 4 — Act VI: Minority Erasure</h3>
+<p>A horizontal bar chart of a mock town with 5 demographic groups:
+majority (950) + minorities (12, 7, 5, 3). Shares the same epsilon
+slider pattern as Act IV. Reports
+<code>max(0, round(trueCount + laplaceNoise))</code> for each group.
+When a noisy count reaches 0, the bar visually collapses to red and the
+label gets a strikethrough with an &quot;ERASED&quot; annotation.</p>
+<p>Verified via empirical re-roll testing:</p>
+<ul>
+<li>At ε=0.1 across 20 re-rolls: 23 erasures observed (majority never
+erased; minorities erased 16–47% of the time — matching the Node.js test
+results)</li>
+<li>At ε=19.95 across 20 re-rolls: 0 erasures (all groups stable)</li>
+</ul>
+<p>The stats row reports the current erased count and updates on every
+slider change or re-roll.</p>
+<h3 id="file-2-websitedemosdifferential-privacy-explainerindexhtml-230-lines">File
+2: <code>website/demos/differential-privacy-explainer/index.html</code>
+(~230 lines)</h3>
+<p>Course-website wrapper page following the exact pattern of the
+existing <code>data-control-vulnerability</code> demo wrapper.
+Includes:</p>
+<ul>
+<li>Full course navigation chrome (header, nav links)</li>
+<li>Hero section with course branding</li>
+<li>Window-titlebar decoration around the iframe (three-dot window
+controls, title, fullscreen link)</li>
+<li>Iframe pointing to
+<code>../../course_materials/demos/differential-privacy-explainer.html</code></li>
+<li>&quot;Course Context&quot; section listing Unit 8, Presentation 17, key
+concepts, interactive elements, and podcast source attribution</li>
+<li>Course footer with copyright</li>
+</ul>
+<h2 id="bugs-found-and-fixed-during-execution">Bugs Found and Fixed
+During Execution</h2>
+<h3 id="bug-1-slider-range-too-wide">Bug 1: Slider range too wide</h3>
+<p><strong>Problem</strong>: Initial slider range was
+<code>min=-10 max=30</code>, which at the top end mapped to ε=1000
+(meaningless — no privacy at that level but also no practical utility
+difference from ε=20).</p>
+<p><strong>Fix</strong>: Narrowed to <code>min=-10 max=13</code>, giving
+a meaningful range of ε ≈ 0.1 to ε ≈ 20 that aligns with the plan&#39;s
+specification and the pedagogical thresholds (0.5, 2, 10) used in the
+interpretation text.</p>
+<h3 id="bug-2-non-blocking-true-salary-mean-doesnt-match-plan-description">Bug
+2 (non-blocking): True salary mean doesn&#39;t match plan description</h3>
+<p><strong>Problem</strong>: The plan document described the synthetic
+salary distribution as &quot;mean=$55k&quot; but the bin counts I used actually
+yield a true mean of <strong>$59,400</strong>. This is a plan-vs-code
+inconsistency, not a code bug.</p>
+<p><strong>Resolution</strong>: Left as-is. The artifact computes and
+displays the true mean dynamically, so students see the correct number.
+The plan&#39;s description was imprecise, but the demo is internally
+consistent.</p>
+<h2 id="acceptance-criteria-results">Acceptance Criteria Results</h2>
+<p>Running against the checklist from <code>plan.md</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Artifact file exists, self-contained, has all 8 acts</td>
+<td><strong>Pass</strong> — 1,766 lines, all 8
+<code>&lt;section class=&quot;act&quot;&gt;</code> elements verified</td>
+</tr>
+<tr>
+<td>All 4 interactive elements function correctly</td>
+<td><strong>Pass</strong> — all four verified in Chrome automation</td>
+</tr>
+<tr>
+<td>Wrapper page exists and iframes the artifact</td>
+<td><strong>Pass</strong> — loads, correct title, correct iframe src,
+full course chrome</td>
+</tr>
+<tr>
+<td>Narrative tracks the podcast progression</td>
+<td><strong>Pass</strong> — each act&#39;s copy lifts directly from the
+podcast arc extracted in the brainstorm phase</td>
+</tr>
+<tr>
+<td>Loads in Chrome on macOS</td>
+<td><strong>Pass</strong> — verified via Chrome MCP</td>
+</tr>
+<tr>
+<td>Loads in Safari on macOS</td>
+<td><strong>Not tested yet</strong> — Safari verification deferred to
+Verify phase</td>
+</tr>
+<tr>
+<td>No console errors on load</td>
+<td><strong>Pass</strong> — <code>read_console_messages</code> returned
+zero errors</td>
+</tr>
+<tr>
+<td>No external JS dependencies</td>
+<td><strong>Pass</strong> — only Google Fonts CSS import (matches
+existing course demo pattern); zero JS libraries</td>
+</tr>
+<tr>
+<td>Laplace noise computed client-side (verified via re-roll)</td>
+<td><strong>Pass</strong> — re-roll produces different values on every
+click</td>
+</tr>
+<tr>
+<td>Epsilon slider produces visible, continuous changes</td>
+<td><strong>Pass</strong> — verified across 3 slider positions with
+quantitative output</td>
+</tr>
+<tr>
+<td>Deployed to public website</td>
+<td><strong>Deferred</strong> — dry-run passed, real deploy held pending
+further iteration work</td>
+</tr>
+<tr>
+<td>Synthetic/mock data only</td>
+<td><strong>Pass</strong> — all datasets are fabricated; the &quot;William F.
+Weld&quot; record is a historical reference with a public diagnosis known
+from the Sweeney 1997 incident</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes-for-verify-phase">Notes for Verify Phase</h2>
+<p>Remaining verification work to do:</p>
+<ol type="1">
+<li><strong>Safari compatibility check</strong> — the existing course
+demo pattern works in Safari, but this file uses
+<code>backdrop-filter</code> which has had partial support historically;
+confirm the frosted glass effect renders (or degrades gracefully) in
+Safari</li>
+<li><strong>Visual inspection of each section</strong> — automated tests
+confirmed functional behavior, but a human-visible walkthrough to check
+layout, typography, and transitions is still needed</li>
+<li><strong>Re-roll UX</strong> — verify that clicking &quot;Re-roll Noise&quot;
+on Act IV and Act VI is visibly satisfying (bars should animate/jump,
+not just silently update)</li>
+<li><strong>External links in Act V</strong> — confirm the DP Tetris and
+CT Census links open in a new tab</li>
+<li><strong>Content review</strong> — sanity-check the narrative copy
+for typos, unclear phrasing, or factual errors (the 87% Sweeney
+statistic, the 1945-07-31 birth date, the Quebec Law 25 figures)</li>
+<li><strong>Overall flow</strong> — read through from top to bottom as a
+student would and note any pacing issues</li>
+</ol>
+</body>
+</html>

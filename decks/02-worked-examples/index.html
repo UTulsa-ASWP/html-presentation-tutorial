@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Worked Examples — Building an HTML Presentation and a Search-Algorithm Demo</title>
-  <meta name="description" content="Two real builds — an interactive explainer and a search-algorithm demo — walked through with the llm-dev:cycle.">
-  <link rel="stylesheet" href="assets/styles.css">
+  <title>Worked Examples — One Cycle, Two Scales</title>
+  <meta name="description" content="Two real builds with the llm-dev:cycle — a single-iteration interactive presentation and a multi-iteration complex artifact — with the transcripts, rendered cycle docs, and live artifacts to prove it.">
+  <link rel="stylesheet" href="assets/styles.css?v=4">
 </head>
 <body>
 
@@ -15,184 +15,312 @@
   <section class="slide title-slide">
     <div class="eyebrow">ASWP Summer 2026 · Deck 2 of 3</div>
     <h1>Worked Examples</h1>
-    <p class="subtitle">Two real builds, one cycle phase at a time — an interactive HTML
-      presentation and a search-algorithm demo, with the transcripts and artifacts to
-      prove it.</p>
-    <div class="attribution">DP Explainer · Search-Algorithm Demo · live, offline artifacts</div>
+    <p class="subtitle">This deck walks through two real examples, using llm-dev:cycle in
+      single- and multi-iteration sessions to produce real things. <br> Each example includes
+      session transcript excerpts, rendered dev-cycle documents, and the live interactive
+      artifacts produced.</p>
+    <div class="attribution"><a href="#part1" style="color:var(--gold-light);">Differential Privacy
+      Explainer (single loop)</a> · <a href="#part2" style="color:var(--gold-light);">Pathfinding
+      Algorithm Race (multi-loop)</a></div>
 
     <div class="speaker-notes">
-      <h2>Welcome to the worked example</h2>
-      <p>Deck 1 taught the cycle in the abstract; this deck shows it applied to one real
-         build — the differential-privacy explainer used in a live class. Everything on
-         these slides is real: the decisions, the quotes, the bug, the refactor, all pulled
-         from the actual session transcripts and the cycle artifacts in this repo.</p>
-      <p>The finished explainer is bundled alongside this deck and runs fully offline,
-         exactly like these slides. Open it whenever a slide points to it and click through
-         the interactives yourself — seeing the artifact makes the rest of the deck concrete.</p>
+      <h2>Welcome — one cycle, two scales</h2>
+      <p>Deck 1 taught the cycle in the abstract. This deck shows it applied to two real
+         builds that sit at different scales: Part 1 is a presentation with simple
+         interactive elements, built in a single cycle iteration; Part 2 is a more complex
+         interactive artifact, built across three. Same process, two very different sizes of
+         job — that's the lesson.</p>
+      <p>Everything here is real and runs offline: the decisions, the quotes, the bugs, the
+         refactors — all pulled from the actual session transcripts and the cycle artifacts in
+         this repo. The rendered docs in the right-hand panes and the live artifacts are one
+         click away; open them as you go.</p>
     </div>
   </section>
 
-  <!-- ============ 2. STORY OF THE BUILD ==================================== -->
+  <!-- ============ 2. INTRO — TWO SCALES ==================================== -->
   <section class="slide">
-    <span class="slide-number">02</span>
+    <span class="slide-number"></span>
     <div class="slide-content">
-      <div class="eyebrow">The story</div>
-      <h2 class="slide-title">What you're about to see</h2>
-      <p class="lead">Over two work sessions, an instructor and an LLM turned a topic —
-        "explain differential privacy" — into a polished, interactive, offline web deck.</p>
-      <p>The build followed the same six phases from Deck 1. Along the way: a sharp design
-         pivot, a "no dependencies" decision that paid off, a mid-build refactor, a bug
-         caught by testing, and a same-day deploy. We'll walk each phase, then highlight the
-         moments that mattered most.</p>
-      <div class="callout">
-        <p><strong>Open it now:</strong> the finished
-          <a href="dp-explainer-deck/differential-privacy-explainer.html" target="_blank" rel="noopener">Differential Privacy
-          Explainer</a> — try the interactive demos, then come back.</p>
+      <div class="eyebrow">The idea</div>
+      <h2 class="slide-title">llm-dev:cycle works everywhere.</h2>
+      <p class="lead">Example 1 walks through a single llm-dev:cycle loop performed at the command
+        line with Claude Code. Example 2 shows multiple loops run in Claude Desktop.</p>
+      <div class="two-column">
+        <div class="callout">
+          <p><strong>Ex.1: Differential Privacy Explainer</strong> — an interactive HTML slide
+             deck produced for CYB-4203/6203: Secure &amp; Trustworthy AI at The University of
+             Tulsa, Spring 2026.</p>
+        </div>
+        <div class="callout good">
+          <p><strong>Ex.2: Pathfinding Algorithm Race</strong> — a complex interactive artifact
+             demonstrating computer science concepts for Summer ASWP work, based on an existing
+             github project.</p>
+        </div>
       </div>
+      <p>All materials shown here can be run offline locally with zero dependencies using only
+         vanilla HTML/CSS/JS, and thus are good examples of the kinds of things we can produce
+         this summer for our ASWP work.</p>
     </div>
 
     <div class="speaker-notes">
-      <h2>The story in one breath</h2>
-      <p>This is "how it really went," not an idealized version. The point of the deck is
-         that the cycle produces a real artifact at every step, and that the messy parts — a
-         bug caught late, a mid-build refactor, a same-day time crunch — are normal, not
-         signs that something went wrong.</p>
-      <p>Before reading on, it's worth opening the explainer link and clicking one
-         interactive, so the rest of the deck has something concrete to point back to.</p>
+      <h2>Two scales, not two topics</h2>
+      <p>The split is deliberately along a scale axis, not a "slides vs apps" axis — both
+         builds are interactive HTML. Part 1 is what a single, well-run cycle produces; Part 2
+         is what happens when you keep iterating. Framing it this way makes the point that the
+         cycle is the same whether the job is small or large.</p>
+      <p>Tell the team: watch how Part 1 goes phase-by-phase through one build, then Part 2
+         switches to going iteration-by-iteration — because for a multi-pass build, the
+         iterations <em>are</em> the story.</p>
     </div>
   </section>
 
-  <!-- ============ 3. PHASE 1 — REVIEW ====================================== -->
+  <!-- ============ 3. PART 1 DIVIDER ======================================== -->
+  <section class="slide title-slide" id="part1">
+    <div class="eyebrow">Part 1</div>
+    <h1>A Single-Iteration<br>Interactive Presentation</h1>
+    <p class="subtitle">The Differential Privacy Explainer — built in one cycle, walked
+      phase by phase. <a href="dp-explainer-deck/differential-privacy-explainer.html"
+      target="_blank" rel="noopener" style="color:var(--gold-light);">Open the finished
+      explainer&nbsp;↗</a></p>
+    <div class="attribution">claude code cli · one iteration + linear polishing · ~1,766 lines</div>
+
+    <div class="speaker-notes">
+      <h2>Part 1 — the presentation build</h2>
+      <p>This is the part to slow down on: it's a complete, honest walk through one cycle,
+         start to finish. Each of the next six slides pairs the actual conversation that drove
+         a phase (left) with the rendered cycle document it produced (right). Encourage the
+         team to open the live explainer first so the phases have something concrete to point at.</p>
+    </div>
+  </section>
+
+  <!-- ============ 4. PHASE 1 — REVIEW ====================================== -->
   <section class="slide">
-    <span class="slide-number">03</span>
-    <div class="slide-content">
+    <span class="slide-number"></span>
+    <div class="slide-content split-slide">
       <div class="eyebrow">Phase 1 · Review</div>
-      <h2 class="slide-title">The constraint that shaped everything</h2>
-      <p>The very first phase pinned down the hard limit the whole build had to respect:</p>
-      <div class="callout warn">
-        <p>"Must be ready by tomorrow… Single-session build."</p>
+      <h2 class="slide-title">Establishing initial requirements and state.</h2>
+      <div class="split">
+        <div class="col-left bubbles">
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"I'd like to run an llm-dev cycle to develop an <strong>interactive demo I can
+               present in class tomorrow</strong> — privacy-enhancing and security tech:
+               differential privacy and federated learning."</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Ran Phase 1 Review — first iteration, so I loaded the course context, wrote
+               review.md, and opened the design questions.</p></div>
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"This could be an app where students participate by scanning a QR code… or just a
+               demo I do on screen, though I'd like them <strong>engaged through
+               participation</strong> somehow."</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Captured the constraints — same-day (April 6) build, instructor laptop, no
+               assumed student devices — and flagged podium connectivity as uncertain.</p></div>
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"Help me understand what differential privacy protects against, and then let's
+               think about <strong>how to demonstrate a real-world use case</strong>."</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Explained DP's threat model — re-identification from query results, the epsilon
+               guarantee, Census/Apple/Google deployments — and argued for an attack-then-defense
+               demo.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-label">Rendered Review doc</div>
+          <div class="doc-pane">
+            <iframe src="dp-explainer-deck/llm-dev-cycle-artifacts/review.html"
+              title="DP Explainer — Review doc" loading="lazy"></iframe>
+          </div>
+          <a class="pane-link" href="dp-explainer-deck/llm-dev-cycle-artifacts/review.html"
+            target="_blank" rel="noopener">Open the full Review doc ↗</a>
+        </div>
       </div>
-      <p>A same-day deadline with a live, in-class demo and no server to lean on. That one
-         constraint quietly decided the tool, the scope, and the format before a line of
-         code existed.</p>
-      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/review.md" target="_blank" rel="noopener">Read the full Review doc →</a></p>
     </div>
     <div class="speaker-notes">
       <h2>Phase 1: Review</h2>
       <p>The teaching point: naming the hard constraint early is what makes every later
-         decision obvious. Here "same-day + offline + live demo" does all the work — it
-         quietly settles the tool, the scope, and the format before any code exists.</p>
-      <p>When you run your own cycle, this is the phase to pin down who the audience is, how
-         the result is delivered, and what it has to run on. Those constraints cascade
-         through everything downstream.</p>
+         decision obvious. "Same-day + offline + live demo" quietly settles the tool, the
+         scope, and the format before any code exists.</p>
+      <p>The pane on the right is the actual Review document the phase produced — point at it
+         to show that each phase leaves a real, readable artifact behind, not just a chat log.</p>
     </div>
   </section>
 
-  <!-- ============ 4. PHASE 2 — BRAINSTORM ================================== -->
+  <!-- ============ 5. PHASE 2 — BRAINSTORM ================================== -->
   <section class="slide">
-    <span class="slide-number">04</span>
-    <div class="slide-content">
+    <span class="slide-number"></span>
+    <div class="slide-content split-slide">
       <div class="eyebrow">Phase 2 · Brainstorm</div>
-      <h2 class="slide-title">The pivot: explain, don't crowdsource</h2>
-      <p>The tempting idea was a participatory, multi-device demo. Brainstorm rejected it
-         in favor of an instructor-driven explainer:</p>
-      <div class="callout">
-        <p>"A well-designed interactive explainer can drive discussion as effectively as
-           participation."</p>
+      <h2 class="slide-title">Explore conceptual solutions and solidify proposal</h2>
+      <div class="split">
+        <div class="col-left bubbles">
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"For Differential Privacy — what questions could gather data used in real ML
+               applications? Rather than unread emails, how about <strong>late or missing
+               assignments</strong>…"</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Proposed a realistic student-retention-risk scenario (sleep, screen time,
+               late/missing assignments → at-risk) — deliberately uncomfortable, so the privacy
+               tension lands.</p></div>
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"I think we need to <strong>pivot to an interactive artifact that students won't
+               necessarily use, but that I can run from the podium</strong>…"</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Reframed scope to a self-contained, instructor-driven explainer of DP
+               fundamentals — a clean problem-to-mechanism walkthrough existing tools didn't
+               fill.</p></div>
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"I'd like to <strong>follow the general progression of this podcast</strong> to
+               teach the DP section — extract the themes and ideas."</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Extracted an 8-act progression and proposed mirroring it as the artifact's
+               story-first structure, with interactive moments at the key beats; wrote
+               brainstorm.md.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-label">Rendered Brainstorm doc</div>
+          <div class="doc-pane">
+            <iframe src="dp-explainer-deck/llm-dev-cycle-artifacts/brainstorm.html"
+              title="DP Explainer — Brainstorm doc" loading="lazy"></iframe>
+          </div>
+          <a class="pane-link" href="dp-explainer-deck/llm-dev-cycle-artifacts/brainstorm.html"
+            target="_blank" rel="noopener">Open the full Brainstorm doc ↗</a>
+        </div>
       </div>
-      <p>This was the foundational <strong>key moment</strong>: the narrative and pedagogy
-         were designed <em>first</em>, then the interactive demos were mapped onto that arc
-         — not the other way around.</p>
-      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/brainstorm.md" target="_blank" rel="noopener">Read the full Brainstorm doc →</a></p>
     </div>
     <div class="speaker-notes">
       <h2>Phase 2: Brainstorm</h2>
-      <p>Story-first is the lesson. The eight-act arc — Sweeney's $20 re-identification, the
-         Spartacus k-anonymity analogy, Dwork's 2006 "revolution," real deployments, and
-         minority erasure as the dark side — was designed here, in Brainstorm, before a line
-         of HTML existed.</p>
-      <p>Just as important was what got rejected: the tempting participatory, multi-device
-         demo was deliberately cut to keep a same-day build achievable. Deciding what you
-         won't build is half the value of this phase.</p>
+      <p>Story-first is the lesson. The eight-act arc was designed here, in Brainstorm, before
+         a line of HTML existed. Just as important is what got cut: the tempting participatory,
+         multi-device demo was dropped to keep a same-day build achievable.</p>
+      <p>Deciding what you <em>won't</em> build is half the value of this phase — the rendered
+         doc on the right captures both the chosen arc and the rejected alternatives.</p>
     </div>
   </section>
 
-  <!-- ============ 5. PHASE 3 — RESEARCH ==================================== -->
+  <!-- ============ 6. PHASE 3 — RESEARCH ==================================== -->
   <section class="slide">
-    <span class="slide-number">05</span>
-    <div class="slide-content">
+    <span class="slide-number"></span>
+    <div class="slide-content split-slide">
       <div class="eyebrow">Phase 3 · Research</div>
-      <h2 class="slide-title">Zero dependencies, on purpose</h2>
-      <div class="callout good">
-        <p>"Vanilla HTML/CSS/JavaScript in a single self-contained file. No framework, no
-           build step, no external JS libraries." — <strong>Zero dependency risk.</strong></p>
+      <h2 class="slide-title">Explore technical feasibility and validate proposal</h2>
+      <div class="split">
+        <div class="col-left bubbles">
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"Let's do a <strong>full iteration for DP right now</strong> — we'll get to FL
+               later."</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Ran Phase 3 Research — studied the existing self-contained-HTML course-demo
+               pattern, zero dependencies, as the baseline.</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Verified the Laplace mechanism is ~5 lines of vanilla JS (inverse-CDF sampling) —
+               no chart library needed; all four interactives doable with raw DOM/SVG.</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Rejected React/Vite, D3, and Chart.js as needless build/dependency risk for a
+               same-day offline build; chose vanilla single-file HTML/CSS/JS. Wrote
+               research.md.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-label">Rendered Research doc</div>
+          <div class="doc-pane">
+            <iframe src="dp-explainer-deck/llm-dev-cycle-artifacts/research.html"
+              title="DP Explainer — Research doc" loading="lazy"></iframe>
+          </div>
+          <a class="pane-link" href="dp-explainer-deck/llm-dev-cycle-artifacts/research.html"
+            target="_blank" rel="noopener">Open the full Research doc ↗</a>
+        </div>
       </div>
-      <p>React, D3, Chart.js — all considered and rejected. The payoff: sophisticated
-         interactivity (Laplace-noise sampling, live SVG histograms, sliders) built in pure
-         client-side JavaScript, with nothing to break between now and class tomorrow.</p>
-      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/research.md" target="_blank" rel="noopener">Read the full Research doc →</a></p>
     </div>
     <div class="speaker-notes">
       <h2>Phase 3: Research</h2>
       <p>This is the decision that makes the artifact <em>offline</em> — the same reason our
-         tutorial decks are vanilla too. The reflex is to reach for a framework (React, D3,
-         Chart.js); Research rejected all of them in favor of the simplest tool that meets
-         the requirements.</p>
+         tutorial decks are vanilla too. React, D3, and Chart.js were all considered and
+         rejected in favor of the simplest tool that meets the requirements.</p>
       <p>The payoff is sophisticated interactivity — Laplace-noise sampling, live SVG
-         histograms, sliders — built in pure client-side JavaScript, with nothing that can
-         break between now and class tomorrow.</p>
+         histograms, sliders — in pure client-side JavaScript, with nothing that can break
+         between now and class tomorrow.</p>
     </div>
   </section>
 
-  <!-- ============ 6. PHASE 4 — PLAN ======================================== -->
+  <!-- ============ 7. PHASE 4 — PLAN ======================================== -->
   <section class="slide">
-    <span class="slide-number">06</span>
-    <div class="slide-content">
+    <span class="slide-number"></span>
+    <div class="slide-content split-slide">
       <div class="eyebrow">Phase 4 · Plan</div>
-      <h2 class="slide-title">An ordered build, with room to split</h2>
-      <p>Plan laid out the file structure and an ordered sequence: scaffold first, then
-         build the narrative acts in order, then the interactive exhibits, then deploy.</p>
-      <p>It started as a single self-contained file — but planned for a clean structure that
-         could <strong>split as complexity grew</strong>. That foresight set up the refactor
-         we'll see in Execute.</p>
-      <div class="callout">
-        <p>Acceptance criteria were written as pass/fail checks — the same ones Verify would
-           later confirm.</p>
+      <h2 class="slide-title">Build process sequence for implementing solution</h2>
+      <div class="split">
+        <div class="col-left bubbles">
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"<strong>Let's plan.</strong>"</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Ran Phase 4 Plan — wrote plan.md with the file structure, an 11-step ordered build
+               sequence, and a ~10-hour budget with fallbacks.</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Sequenced the build act-by-act (scaffold → Acts 1–8 → wrapper → deploy), giving
+               the k-anonymity and epsilon-slider exhibits the most time.</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Defined per-step acceptance criteria, a manual test checklist, and explicit
+               out-of-scope boundaries — then offered to execute.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-label">Rendered Plan doc</div>
+          <div class="doc-pane">
+            <iframe src="dp-explainer-deck/llm-dev-cycle-artifacts/plan.html"
+              title="DP Explainer — Plan doc" loading="lazy"></iframe>
+          </div>
+          <a class="pane-link" href="dp-explainer-deck/llm-dev-cycle-artifacts/plan.html"
+            target="_blank" rel="noopener">Open the full Plan doc ↗</a>
+        </div>
       </div>
-      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/plan.md" target="_blank" rel="noopener">Read the full Plan doc →</a></p>
     </div>
     <div class="speaker-notes">
       <h2>Phase 4: Plan</h2>
       <p>A good plan is self-contained — someone else could execute it without being in the
-         room. Two things this one got right: an ordered build sequence (scaffold →
-         narrative acts → interactive exhibits → deploy), and acceptance criteria written as
-         pass/fail checks, which are exactly what Verify confirms later.</p>
-      <p>The "plan for a structure that can split as complexity grows" foresight is the
-         direct setup for the refactor on slide 9 — good plans anticipate where the pressure
+         room. Two things this one got right: an ordered build sequence (scaffold → narrative
+         acts → interactive exhibits → deploy), and acceptance criteria written as pass/fail
+         checks, which are exactly what Verify confirms later.</p>
+      <p>The "plan for a structure that can split as complexity grows" foresight is the direct
+         setup for the refactor two slides from now — good plans anticipate where the pressure
          will land.</p>
     </div>
   </section>
 
-  <!-- ============ 7. PHASE 5 — EXECUTE ===================================== -->
+  <!-- ============ 8. PHASE 5 — EXECUTE ===================================== -->
   <section class="slide">
-    <span class="slide-number">07</span>
-    <div class="slide-content">
+    <span class="slide-number"></span>
+    <div class="slide-content split-slide">
       <div class="eyebrow">Phase 5 · Execute</div>
-      <h2 class="slide-title">Build, test, fix — in the open</h2>
-      <p>Roughly 1,766 lines came together, with every interactive exhibit tested in the
-         browser as it landed. Testing immediately paid off:</p>
-      <div class="callout warn">
-        <p>The epsilon slider's range was too wide. Fix: "Narrowed to <code>min=-10
-           max=13</code>, giving a meaningful range of ε ≈ 0.1 to ε ≈ 20."</p>
+      <h2 class="slide-title">Implement solution</h2>
+      <div class="split">
+        <div class="col-left bubbles">
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"<strong>Execute!</strong>"</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Built the ~1,766-line self-contained artifact; Node-tested the linkage filter
+               (20→6→3→1, landing on Gov. Weld) and the Laplace math.</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Testing caught a too-wide epsilon slider — its max mapped to ε≈1000 (meaningless)
+               — and capped it at ε≈20.</p></div>
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"Let's try again — I just enabled the Chrome MCP and enabled the <strong>browser
+               extension</strong>."</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Page loaded — verified all four interactives in-browser (linkage, k-anonymity,
+               epsilon slider, minority erasure), no console errors, and screenshotted.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-label">Rendered Execute doc</div>
+          <div class="doc-pane">
+            <iframe src="dp-explainer-deck/llm-dev-cycle-artifacts/execute.html"
+              title="DP Explainer — Execute doc" loading="lazy"></iframe>
+          </div>
+          <a class="pane-link" href="dp-explainer-deck/differential-privacy-explainer.html#slide-13"
+            target="_blank" rel="noopener">See the fixed ε-slider live ↗</a>
+        </div>
       </div>
-      <p>The demo was complete but <em>pedagogically broken</em> until that fix made the
-         privacy-vs-utility tradeoff actually teachable.</p>
-      <div class="callout">
-        <p><strong>See it live:</strong> jump straight to the
-          <a href="dp-explainer-deck/differential-privacy-explainer.html#slide-13" target="_blank" rel="noopener">epsilon
-          slider</a> in the explainer and re-roll the noise to feel the fix.</p>
-      </div>
-      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/execute.md" target="_blank" rel="noopener">Read the full Execute doc →</a></p>
     </div>
     <div class="speaker-notes">
       <h2>Phase 5: Execute</h2>
@@ -200,108 +328,370 @@
          because each interactive was exercised in the browser as it landed, not at the end —
          and until that fix the demo was complete but pedagogically broken, since the
          privacy-vs-utility tradeoff wasn't legible.</p>
-      <p>The slide links straight to the fixed slider (<code>#slide-13</code>); re-roll the
-         noise a few times to feel both the randomness and why the narrowed range matters.</p>
+      <p>The link jumps straight to the fixed slider; re-roll the noise a few times to feel
+         both the randomness and why the narrowed range matters.</p>
     </div>
   </section>
 
-  <!-- ============ 8. PHASE 6 — VERIFY ====================================== -->
+  <!-- ============ 9. PHASE 6 — VERIFY ====================================== -->
   <section class="slide">
-    <span class="slide-number">08</span>
-    <div class="slide-content">
+    <span class="slide-number"></span>
+    <div class="slide-content split-slide">
       <div class="eyebrow">Phase 6 · Verify</div>
-      <h2 class="slide-title">Proven by hand, with evidence</h2>
-      <div class="callout good">
-        <p>"Status: COMPLETE — manually verified by user… hands-on in Chrome on macOS."</p>
+      <h2 class="slide-title">Check implementation against initial requirements</h2>
+      <div class="split">
+        <div class="col-left bubbles">
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"<strong>I've been through the verify phase</strong> — the split artifact works in
+               Chrome, all 18 slides and exhibits are good, speaker notes and key/slider focus
+               all work."</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Treated this as the manual verification of record — wrote verify.md marking all
+               acceptance criteria PASS, with deviations documented.</p></div>
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"Write review.md as complete, <strong>verified against acceptance criteria,
+               manually verified by me</strong>. You don't have to walk the slides — they're
+               good."</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Recorded the consciously deferred items — a Safari smoke-test (low risk) and
+               public deployment — plus the educational-fair-use decision.</p></div>
+          <div class="bubble user"><span class="who">Instructor</span>
+            <p>"<strong>We're still developing, so do not deploy.</strong>"</p></div>
+          <div class="bubble assistant"><span class="who">Assistant</span>
+            <p>Held the deploy per instruction, fixed a stale wrapper title in three spots, and
+               confirmed the artifact was production-ready but intentionally not yet live.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-label">Rendered Verify doc</div>
+          <div class="doc-pane">
+            <iframe src="dp-explainer-deck/llm-dev-cycle-artifacts/verify.html"
+              title="DP Explainer — Verify doc" loading="lazy"></iframe>
+          </div>
+          <a class="pane-link" href="dp-explainer-deck/llm-dev-cycle-artifacts/verify.html"
+            target="_blank" rel="noopener">Open the full Verify doc ↗</a>
+        </div>
       </div>
-      <p>Every slide and all four interactive exhibits were walked through by a human in the
-         browser. Two items — Safari and public deploy — were consciously deferred as
-         low-risk, not silently skipped.</p>
-      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/verify.md" target="_blank" rel="noopener">Read the full Verify doc →</a></p>
     </div>
     <div class="speaker-notes">
       <h2>Phase 6: Verify</h2>
-      <p>Evidence over assertion: "verified hands-on in Chrome on macOS, all four
-         interactives exercised" beats "looks done." Every slide and exhibit was walked
-         through by a human in the browser.</p>
-      <p>The honest part worth highlighting: Safari and a public deploy were consciously
-         deferred as low-risk and recorded as known gaps, rather than silently skipped. That
-         explicit scope management is what separates verification from wishful thinking.</p>
+      <p>Evidence over assertion: "verified hands-on in Chrome, all interactives exercised"
+         beats "looks done." The honest part worth highlighting: Safari and a public deploy
+         were consciously deferred as low-risk and recorded as known gaps, rather than
+         silently skipped.</p>
+      <p>That explicit scope management — and the instructor's "do not deploy" — is what
+         separates verification from wishful thinking.</p>
     </div>
   </section>
 
-  <!-- ============ 9. KEY MOMENT — THE REFACTOR ============================= -->
+  <!-- ============ 10. KEY MOMENT — THE REFACTOR =========================== -->
   <section class="slide">
-    <span class="slide-number">09</span>
+    <span class="slide-number"></span>
     <div class="slide-content">
-      <div class="eyebrow">Key moment</div>
-      <h2 class="slide-title">One file became three — mid-build</h2>
-      <p>As slides multiplied and interactivity grew, the monolithic HTML file was
-         refactored on the fly into three:</p>
-      <div class="stats-row">
+      <div class="eyebrow">Key Pivot / lesson learned during post-loop slide deck polish pass</div>
+      <h2 class="slide-title">Mid-build monolithic file split</h2>
+      <p>After the initial <code>llm-dev:cycle</code> pass, Claude and I began polishing each
+         slide by hand. As slides multiplied and interactivity grew, editing the single monolithic
+         html+css+js file grew slower and slower. I got tired of waiting, and asked Claude:</p>
+      <div class="callout">
+        <p>"What's the best way to <strong>break this up</strong> so that you don't have to
+           read the entire HTML file and modify it every single turn of conversation?"</p>
+      </div>
+      <p>Claude's solution was to split the file into 3 parts:</p>
+      <div class="stats-row" style="justify-content:center; width:100%;">
         <div class="stat-box"><div class="value">.html</div><div class="label">content</div></div>
         <div class="stat-box"><div class="value">.css</div><div class="label">styling</div></div>
         <div class="stat-box"><div class="value">.js</div><div class="label">interactivity</div></div>
       </div>
-      <p>It was safe because the IDs weren't referenced in JS and the slide counter
-         auto-computes from <code>slideElements.length</code> — so there were no hardcoded
-         numbers to break. Structure emerged exactly when complexity demanded it.</p>
+      <p>Doing this kind of thing from the beginning probably would have been obvious to an
+         experienced web dev, which I am not (but I'm getting there, thanks to Claude : )</p>
     </div>
     <div class="speaker-notes">
       <h2>The refactor</h2>
       <p>This is "refactoring emerges from the cycle" made concrete. The one-file-to-three
-         split wasn't scheduled — it was triggered when the growing code signaled it was time.</p>
+         split wasn't scheduled — it was triggered when the growing code (and the cost of
+         re-editing one huge file every turn) signaled it was time.</p>
       <p>It was safe specifically because the slide IDs weren't referenced in JS and the
-         counter auto-computes from <code>slideElements.length</code>, so there were no
-         hardcoded numbers to break. That same three-file split (.html / .css / .js) is what
-         our starter template ships with.</p>
+         counter auto-computes from <code>slideElements.length</code>. That same three-file
+         split (.html / .css / .js) is what our starter template ships with.</p>
     </div>
   </section>
 
-  <!-- ============ 10. KEY MOMENT — HOW IT REALLY WENT ===================== -->
+  <!-- ============ 11. BRIDGE =============================================== -->
   <section class="slide">
-    <span class="slide-number">10</span>
-    <div class="slide-content">
-      <div class="eyebrow">Key moment</div>
-      <h2 class="slide-title">How it really went</h2>
-      <p>The transcripts show the human side of the build — direction given in real time:</p>
-      <div class="callout">
-        <p>"…we will just start editing the slide deck because I don't really have time to
-           go back through another iteration."</p>
-      </div>
-      <p>And decisiveness — a one-word <strong>"B"</strong> chose the stronger slide order
-         (insert the k-anonymity demo, push the homogeneity reveal down as the "even this
-         still fails" twist). A real gotcha, too: a deploy-then-sanitize
-         <code>git reset --hard</code> wiped uncommitted edits, recovered from the already
-         deployed copy.</p>
+    <span class="slide-number"></span>
+    <div class="slide-content centered">
+      <div class="eyebrow">From Part 1 to Part 2</div>
+      <h2 class="slide-title">More complexity &rarr; more iterations</h2>
+      <p class="lead">Example 1 showed a single <code>llm-dev:cycle</code> followed by a long,
+        linear polishing pass run from Claude Code at the command line. <br> Example 2 shows 3
+        <code>llm-dev:cycle</code> iterations with zero linear polishing, run from the Claude
+        Desktop app in a normal chat session.</p>
     </div>
     <div class="speaker-notes">
-      <h2>How it really went</h2>
-      <p>Humanize the process: it bends to real constraints. Time pressure led to skipping a
-         formal iteration and editing the deck directly; a decision can be a single keystroke
-         ("B" chose the stronger slide order); and tools have sharp edges — a
-         deploy-then-sanitize <code>git reset --hard</code> wiped uncommitted edits,
-         recovered only from the already-deployed copy.</p>
-      <p>None of this is failure. It's what real builds look like, and the transcripts
-         preserve it honestly.</p>
+      <h2>The bridge</h2>
+      <p>Reset expectations here. Part 2 won't go phase-by-phase — for a multi-pass build, the
+         interesting structure is the sequence of iterations, each a small complete cycle that
+         adds one capability while protecting everything already working.</p>
+      <p>Plant the tool-agnostic flag now ("built in a different app") so the closing slide
+         lands as a payoff rather than a surprise.</p>
     </div>
   </section>
 
-  <!-- ============ 11. CLOSE ================================================= -->
+  <!-- ============ 13. PART 2 DIVIDER ====================================== -->
+  <section class="slide title-slide" id="part2">
+    <div class="eyebrow">Part 2</div>
+    <h1>A Multi-Iteration<br>Complex Artifact</h1>
+    <p class="subtitle">Pathfinding Algorithm Race — BFS, Dijkstra, Greedy Best-First, and A*
+      racing across a shared maze in parallel.</p>
+    <div class="attribution">claude desktop app · three iterations + zero polishing · 571 → 891 → 907 lines</div>
+
+    <div class="speaker-notes">
+      <h2>Part 2 — the iterated artifact</h2>
+      <p>This is the more ambitious build: four search algorithms animated side-by-side on a
+         shared, user-editable weighted maze, with a per-panel scoreboard. The next three
+         slides each take one iteration — left lists all six cycle phases for that pass, right
+         runs the actual artifact <em>as it stood at the end of that iteration</em>, so the team
+         can watch it grow 571 → 891 → 907 lines.</p>
+      <p>Each iteration slide has a <strong>Launch Full Artifact</strong> button to open that
+         version full-screen in a new tab; the finished build is also on the closing slide.</p>
+    </div>
+  </section>
+
+  <!-- ============ 14. ITERATION 1 — CORE RACE ============================= -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content split-slide">
+      <div class="eyebrow">Iteration 1 · Core Race</div>
+      <h2 class="slide-title">Build and prove the basic app</h2>
+      <p class="intro">Four algorithms race in lockstep on one shared weighted maze; each panel
+        scores <strong>cells visited, path cost, and optimality</strong>.</p>
+      <div class="split">
+        <div class="col-left highlights">
+          <div class="hl"><span class="hl-phase">1 · Review/Reflect</span>
+            <p>Scoped an offline single-file pathfinding demo; narrowed to four contrasting algorithms.</p></div>
+          <div class="hl"><span class="hl-phase">2 · Brainstorm</span>
+            <p>Chose four algorithms racing in lockstep on shared weighted terrain.</p></div>
+          <div class="hl"><span class="hl-phase">3 · Research</span>
+            <p>Prototyped and ran the search engine in Node; validated optimality, min-heap, DOM rendering.</p></div>
+          <div class="hl"><span class="hl-phase">4 · Plan</span>
+            <p>Laid out the single-file structure and a seven-step build with twelve acceptance criteria.</p></div>
+          <div class="hl"><span class="hl-phase">5 · Execute</span>
+            <p>Built the ~520-line file; 84 tests green; race contrast confirmed headlessly.</p></div>
+          <div class="hl"><span class="hl-phase">6 · Verify</span>
+            <p>Re-ran all suites fresh plus a user browser check; 12/12 criteria passed.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-head">
+            <span class="pane-label">Live · Core Race (iteration 1 · 571 lines)</span>
+            <a class="launch-btn" href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-1/pathfinding-race.html"
+              target="_blank" rel="noopener">Launch Full Artifact ↗</a>
+          </div>
+          <div class="doc-pane">
+            <iframe src="search-alg-artifact/llm-dev-cycle-artifacts/iteration-1/pathfinding-race.html"
+              title="Pathfinding Race — iteration 1 (Core Race)" loading="lazy"></iframe>
+          </div>
+          <div class="pane-links">
+            <span class="pane-label" style="margin:0;">Cycle docs:</span>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-1/review.html" target="_blank" rel="noopener">Review ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-1/brainstorm.html" target="_blank" rel="noopener">Brainstorm ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-1/research.html" target="_blank" rel="noopener">Research ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-1/plan.html" target="_blank" rel="noopener">Plan ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-1/execute.html" target="_blank" rel="noopener">Execute ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-1/verify.html" target="_blank" rel="noopener">Verify ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="speaker-notes">
+      <h2>Iteration 1 — Core Race</h2>
+      <p>The discipline beat here is <strong>prototype-before-commit</strong>: the pathfinding
+         engine was built and unit-tested in Node first, then ported into the HTML and
+         re-tested to prove the port was faithful. The artifact shipped with zero known bugs
+         because the logic was proven outside the UI before it ever rendered.</p>
+      <p>The right pane runs the 571-line first version — let the team scrub the maze and watch
+         BFS vs A* diverge, then note that everything after this is built on a tested core.</p>
+    </div>
+  </section>
+
+  <!-- ============ 15. ITERATION 2 — STUDY MODE ============================ -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content split-slide">
+      <div class="eyebrow">Iteration 2 · Study Mode</div>
+      <h2 class="slide-title">Add algorithm pseudocode step-through</h2>
+      <p class="intro">Adds a <strong>Study Mode</strong> that focuses one algorithm and walks
+        its pseudocode line-by-line, synced to the grid.</p>
+      <div class="split">
+        <div class="col-left highlights">
+          <div class="hl"><span class="hl-phase">1 · Review/Reflect</span>
+            <p>Reflected on iteration 1; flagged step-granularity as the central decision for pseudocode highlighting.</p></div>
+          <div class="hl"><span class="hl-phase">2 · Brainstorm</span>
+            <p>Chose a focused line-by-line Study Mode over one shared skeleton; default off.</p></div>
+          <div class="hl"><span class="hl-phase">3 · Research</span>
+            <p>Unified race and study on one generator micro-stepper, validated against the iteration-1 oracle.</p></div>
+          <div class="hl"><span class="hl-phase">4 · Plan</span>
+            <p>Six steps gated on the iteration-1 regression; refactor the engine, then add the study layer.</p></div>
+          <div class="hl"><span class="hl-phase">5 · Execute</span>
+            <p>Added Study Mode; the engine refactor passed regression identically; 110 assertions green.</p></div>
+          <div class="hl"><span class="hl-phase">6 · Verify</span>
+            <p>Re-ran suites and closed three gap items with new assertions; 12/12 passed.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-head">
+            <span class="pane-label">Live · Study Mode (iteration 2 · 891 lines)</span>
+            <a class="launch-btn" href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-2/pathfinding-race.html"
+              target="_blank" rel="noopener">Launch Full Artifact ↗</a>
+          </div>
+          <div class="doc-pane">
+            <iframe src="search-alg-artifact/llm-dev-cycle-artifacts/iteration-2/pathfinding-race.html"
+              title="Pathfinding Race — iteration 2 (Study Mode)" loading="lazy"></iframe>
+          </div>
+          <div class="pane-links">
+            <span class="pane-label" style="margin:0;">Cycle docs:</span>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-2/review.html" target="_blank" rel="noopener">Review ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-2/brainstorm.html" target="_blank" rel="noopener">Brainstorm ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-2/research.html" target="_blank" rel="noopener">Research ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-2/plan.html" target="_blank" rel="noopener">Plan ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-2/execute.html" target="_blank" rel="noopener">Execute ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-2/verify.html" target="_blank" rel="noopener">Verify ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="speaker-notes">
+      <h2>Iteration 2 — Study Mode</h2>
+      <p>The discipline beat is the <strong>regression gate</strong>: before building Study
+         Mode, the entire iteration-1 test suite was re-run against the refactored engine and
+         had to produce identical results. Only then was the new feature added. That's how you
+         add capability to a working artifact without quietly breaking it.</p>
+      <p>Show the team Study Mode walking one algorithm's pseudocode line-by-line — then stress
+         that the feature was only safe to build because the core race was provably unchanged.</p>
+    </div>
+  </section>
+
+  <!-- ============ 16. ITERATION 3 — APPLE-STYLE RESTYLE =================== -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content split-slide">
+      <div class="eyebrow">Iteration 3 · Apple-style restyle</div>
+      <h2 class="slide-title">Make it look nice : )</h2>
+      <p class="intro">Same race and Study Mode, restyled into a light, Apple-style design —
+        <strong>appearance only</strong>, all behavior preserved.</p>
+      <div class="split">
+        <div class="col-left highlights">
+          <div class="hl"><span class="hl-phase">1 · Review/Reflect</span>
+            <p>Reflected on iteration 2; targeted reversing the dark theme to light, appearance-only.</p></div>
+          <div class="hl"><span class="hl-phase">2 · Brainstorm</span>
+            <p>Chose a refined light redesign: off-white surfaces, a single blue accent, re-derived cell palette.</p></div>
+          <div class="hl"><span class="hl-phase">3 · Research</span>
+            <p>Validated palette contrast with WCAG math; fixed iso-luminant path/frontier; confirmed offline system fonts.</p></div>
+          <div class="hl"><span class="hl-phase">4 · Plan</span>
+            <p>Six CSS-concentrated steps, each gated by re-running the iteration-2 regression suite.</p></div>
+          <div class="hl"><span class="hl-phase">5 · Execute</span>
+            <p>Restyled in CSS plus two markup touches; path inset-ring fix; 97 behavior assertions unchanged.</p></div>
+          <div class="hl"><span class="hl-phase">6 · Verify</span>
+            <p>Re-ran 128 assertions plus contrast fresh; user sign-off "looks amazing"; 12/12 passed.</p></div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+        <div class="col-right">
+          <div class="pane-head">
+            <span class="pane-label">Live · Apple-style restyle (iteration 3 · 907 lines · final)</span>
+            <a class="launch-btn" href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-3/pathfinding-race.html"
+              target="_blank" rel="noopener">Launch Full Artifact ↗</a>
+          </div>
+          <div class="doc-pane">
+            <iframe src="search-alg-artifact/llm-dev-cycle-artifacts/iteration-3/pathfinding-race.html"
+              title="Pathfinding Race — iteration 3 (Apple-style restyle)" loading="lazy"></iframe>
+          </div>
+          <div class="pane-links">
+            <span class="pane-label" style="margin:0;">Cycle docs:</span>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-3/review.html" target="_blank" rel="noopener">Review ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-3/brainstorm.html" target="_blank" rel="noopener">Brainstorm ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-3/research.html" target="_blank" rel="noopener">Research ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-3/plan.html" target="_blank" rel="noopener">Plan ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-3/execute.html" target="_blank" rel="noopener">Execute ↗</a>
+            <a href="search-alg-artifact/llm-dev-cycle-artifacts/iteration-3/verify.html" target="_blank" rel="noopener">Verify ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="speaker-notes">
+      <h2>Iteration 3 — Apple-style restyle</h2>
+      <p>The discipline beat is a <strong>behavior-neutral change</strong>: a full visual
+         redesign that touched no JavaScript — only styles and two markup wrappers — and then
+         re-ran the entire behavior suite to prove nothing changed underneath. The CSS-variable
+         architecture from iteration 1 is what made a redesign this clean possible.</p>
+      <p>Worth calling out: an accessibility fix (path-vs-closed cells) was done with a
+         non-color inset ring, satisfying WCAG 1.4.1 rather than just swapping colors.</p>
+    </div>
+  </section>
+
+  <!-- ============ 17. TOOL / MODEL AGNOSTIC =============================== -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content centered">
+      <div class="eyebrow">key takeaways</div>
+      <h2 class="slide-title">llm-dev:cycle adds consistent <br>(but flexible) structure</h2>
+      <p class="lead">Use it as a Claude Code plugin, <br>or load the skill files into any LLM
+        chat or IDE session.</p>
+      <div class="takeaway-chips">
+        <div class="chip"><strong>Scales with the task</strong>One pass or many — lean on each
+          phase as much as the work actually needs.</div>
+        <div class="chip"><strong>Every phase leaves an artifact</strong>Requirements, a plan,
+          tests, a verified result — so the work stays legible and reviewable.</div>
+        <div class="chip"><strong>Tool- &amp; model-agnostic</strong>The same loop runs in any
+          LLM, CLI, or IDE — the discipline travels, the vendor doesn't matter.</div>
+      </div>
+    </div>
+    <div class="speaker-notes">
+      <h2>Tool- and model-agnostic</h2>
+      <p>This is the slide that frees the team from any single product. We deliberately built
+         the two examples in two different tools to make the point concrete: the value is the
+         cycle, not the vendor. Encourage people to run it wherever they already work — the
+         artifacts and discipline transfer.</p>
+      <p>If someone asks "do I have to use Claude Code?" — no. The cycle is the portable part.</p>
+    </div>
+  </section>
+
+  <!-- ============ 18. CLOSE ================================================ -->
   <section class="slide title-slide">
     <div class="eyebrow">Your turn</div>
-    <h1>You've seen it end to end.</h1>
-    <p class="subtitle">Open the <a href="dp-explainer-deck/differential-privacy-explainer.html"
-      target="_blank" rel="noopener" style="color:var(--gold-light);">finished explainer</a>, skim the
-      <a href="dp-explainer-deck/llm-dev-cycle-artifacts/review.md" target="_blank" rel="noopener" style="color:var(--gold-light);">cycle
-      artifacts</a>, then build your own. Deck 3 covers making your slides richer.</p>
+    <h1>Two builds, one cycle.</h1>
+    <div class="path-grid">
+      <p class="path-option">
+        Open the <strong>single-iteration presentation</strong> from Part 1 — it runs fully offline.
+      </p>
+      <a class="cta-btn primary" href="dp-explainer-deck/differential-privacy-explainer.html"
+        target="_blank" rel="noopener">&#9654;&nbsp; Open the DP Explainer</a>
+
+      <p class="path-option">
+        Open the <strong>multi-iteration artifact</strong> from Part 2 — the finished Pathfinding Race.
+      </p>
+      <a class="cta-btn primary" href="search-alg-artifact/pathfinding-race.html"
+        target="_blank" rel="noopener">&#9654;&nbsp; Open the Pathfinding Race</a>
+
+      <p class="path-option">
+        Ready to build your own? Grab the starter and run a cycle on a real topic.
+      </p>
+      <a class="cta-btn ghost" href="https://github.com/UTulsa-ASWP/summer-2026-presentations#getting-started"
+        target="_blank" rel="noopener">Get started on your own &rarr;</a>
+    </div>
+
+    <p class="attribution">
+      Optional, but recommended: install the <strong>llm-dev</strong> plugin for Claude Code ·
+      github.com/DallasElleman/llm-dev<br>
+      (or load <code>skills/cycle/SKILL.md</code> into any LLM chat to run the cycle anywhere)
+    </p>
 
     <div class="speaker-notes">
       <h2>Hand-off</h2>
-      <p>The concrete next step: you now have a full worked example <em>and</em> the
-         re-themeable starter. Run <code>/llm-dev:cycle</code> on a real topic of your own —
-         the cycle artifacts and the live explainer are all here in the repo to study offline
-         first.</p>
+      <p>The concrete next step: the team now has two full worked examples at two scales — a
+         single-iteration presentation and a three-iteration artifact — plus the re-themeable
+         starter. Run <code>/llm-dev:cycle</code> on a real topic of your own; every artifact
+         and both live builds are here in the repo to study offline first.</p>
       <p>Deck 3 picks up from here, covering how to enrich your slides with richer,
          better-sourced content.</p>
     </div>
@@ -309,7 +699,7 @@
 
   <!-- ============ CHROME =================================================== -->
   <div class="slide-dots" id="slideDots"></div>
-  <div class="slide-counter" id="slideCounter">1 / 11</div>
+  <div class="slide-counter" id="slideCounter">1 / 17</div>
   <div class="nav-hint">&larr; &rarr; navigate &middot; P presenter view &middot; F fullscreen</div>
 
   <aside class="speaker-notes-panel" id="speakerNotesPanel">
@@ -318,6 +708,6 @@
     <div id="speakerNotesContent"></div>
   </aside>
 
-  <script src="assets/script.js"></script>
+  <script src="assets/script.js?v=3"></script>
 </body>
 </html>

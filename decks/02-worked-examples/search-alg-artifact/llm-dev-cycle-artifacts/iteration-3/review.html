@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 1 — Review/Reflect (Iteration 3)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 1 — Review/Reflect (Iteration 3)</h1>
+</header>
+<h1 id="phase-1--reviewreflect-iteration-3">Phase 1 — Review/Reflect
+(Iteration 3)</h1>
+<h2 id="reflection-on-iteration-2">Reflection on Iteration 2</h2>
+<p><strong>What worked — carry forward:</strong></p>
+<ul>
+<li><em>CSS-variable palette + semantic structure.</em> Colors and
+surfaces are driven by <code>:root</code> variables and component
+classes, so a restyle localizes mostly to <code>:root</code> + a handful
+of rules — minimal JS/markup churn. This is the single biggest enabler
+for this iteration.</li>
+<li><em>Behavior-based test suite as a regression guard.</em> The 111
+assertions check classes, overlays, text, and search results —
+<strong>not colours</strong>. They should pass unchanged through a pure
+restyle, which makes them a precise alarm for accidental functional
+breakage.</li>
+<li><em>Prototype/validate before committing; honest Execute→Verify
+handoff.</em> Keep both.</li>
+</ul>
+<p><strong>Assumptions to revisit:</strong></p>
+<ul>
+<li><em>The dark &quot;instrument panel&quot; aesthetic.</em> Iterations 1–2
+committed to a dark, textured, glowing technical look. This iteration
+deliberately reverses that: light, airy, restrained.</li>
+<li><em>Cell-state colours were tuned for a dark background.</em> On a
+light background the whole state palette (empty / wall / weight / start
+/ end / open / closed / path, plus the study cursors) must be re-derived
+for contrast and calm. This is the main design risk.</li>
+</ul>
+<p><strong>Carried-forward items:</strong> none outstanding — iteration
+2 closed all criteria; only the visual look-and-feel was left to human
+judgment, which this iteration revisits wholesale anyway.</p>
+<h2 id="new-requirement-this-iteration">New requirement (this
+iteration)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Reading</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R9</td>
+<td>Lighter, cleaner, simple &amp; elegant — &quot;a la Apple products&quot;</td>
+<td>Refined-minimalism redesign: light theme, generous whitespace,
+restrained colour, soft depth, clean type. Appearance only.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Constraints (unchanged):</strong> single offline
+<code>.html</code>, no dependencies, no
+<code>innerHTML</code>/<code>eval</code>. Note on fonts: we can&#39;t fetch
+web fonts offline, but the <strong>system font stack renders as SF Pro
+on Apple devices</strong> (<code>-apple-system</code>) and system-ui
+elsewhere — which is exactly the Apple look, for free and offline. Keep
+a system <strong>mono</strong> stack (SF Mono on Apple) for
+numerals/pseudocode.</p>
+<h2 id="scope">Scope</h2>
+<p>Pure visual redesign. <strong>No</strong> change to algorithms,
+controls, modes, or layout <em>structure</em>. Both the 4-up race and
+Study Mode must look cohesive in the new style and keep every behaviour.
+All 24 prior acceptance criteria (12 race + 12 study) must still
+hold.</p>
+<h2 id="gaps--ambiguities-to-resolve-in-brainstorm">Gaps / ambiguities
+to resolve in Brainstorm</h2>
+<ul>
+<li><strong>Surface palette:</strong> pure white vs. Apple&#39;s off-white
+(<code>#fbfbfd</code>/<code>#f5f5f7</code>); card elevation via soft
+shadow vs. hairline borders.</li>
+<li><strong>Accent:</strong> single Apple-blue accent
+(<code>#0071e3</code>-ish) vs. keeping muted per-algorithm accents.</li>
+<li><strong>How much to strip:</strong> remove the graph-paper texture,
+glows, and gradients? (Almost certainly yes — they&#39;re the antithesis of
+the target.)</li>
+<li><strong>Cell-state palette on light:</strong> re-derive all states
+for contrast/calm; pick Apple-system-like hues
+(systemGreen/Red/Blue/Orange/Teal). The biggest craft decision.</li>
+<li><strong>Typography:</strong> larger, lighter headings; comfortable
+body size; generous line-height/spacing.</li>
+<li><strong>Depth language:</strong> subtle, diffuse shadows and large
+corner radii vs. flat.</li>
+<li><strong>Optional/stretch:</strong> <code>prefers-color-scheme</code>
+dark variant (Apple-style apps often ship both).</li>
+</ul>
+<h2 id="candidate-approaches-for-brainstorm">Candidate approaches (for
+Brainstorm)</h2>
+<ul>
+<li><strong>A) Recolour only.</strong> Swap <code>:root</code> vars to a
+light palette; keep everything else. Fast, lowest risk, but risks
+looking like a recoloured dark UI rather than a native-light
+design.</li>
+<li><strong>B) Restyle with refinement (recommended).</strong> Light
+palette <strong>plus</strong> Apple-grade spacing, typography scale,
+corner radius, and soft depth — the things that actually make it feel
+Apple, not just lighter. Still appearance-only; structure intact.</li>
+<li><strong>C) B + dark-mode auto-switch</strong> via
+<code>prefers-color-scheme</code>. Most polished, most surface
+area.</li>
+</ul>
+<p>Recommendation: <strong>B</strong> — recolouring alone won&#39;t read as
+&quot;elegant, Apple-like&quot;; the whitespace, type, and depth refinements are
+what sell it. C is a tempting stretch but adds scope and a second
+palette to verify.</p>
+</body>
+</html>

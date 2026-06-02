@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 4 — Plan</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 4 — Plan</h1>
+</header>
+<h1 id="phase-4--plan">Phase 4 — Plan</h1>
+<p>Self-contained build plan. Target: one offline <code>.html</code>
+file, four pathfinding algorithms (BFS, Dijkstra, Greedy Best-First, A*)
+racing in lockstep on a shared weighted grid, as a teaching tool. No
+dependencies. No <code>innerHTML</code>/<code>eval</code>.</p>
+<h2 id="deliverable">Deliverable</h2>
+<p><code>pathfinding-race.html</code> — single file, inline
+<code>&lt;style&gt;</code> + single inline
+<code>&lt;script&gt;</code>.</p>
+<h2 id="internal-structure-sections-within-the-one-file">Internal
+structure (sections within the one file)</h2>
+<pre><code>pathfinding-race.html
+├── &lt;style&gt;                     palette (CSS vars), layout, cell-state classes, legend, controls
+├── markup                      header/intro, control bar, legend, 2×2 panel container, footer
+└── &lt;script&gt; (one IIFE)
+    ├── CONFIG                  grid dims, cell px, mud weight, colors-as-classes, speed map
+    ├── Model                   Cell {wall, weight}, Maze {grid, start, end}, helpers
+    ├── MinHeap                 binary min-heap, lazy deletion (validated in Research)
+    ├── Search                  stepable per-algorithm search objects (common interface)
+    ├── View                    build 4 DOM grids; renderCell(); renderDelta(); legend
+    ├── Interaction             tool select, drag-paint, drag endpoints, random, clear
+    ├── Race controller         rAF lockstep loop; Play/Step/Reset; speed; scoreboard update
+    └── init()                  wire it all up, initial maze, first render</code></pre>
+<h2 id="engine-design-the-crux-stepable-searches">Engine design (the
+crux: stepable searches)</h2>
+<p>Each algorithm is a search object with a uniform interface so the
+race loop treats all four identically:</p>
+<pre><code>makeSearch(maze, mode) -&gt; {
+  step()   // perform ONE node expansion; update internal state; return {opened:[], closed:cell|null}
+  done     // bool: finished (found goal or exhausted)
+  found    // bool: path to goal exists
+  stats    // {visited, cost, steps, optimal}  (optimal filled after all four finish)
+  path()   // array of cells from start..end (valid once found)
+  state    // open set membership + closed set, for rendering
+}</code></pre>
+<ul>
+<li>BFS: FIFO (array + head index), ignores weight, tracks
+step-count.</li>
+<li>Dijkstra/Greedy/A*: MinHeap keyed by <code>g</code> / <code>h</code>
+/ <code>g+h</code>; lazy deletion via closed check.</li>
+<li><code>g</code> accumulates <em>entering</em> cell weight;
+<code>h</code> = Manhattan distance (steps).</li>
+<li><code>optimal</code> = (this path&#39;s cost == min cost found across
+the four). Dijkstra/A* → true.</li>
+</ul>
+<h2 id="ordered-build-sequence">Ordered build sequence</h2>
+<p>Each step ≤ ~1 hour; each ends with a concrete check.</p>
+<p><strong>Step 1 — Scaffold + model.</strong> HTML skeleton (offline,
+no external refs), CSS vars/palette, <code>CONFIG</code>,
+<code>Cell</code>/<code>Maze</code> model, default dimensions (~24 cols
+× 18 rows/panel), fixed start/end positions. <em>Test:</em> page opens
+from <code>file://</code>; <code>console.log</code> of model shows
+correct dims, start, end.</p>
+<p><strong>Step 2 — Search engine (port validated prototype to stepable
+form).</strong> MinHeap + the four search objects behind the common
+interface. Keep the run-to-completion logic from the Research prototype,
+but expose it one expansion at a time. <em>Test (unit):</em> a dev
+self-test runs each search to completion on the Research fixture grid
+and asserts: A* cost == Dijkstra cost (optimal); BFS step-count ≤
+Dijkstra step-count; all four reconstruct a valid contiguous path. Run
+via Node before wiring UI.</p>
+<p><strong>Step 3 — Four-panel rendering.</strong> Build 4 CSS-grid
+panels of cell <code>&lt;div&gt;</code>s
+(<code>data-r</code>/<code>data-c</code>) from the shared maze;
+<code>renderCell</code> applies state classes
+(start/end/wall/weight/open/closed/path); shared legend. <em>Test:</em>
+four panels show identical maze; manually toggle a cell&#39;s class set and
+confirm each state renders with the correct color; legend swatches match
+cell classes.</p>
+<p><strong>Step 4 — Interaction (painting + endpoints + maze
+ops).</strong> Tool selector (wall / weight / erase); drag-paint with
+<code>mousedown</code>+<code>mouseenter</code>+global
+<code>mouseup</code>; drag start/end; Random maze; Clear walls/weights;
+Clear path. <em>Validation/hardening (carry from Brainstorm):</em>
+cannot paint over or delete start/end; dragging an endpoint onto a
+wall/weight forces that cell passable (weight 1); clicks outside grid
+ignored; random maze keeps start/end clear. <em>Test:</em> paint on one
+panel → all four update; drag endpoints; random maze always leaves
+start/end clear; erase restores weight 1.</p>
+<p><strong>Step 5 — Lockstep race loop + controls.</strong> Single rAF
+loop with time accumulator; each tick advances every unfinished search
+by one expansion and renders only the delta; Play / Step / Reset; speed
+slider (ms-per-tick, multi- expansion at max speed); freeze painting
+while running. <em>Test:</em> all four advance in lockstep; Step does
+exactly one expansion each; Reset clears overlays and stats; speed
+slider visibly changes pace; race halts when all four are
+<code>done</code>.</p>
+<p><strong>Step 6 — Scoreboard + descriptions + final path.</strong>
+Per-panel live stats (visited, path cost, steps, optimal ✓/✗); one-line
+algorithm description; draw final path on completion; compute
+<code>optimal</code> once all four finish. <em>Test:</em> live stats
+match engine counters; on the Research-style fixture, BFS/Greedy show
+higher cost than Dijkstra/A*; Dijkstra &amp; A* show optimal ✓; paths
+render end-to-end.</p>
+<p><strong>Step 7 — Edge cases, polish, layout.</strong> No-path
+handling (sealed goal → &quot;No path&quot;, no crash); start==end guard; clean
+2×2 desktop layout; disable inappropriate controls mid-run;
+intro/explainer text; final visual pass. <em>Test:</em> seal the goal
+with walls → every panel reports &quot;No path&quot; gracefully; layout holds at a
+typical desktop width; no console errors across a full interaction
+cycle.</p>
+<h2 id="testing-strategy-woven-in-not-after">Testing strategy (woven in,
+not after)</h2>
+<ul>
+<li><strong>Unit:</strong> Step 2 Node self-test on a fixed fixture
+(cost/step/optimality assertions). Re-run after any engine change.</li>
+<li><strong>Integration:</strong> Steps 4–6 — paint → race → scoreboard
+end-to-end; delta rendering matches full re-render.</li>
+<li><strong>Edge cases:</strong> no path, start==end, goal walled off,
+endpoint dragged onto obstacle, painting during a run.</li>
+<li><strong>Security/static (Step 7 + Verify):</strong> grep the file
+for <code>innerHTML</code>, <code>eval</code>,
+<code>new Function</code>, <code>fetch</code>,
+<code>http</code>/<code>https</code>/<code>//cdn</code>,
+<code>import </code> — expect none. Confirm zero network references so
+the file is provably offline.</li>
+</ul>
+<h2 id="inputs-to-validate--boundaries-to-harden">Inputs to validate /
+boundaries to harden</h2>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Risk</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paint over start/end</td>
+<td>Lose endpoints</td>
+<td>Disallow; painting skips endpoint cells</td>
+</tr>
+<tr>
+<td>Drag endpoint onto wall/weight</td>
+<td>Unreachable/odd cost</td>
+<td>Force target cell passable (weight 1, not wall)</td>
+</tr>
+<tr>
+<td>Random maze</td>
+<td>Seals start/end</td>
+<td>Always clear start/end + immediate neighbors</td>
+</tr>
+<tr>
+<td>Click outside grid / during run</td>
+<td>Bad state</td>
+<td>Ignore out-of-grid; freeze editing while running</td>
+</tr>
+<tr>
+<td>No path exists</td>
+<td>Crash on reconstruct</td>
+<td><code>path()</code> returns null → scoreboard &quot;No path&quot;, no
+throw</td>
+</tr>
+</tbody>
+</table>
+<p>(Offline single-file artifact → no network/auth/storage attack
+surface; above is robustness + the standing &quot;no
+<code>innerHTML</code>/<code>eval</code>&quot; discipline.)</p>
+<h2 id="acceptance-criteria-checklist">Acceptance criteria
+checklist</h2>
+<ol type="1">
+<li>[ ] Opens and runs fully from <code>file://</code> with no network
+requests and no console errors.</li>
+<li>[ ] Four panels (BFS, Dijkstra, Greedy, A*) render the same maze
+with a shared legend.</li>
+<li>[ ] User can paint walls and weights, erase, and drag start/end;
+changes reflect in all four.</li>
+<li>[ ] Random maze and Clear work and never strand the start/end.</li>
+<li>[ ] Play animates all four in lockstep; Step advances one expansion
+each; Reset clears state.</li>
+<li>[ ] Speed slider changes animation pace.</li>
+<li>[ ] On weighted terrain, Dijkstra &amp; A* report equal, optimal
+path cost; A* visits ≤ Dijkstra.</li>
+<li>[ ] BFS and/or Greedy can report higher path cost than optimal (the
+core teaching contrast).</li>
+<li>[ ] Per-panel scoreboard shows visited / cost / steps / optimal,
+updating during the run.</li>
+<li>[ ] Final path is drawn in each panel that finds one.</li>
+<li>[ ] Sealing the goal → every panel reports &quot;No path&quot; without
+crashing.</li>
+<li>[ ] Source contains no <code>innerHTML</code>, <code>eval</code>,
+<code>new Function</code>, <code>fetch</code>, or external URLs.</li>
+</ol>
+<pre><code></code></pre>
+</body>
+</html>

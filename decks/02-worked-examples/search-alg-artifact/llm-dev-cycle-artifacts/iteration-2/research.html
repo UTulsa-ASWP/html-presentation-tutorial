@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 3 — Research (Iteration 2)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 3 — Research (Iteration 2)</h1>
+</header>
+<h1 id="phase-3--research-iteration-2">Phase 3 — Research (Iteration
+2)</h1>
+<h2 id="the-central-decision-one-engine-two-granularities">The central
+decision: one engine, two granularities</h2>
+<p>The risk flagged in Review was maintaining two implementations (fast
+race engine vs. annotated study engine) that could silently diverge.
+<strong>Resolved by unification:</strong> a single
+<strong>generator-based micro-stepper</strong> is the source of
+truth.</p>
+<ul>
+<li><strong>Study mode</strong> advances the generator <strong>one
+<code>.next()</code> per pseudocode line</strong> (the program
+counter).</li>
+<li><strong>Race mode</strong> advances the generator <strong>to the
+next expansion boundary</strong> (<code>endExp</code>), collecting the
+same <code>{opened[], closedCell}</code> deltas iteration 1&#39;s renderer
+already consumes.</li>
+</ul>
+<p>This was prototyped and <strong>validated against the iteration-1
+engine as an oracle</strong>: across BFS, Dijkstra, Greedy, and A* on
+three fixtures (weighted, open 15×15, diagonal walls), the
+generator-driven race produced <strong>identical</strong>
+found/visited/cost/steps every time (12/12). The equivalence check is
+retained as a permanent regression test.</p>
+<h2 id="pseudocode-line-model-shared-skeleton">Pseudocode line model
+(shared skeleton)</h2>
+<p>Generator yields a state per line id; ids map to the displayed
+shared-skeleton lines:</p>
+<table>
+<thead>
+<tr>
+<th>line id</th>
+<th>displayed line</th>
+<th>per-mode divergence (annotation)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>init</code></td>
+<td>push start to frontier</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>pop</code></td>
+<td>node ← remove &quot;best&quot; from frontier</td>
+<td>BFS: oldest · Dijkstra: min g · Greedy: min h · A*: min g+h</td>
+</tr>
+<tr>
+<td><code>goal</code></td>
+<td>if node is goal: reconstruct; stop</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>mark</code></td>
+<td>mark node visited</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>for</code></td>
+<td>for each neighbor</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>skip</code></td>
+<td>skip if wall or visited</td>
+<td>BFS/Greedy also skip if already seen (no re-open)</td>
+</tr>
+<tr>
+<td><code>cost</code></td>
+<td>cost ← g[node] + weight(neighbor)</td>
+<td>BFS ignores weight (orders by steps)</td>
+</tr>
+<tr>
+<td><code>improve</code></td>
+<td>if new or cheaper</td>
+<td>BFS/Greedy: only if unseen</td>
+</tr>
+<tr>
+<td><code>push</code></td>
+<td>update g, set parent, push</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>endExp</code></td>
+<td>(loop back to while)</td>
+<td>race-mode boundary marker</td>
+</tr>
+<tr>
+<td><code>exhausted</code></td>
+<td>frontier empty → no path</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Each yield carries context:
+<code>{line, node, neighbor, cost, improved, hit}</code>. The PC walks
+the <strong>same</strong> skeleton for all four; the algorithm&#39;s
+<em>real</em> branching (relax vs. first-reach, ordering key) is
+faithful underneath, while the <em>displayed</em> difference is the
+annotation + narration. This is precisely the R7 teaching mechanism —
+the differences live on three lines (<code>pop</code>,
+<code>cost</code>, <code>improve</code>).</p>
+<h2 id="key-technical-decisions">Key technical decisions</h2>
+<ul>
+<li><strong>Generators</strong>: ES6
+<code>function*</code>/<code>yield</code>. Universally supported in
+modern browsers, pure JS, works offline from <code>file://</code>, zero
+dependencies. No compatibility concern.</li>
+<li><strong>Refactor shape</strong>: <code>makeSearch</code> exposes
+<code>microStep()</code> (one line, returns the yield state) and
+<code>stepExpansion()</code> (drives to <code>endExp</code>, returns
+<code>{opened, closedCell}</code> — same contract as iteration 1). The
+controller routes Step/Play to one or the other based on mode.</li>
+<li><strong>Performance</strong>: race-via-generator adds trivial
+overhead (still ≤ ~1k cells); study mode is human-paced. A full-race
+regression through the refactored engine will be re-run in Verify.</li>
+<li><strong>Narration (R6/R8)</strong>: static plain-English templates
+per line id, interpolated with live values via <code>textContent</code>
+(e.g. <code>pop</code> → &quot;Remove (r,c) — lowest f in the frontier&quot;;
+<code>improve</code> false → &quot;Already have a cheaper route — skip&quot;). No
+<code>innerHTML</code>.</li>
+<li><strong>Focused grid sync</strong>: render the focused search&#39;s
+accumulated open/closed/path incrementally from the same micro-step
+stream (push→open, pop→closed, goal→path), plus two transient cursors:
+<strong>node being expanded</strong> and <strong>neighbor under
+inspection</strong>.</li>
+<li><strong>Difference summary (R7)</strong>: a static comparison table
+— ordering key · uses weights? · heuristic? · optimal? — beside the
+pseudocode.</li>
+<li><strong>Controller modes</strong>: a <code>mode</code> flag
+(<code>race</code> | <code>study</code>). Study pauses the parallel
+race, keeps the four searches&#39; state, and drives only the focused one at
+line granularity. Toggling off restores the 4-up race.
+Step/Play/Reset/speed are reused, reinterpreted at line granularity in
+study mode.</li>
+</ul>
+<h2 id="dependencies--security-posture">Dependencies &amp; security
+posture</h2>
+<p>Still <strong>zero dependencies</strong>. No new external input —
+only more internal UI state. Pseudocode text, annotations, and narration
+templates are static strings in code (not user-derived). DOM built via
+<code>createElement</code>/<code>textContent</code>; no
+<code>innerHTML</code>/<code>eval</code>. Posture unchanged from
+iteration 1.</p>
+<h2 id="deferred-to-plan">Deferred to Plan</h2>
+<ul>
+<li>Exact study-view layout (focused grid size, pseudocode list,
+narration bar, thumbnails, comparison table placement) and how it swaps
+in/out without disturbing the race DOM.</li>
+<li>Whether study mode rebuilds a dedicated larger grid or reuses an
+enlarged panel.</li>
+<li>Speed-slider mapping for line-granularity auto-play
+(lines/sec).</li>
+</ul>
+</body>
+</html>

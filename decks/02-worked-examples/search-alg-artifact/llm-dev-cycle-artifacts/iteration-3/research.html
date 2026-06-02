@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 3 — Research (Iteration 3)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 3 — Research (Iteration 3)</h1>
+</header>
+<h1 id="phase-3--research-iteration-3">Phase 3 — Research (Iteration
+3)</h1>
+<p>For a pure restyle there are no packages to vet. Research here
+validated the two things that could actually go wrong: the
+<strong>palette&#39;s contrast on white</strong>, and the <strong>offline
+font strategy</strong>.</p>
+<h2 id="palette-validated-with-wcag-math-not-by-eye">Palette validated
+with WCAG math (not by eye)</h2>
+<p>A contrast script (<code>tests/contrast.js</code>) checked every
+text/surface pair and every cell-state pair.</p>
+<p><strong>Text/UI — all pass AA:</strong></p>
+<ul>
+<li>ink <code>#1d1d1f</code> on page <code>#f5f5f7</code> → 15.46:1; on
+white → 16.83:1</li>
+<li>secondary gray <code>#6e6e73</code> on white → 5.07:1 (≥ 4.5 AA
+body)</li>
+<li>white on accent <code>#0071e3</code> → 4.70:1 (button labels, ≥
+4.5)</li>
+<li>accent on white → 4.70:1 (≥ 3.0 for UI/large)</li>
+</ul>
+<p><strong>Cell states vs white field — all perceptible</strong> (start
+2.22, goal 3.55, wall 16.83, open 1.90, closed 1.28, path 1.51).</p>
+<p><strong>Issue found &amp; resolved (the payoff of checking):</strong>
+the original gold path <code>#ffc400</code> and the cyan frontier
+<code>#5ac8fa</code> were nearly <strong>iso-luminant</strong> (1.19:1)
+— a problem for reduced-colour vision even though the hues differ.
+Iterating:</p>
+<ul>
+<li>darkening to amber <code>#f5a623</code> made it <em>worse</em>
+(1.07) — crossed below cyan&#39;s luminance;</li>
+<li>the correct direction was <em>brighter</em>. Settled on
+<strong><code>#ffd60a</code> (Apple systemYellow)</strong>: open-vs-path
+<strong>1.34</strong>, visible on white <strong>1.41</strong>.</li>
+</ul>
+<p><code>#ffd60a</code> sits close to the light-gray <em>closed</em>
+state in luminance (1.11), but path and closed are resolved by a
+<strong>non-colour cue</strong>: the final path is drawn last with a
+subtle inset ring/weight, so it never depends on fill luminance alone
+(WCAG 1.4.1 — don&#39;t use colour as the only channel). This also matches
+the intended &quot;payoff&quot; emphasis for the path.</p>
+<h3 id="final-validated-palette">Final validated palette</h3>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page background</td>
+<td><code>#f5f5f7</code></td>
+</tr>
+<tr>
+<td>card surface</td>
+<td><code>#ffffff</code></td>
+</tr>
+<tr>
+<td>ink (primary text)</td>
+<td><code>#1d1d1f</code></td>
+</tr>
+<tr>
+<td>secondary text</td>
+<td><code>#6e6e73</code></td>
+</tr>
+<tr>
+<td>hairline/separator</td>
+<td><code>#d2d2d7</code></td>
+</tr>
+<tr>
+<td>accent (interactive)</td>
+<td><code>#0071e3</code></td>
+</tr>
+<tr>
+<td>start</td>
+<td><code>#34c759</code></td>
+</tr>
+<tr>
+<td>goal</td>
+<td><code>#ff3b30</code></td>
+</tr>
+<tr>
+<td>wall</td>
+<td><code>#1d1d1f</code></td>
+</tr>
+<tr>
+<td>mud (weight dot)</td>
+<td><code>#ff9500</code></td>
+</tr>
+<tr>
+<td>frontier / open</td>
+<td><code>#5ac8fa</code></td>
+</tr>
+<tr>
+<td>visited / closed</td>
+<td><code>#dfe4ee</code></td>
+</tr>
+<tr>
+<td>final path</td>
+<td><code>#ffd60a</code> + inset ring</td>
+</tr>
+<tr>
+<td>algorithm dots</td>
+<td>bfs <code>#0a84ff</code> · dijkstra <code>#ff9f0a</code> · greedy
+<code>#ff375f</code> · astar <code>#30d158</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="offline-font-strategy-no-web-fonts">Offline font strategy (no
+web fonts)</h2>
+<ul>
+<li>UI/body:
+<code>-apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;, &quot;Segoe UI&quot;, system-ui, sans-serif</code>
+→ renders <strong>SF Pro on Apple devices</strong>, system-ui elsewhere.
+No download, fully offline.</li>
+<li>Numerals/stats/pseudocode:
+<code>ui-monospace, &quot;SF Mono&quot;, Menlo, Consolas, monospace</code> → SF
+Mono on Apple. The existing artifact already uses these stacks; no
+change needed for the font goal.</li>
+<li>Loading SF as a web font is rejected: violates offline/no-deps and
+is unnecessary.</li>
+</ul>
+<h2 id="technique-decisions">Technique decisions</h2>
+<ul>
+<li><strong>Theming stays variable-driven.</strong> Rewrite
+<code>:root</code> tokens; most rules inherit. This keeps the diff
+concentrated and preserves all class names the test suite asserts
+on.</li>
+<li><strong>Depth via box-shadow, not borders.</strong> Soft diffuse
+shadows (e.g.
+<code>0 1px 3px rgba(0,0,0,.04), 0 8px 24px -12px rgba(0,0,0,.12)</code>);
+large radii (~18px cards, ~10px controls). Remove the graph-paper
+<code>repeating-linear-gradient</code> body background and all
+glow/gradient effects.</li>
+<li><strong>Segmented control</strong> for paint tools: a pill container
+with the active segment on white with a small shadow (CSS only; same
+buttons/IDs, so <code>setTool</code> and tests are unaffected).</li>
+<li><strong>Primary button</strong> = filled blue pill; secondary =
+light-gray pill; toggle active = blue.</li>
+<li><strong>Class names preserved.</strong> If any class must be renamed
+for styling, update the matching test selector in lockstep and keep the
+assertion intent. Plan to avoid renames entirely.</li>
+<li><strong>Reduced motion</strong>: keep existing transition durations
+modest; respect the calm aesthetic.</li>
+</ul>
+<h2 id="security--offline-posture">Security / offline posture</h2>
+<p>Unchanged. No new external resources (no web fonts, no CDNs), no new
+input, no <code>innerHTML</code>/<code>eval</code>. The static security
+scan (8 checks) remains part of Verify and must stay clean.</p>
+<h2 id="deferred-to-plan">Deferred to Plan</h2>
+<ul>
+<li>Exact shadow/radius/spacing scale values and where hairlines vs.
+shadows are used.</li>
+<li>Segmented-control markup approach that preserves existing button
+IDs.</li>
+<li>Order of edits to keep the regression suite green throughout.</li>
+</ul>
+</body>
+</html>

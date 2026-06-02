@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 2 — Brainstorm</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 2 — Brainstorm</h1>
+</header>
+<h1 id="phase-2--brainstorm">Phase 2 — Brainstorm</h1>
+<h2 id="chosen-concept">Chosen concept</h2>
+<p><strong>A side-by-side pathfinding race on weighted terrain, built as
+a single offline HTML file, designed as a teaching tool.</strong></p>
+<p>Four algorithms run <strong>simultaneously in lockstep</strong> on
+one shared maze, so a learner sees the behavioural differences at a
+glance:</p>
+<table>
+<thead>
+<tr>
+<th>Panel</th>
+<th>Algorithm</th>
+<th>One-line teaching point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>BFS</strong></td>
+<td>Uninformed, ignores weights → fewest <em>steps</em> but can be
+<em>costly</em></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Dijkstra</strong></td>
+<td>Uniform-cost → genuinely <em>cheapest</em> path, but explores
+widely</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Greedy Best-First</strong></td>
+<td>Pure heuristic → fast, beelines, but <em>not</em> optimal</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>A*</strong></td>
+<td>Cost-so-far + heuristic → optimal <em>and</em> directed (fewer cells
+than Dijkstra)</td>
+</tr>
+</tbody>
+</table>
+<p>Each algorithm differs from a neighbour by one idea: add a cost
+function (BFS→Dijkstra), swap to a heuristic (Dijkstra→Greedy), combine
+both (Greedy/Dijkstra→A*). The weighted terrain is what makes Dijkstra
+and A* meaningfully different from BFS and Greedy — without weights,
+Dijkstra and BFS would be visually identical.</p>
+<h2 id="decisions-locked">Decisions (locked)</h2>
+<ul>
+<li><strong>Movement:</strong> 4-directional (orthogonal) only.
+<strong>Manhattan</strong> heuristic for Greedy &amp; A*. Rationale:
+avoids the diagonal → heuristic-choice digression; keeps the heuristic
+story clean.</li>
+<li><strong>Interaction:</strong> tool selector (paint
+<strong>wall</strong> / paint <strong>weight</strong> /
+<strong>erase</strong>), draggable <strong>start</strong> and
+<strong>end</strong> nodes, <strong>Random maze</strong> button,
+<strong>Clear</strong>. Click-and-drag painting.</li>
+<li><strong>Race model:</strong> all four panels step in lockstep — one
+node expansion per tick per panel — for a fair, watchable race.
+<strong>Play / Step / Reset</strong> + <strong>speed
+slider</strong>.</li>
+<li><strong>Shared visual language:</strong> identical colors across
+panels for start, end, wall, weight, frontier (open), visited (closed),
+final path. One shared <strong>legend</strong>.</li>
+<li><strong>Per-panel scoreboard:</strong> cells visited, path cost,
+path length (steps), optimal? (yes/no). Makes the contrast
+quantitative.</li>
+<li><strong>Layout:</strong> shared controls on top, 2×2 panel grid, a
+one-line description under each title.</li>
+</ul>
+<h2 id="alternatives-considered-and-rejected">Alternatives considered
+and rejected</h2>
+<table>
+<thead>
+<tr>
+<th>Alternative</th>
+<th>Why rejected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-grid demo (faithful PathFinding.js clone)</td>
+<td>Weakest for teaching — can&#39;t see contrast; learner must remember
+prior runs</td>
+</tr>
+<tr>
+<td>Single grid + accumulating scoreboard</td>
+<td>Quantitative but not <em>visual</em>; the simultaneous spatial
+contrast is the payload</td>
+</tr>
+<tr>
+<td>Unweighted grid (3 algorithms)</td>
+<td>Dijkstra collapses into BFS — looks like a duplicate/bug; loses the
+cost story</td>
+</tr>
+<tr>
+<td>Diagonal movement</td>
+<td>Forces Manhattan/Euclidean/Chebyshev digression; muddies the
+heuristic lesson</td>
+</tr>
+<tr>
+<td>Jump Point Search / IDA* / bi-directional</td>
+<td>Advanced; dilute the core four-way contrast — deferred to a later
+iteration</td>
+</tr>
+<tr>
+<td>Importing PathFinding.js</td>
+<td>Violates single-file/offline goal; reimplementing is clearer for
+teaching anyway</td>
+</tr>
+</tbody>
+</table>
+<h2 id="scope-boundaries">Scope boundaries</h2>
+<p><strong>In scope (iteration 1):</strong></p>
+<ul>
+<li>4 algorithms, weighted terrain, 4-directional, Manhattan
+heuristic</li>
+<li>Lockstep race, Play/Step/Reset, speed control</li>
+<li>Wall/weight/erase painting, draggable endpoints, random maze,
+clear</li>
+<li>Shared legend + per-panel scoreboard, one-line algorithm
+descriptions</li>
+</ul>
+<p><strong>Out of scope (deferred):</strong></p>
+<ul>
+<li>Diagonal movement; JPS / IDA* / bi-directional variants</li>
+<li>Sophisticated maze generation (only a simple randomizer)</li>
+<li>Save/load, URL sharing, persistence</li>
+<li>Mobile-touch optimization (target: desktop browser)</li>
+</ul>
+<h2 id="security-relevant-boundaries">Security-relevant boundaries</h2>
+<p>Fully offline, single-file, client-side artifact:</p>
+<ul>
+<li><strong>No</strong> server, network requests, authentication,
+persistence, secrets, or external resources.</li>
+<li><strong>Only input:</strong> local mouse interaction mutating an
+in-memory grid model. No untrusted data enters the system; effectively
+no attack surface.</li>
+<li><strong>Discipline to hold in Execute:</strong> build the grid via
+DOM APIs and <code>textContent</code> only — <strong>never
+<code>innerHTML</code></strong> — so there is no injection path even in
+principle. No <code>eval</code>, no dynamic script. This is the one
+boundary worth stating; everything else is moot offline.</li>
+</ul>
+</body>
+</html>

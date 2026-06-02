@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 4 — Plan (Iteration 2)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 4 — Plan (Iteration 2)</h1>
+</header>
+<h1 id="phase-4--plan-iteration-2">Phase 4 — Plan (Iteration 2)</h1>
+<p>Self-contained build plan. Add a toggleable <strong>Study
+Mode</strong> (focused, line-by-line pseudocode execution + teaching +
+difference-highlighting) to the existing offline
+<code>pathfinding-race.html</code>, without regressing the iteration-1
+race. Single file, no dependencies, no
+<code>innerHTML</code>/<code>eval</code>.</p>
+<h2 id="deliverable">Deliverable</h2>
+<p><code>iteration-2/pathfinding-race.html</code> — evolved from the
+iteration-1 file (copied in as the starting baseline so v1 stays intact
+as a record).</p>
+<h2 id="internal-structure-changes-to-the-one-file">Internal structure
+(changes to the one file)</h2>
+<pre><code>&lt;style&gt;     + study view styles: focused grid, pseudocode list, active-line + divergent-line
+              highlight, narration bar, comparison table, thumbnails. Reuse existing CSS vars.
+markup      + Study/Pseudocode toggle in the control bar
+            + #study container (hidden by default): focused grid · pseudocode · narration ·
+              blurb · comparison table · thumbnail switcher
+&lt;script&gt;
+  Engine        ~ REFACTOR: generator micro-stepper is the single source of truth.
+                  expose microStep() (one line) and stepExpansion() (to endExp, same delta
+                  contract). step()/isDone/isFound/visited/cost/steps/path preserved.
+  PseudoModel   + line display text, per-mode annotations (pop/cost/improve), narration
+                  templates per line id, per-algorithm blurbs, comparison-table data
+  StudyView     + build/show/hide study DOM; render focused grid; thumbnails
+  StudyControl  + mode routing (race|study); micro-step → highlight line + grid cursors +
+                  accumulate overlays + narration; focus switching
+  Race control  ~ route Step/Play by mode; entering study pauses race
+  wire-up       + toggle handler, race-panel click → study</code></pre>
+<h2 id="build-sequence-each--1-hour-each-ends-in-a-test-gate">Build
+sequence (each ≤ ~1 hour, each ends in a test gate)</h2>
+<p><strong>Step 1 — Engine refactor to the generator
+(REGRESSION-GATED).</strong> Replace <code>makeSearch</code> internals
+with the validated generator + <code>stepExpansion()</code> boundary
+driver; implement the existing <code>step()</code> via
+<code>stepExpansion()</code> so the race controller is untouched. Add
+<code>microStep()</code>. <em>Gate (hard):</em> re-run the
+<strong>entire iteration-1 suite</strong> (engine unit, inlined re-test,
+jsdom integration) against the refactored file — must pass
+<strong>identically</strong>. Add the generator↔︎oracle equivalence test
+to the permanent suite. If race results differ at all, stop and fix
+before proceeding.</p>
+<p><strong>Step 2 — Pseudocode + teaching data model.</strong> Static
+data: shared-skeleton line display text; per-mode annotations for
+<code>pop</code>/<code>cost</code>/<code>improve</code>; narration
+templates per line id; per-algorithm blurbs; comparison-table rows.
+<em>Gate:</em> assertion that every line id the generator can emit has a
+display line + narration template, and all four modes have annotations
+for the three divergent lines (no missing mappings).</p>
+<p><strong>Step 3 — Study-view DOM scaffold (hidden by
+default).</strong> Build <code>#study</code>: focused grid (larger
+cells), pseudocode list (one element per line), narration bar, blurb
+area, comparison table, thumbnail switcher; add the toggle button.
+Default hidden. <em>Gate (jsdom):</em> toggle on → study visible, race
+hidden, pseudocode list has all skeleton lines, table has 4 rows, 3
+non-focused thumbnails present; toggle off → race restored.</p>
+<p><strong>Step 4 — Study controller + micro-step sync.</strong> Mode
+routing: study Step = one <code>microStep()</code> on the focused
+search; Play auto-advances lines at the speed slider; Reset restarts the
+focused search. Per micro-step: move active-line highlight, set grid
+cursors (node expanded + neighbor inspected), accumulate
+open/closed/path on the focused grid, update narration with live values.
+Focus switch re-inits the focused search from the current maze. <em>Gate
+(jsdom):</em> enter study on A*, Step through lines, assert active-line
+sequence (init→pop→goal→mark→for→cost→improve→push…), narration
+non-empty, focused grid shows a closed cell after <code>mark</code> and
+open cells after <code>push</code>, and reaching the goal draws a
+path.</p>
+<p><strong>Step 5 — Difference-highlighting + teaching (R6/R7).</strong>
+Render divergent-line annotations for the focused algorithm on
+<code>pop</code>/<code>cost</code>/<code>improve</code>; wire the
+per-focus blurb; finalize the comparison table. <em>Gate:</em> focusing
+each algorithm shows its correct annotations and blurb; comparison-table
+values match (ordering key, weights?, heuristic?, optimal?).</p>
+<p><strong>Step 6 — Integration, edge cases, regression,
+polish.</strong> Race-panel click → study; entering study pauses race,
+leaving returns to a clean race-ready state; maze editing disabled in
+study mode (study examines the current maze); no-path-in-study
+(<code>exhausted</code> → narration message, no crash); control labels
+per mode; layout polish. <em>Gate:</em> full regression (all iteration-1
+acceptance criteria) + new study assertions + no-path study + no console
+errors.</p>
+<h2 id="testing-strategy-woven-in">Testing strategy (woven in)</h2>
+<ul>
+<li><strong>Regression (critical):</strong> iteration-1 engine unit +
+inlined re-test + jsdom integration must pass unchanged after the Step-1
+refactor and again at Step 6. This is the primary safety net.</li>
+<li><strong>Unit:</strong> generator↔︎oracle equivalence (built in
+Research); line-id mapping completeness.</li>
+<li><strong>Integration (jsdom):</strong> study toggle, focus switching,
+micro-step line sequence, grid sync, narration content,
+no-path-in-study.</li>
+<li><strong>Static/security:</strong> re-grep
+<code>innerHTML</code>/<code>eval</code>/<code>new Function</code>/<code>fetch</code>/external
+URLs over the expanded file → expect none.</li>
+</ul>
+<h2 id="inputs-to-validate--boundaries-to-harden">Inputs to validate /
+boundaries to harden</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Risk</th>
+<th>Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Switch focus mid-walk</td>
+<td>Stale highlights/state</td>
+<td>Re-init focused search + clear focused grid + reset PC</td>
+</tr>
+<tr>
+<td>Enter study while race running</td>
+<td>Inconsistent state</td>
+<td>Pause race; build focused search fresh from current maze</td>
+</tr>
+<tr>
+<td>Edit maze in study mode</td>
+<td>Search/maze mismatch</td>
+<td>Disable editing in study; must return to race to edit</td>
+</tr>
+<tr>
+<td>Leave study mid-walk</td>
+<td>Partial race state</td>
+<td>Return to a clean race-ready (idle) state; overlays cleared
+<em>(preserving paused race = stretch)</em></td>
+</tr>
+<tr>
+<td>No path in study</td>
+<td>Crash at reconstruct</td>
+<td><code>exhausted</code> yield → narration &quot;no path&quot;, stop, no
+throw</td>
+</tr>
+<tr>
+<td>Very fast line auto-play</td>
+<td>Incoherent render</td>
+<td>Cap lines/frame; render each line&#39;s highlight before advancing</td>
+</tr>
+</tbody>
+</table>
+<p>(Still fully offline; no new external input. Annotations/narration
+are static, not user-derived.)</p>
+<h2 id="acceptance-criteria-checklist">Acceptance criteria
+checklist</h2>
+<ol type="1">
+<li>[ ] Race mode unchanged — <strong>all iteration-1 acceptance
+criteria still pass</strong> (regression).</li>
+<li>[ ] Study/Pseudocode toggle exists, <strong>default OFF</strong>;
+initial view identical to iteration 1.</li>
+<li>[ ] Entering study focuses one algorithm; switch via thumbnails or
+by clicking a race panel.</li>
+<li>[ ] Shared pseudocode skeleton shown; active line highlights and
+advances with the PC.</li>
+<li>[ ] Study Step = exactly one pseudocode line; Play auto-advances
+lines at the speed slider.</li>
+<li>[ ] Focused grid highlights the node being expanded + neighbor
+inspected; accumulates open/closed/path correctly.</li>
+<li>[ ] Narration shows a live plain-English sentence with real values
+for the current line.</li>
+<li>[ ] Divergent lines
+(<code>pop</code>/<code>cost</code>/<code>improve</code>) show
+per-algorithm annotations; switching focus updates them.</li>
+<li>[ ] Per-algorithm teaching blurb shown; comparison table present
+with correct values.</li>
+<li>[ ] No-path in study handled gracefully (message, no crash).</li>
+<li>[ ] Generator-driven race reproduces iteration-1 results exactly
+(equivalence regression).</li>
+<li>[ ] Still no
+<code>innerHTML</code>/<code>eval</code>/<code>fetch</code>/external
+URLs; offline single file.</li>
+</ol>
+<pre><code></code></pre>
+</body>
+</html>

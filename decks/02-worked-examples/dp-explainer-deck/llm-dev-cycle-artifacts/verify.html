@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Verify — Iteration 1 (DP Artifact)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Verify — Iteration 1 (DP Artifact)</h1>
+</header>
+<h1 id="verify--iteration-1-dp-artifact">Verify — Iteration 1 (DP
+Artifact)</h1>
+<p><strong>Status</strong>: COMPLETE — manually verified by user
+<strong>Date</strong>: April 8, 2026 <strong>Verifier</strong>: User
+(Dallas), hands-on in Chrome on macOS</p>
+<h2 id="method">Method</h2>
+<p>User walked through the split artifact
+(<code>course_materials/demos/differential-privacy-explainer.html</code>
++ <code>assets/dp-explainer/{styles.css, script.js}</code>) in Chrome,
+exercised all 18 slides and all four interactive exhibits, and confirmed
+functional correctness. No automated test suite exists for this artifact
+— same-day visual build, manual verification is the intended method per
+<code>plan.md</code>.</p>
+<h2 id="acceptance-criteria">Acceptance Criteria</h2>
+<p>Checked against <code>plan.md</code> §&quot;Acceptance Criteria
+Checklist&quot;. Criteria reworded where the three-file split or 18-slide
+restructure supersedes the original wording; substance preserved.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>Status</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Artifact file exists with all narrative sections (originally &quot;8
+acts&quot;, restructured to 18 slides)</td>
+<td>PASS</td>
+<td><code>course_materials/demos/differential-privacy-explainer.html</code>
++ assets dir present; 18 slides render</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Self-contained — no external JS dependencies</td>
+<td>PASS</td>
+<td>Only Google Fonts via CSS <code>@import</code>; no JS CDN
+imports</td>
+</tr>
+<tr>
+<td>3</td>
+<td>All 4 interactive exhibits function (linkage attack, k-anonymity,
+epsilon slider, minority erasure)</td>
+<td>PASS</td>
+<td>User walked through all four in Chrome, confirmed each works</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Website wrapper exists and loads the artifact</td>
+<td>PASS</td>
+<td><code>website/demos/differential-privacy-explainer/index.html</code>
+iframes the demo; title updated to &quot;Differential Privacy &amp; Federated
+Learning&quot; this session</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Narrative tracks the intended arc (Sweeney → k-anonymity → DP → dark
+side → reframe)</td>
+<td>PASS</td>
+<td>18-slide structure preserves the arc; see <code>handoff.md</code>
+slide table</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Loads and functions in Chrome on macOS</td>
+<td>PASS</td>
+<td>User verified</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Loads and functions in Safari on macOS</td>
+<td>NOT VERIFIED</td>
+<td>Deferred; not blocking since delivery machine runs Chrome. Flag for
+pre-class smoke test if podium is Safari</td>
+</tr>
+<tr>
+<td>8</td>
+<td>No console errors on page load</td>
+<td>PASS (implied)</td>
+<td>User reported no issues during walkthrough</td>
+</tr>
+<tr>
+<td>9</td>
+<td>No external JS dependencies (Network tab)</td>
+<td>PASS</td>
+<td>Confirmed by file inspection (see #2)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Laplace noise computed client-side; re-roll produces different
+values</td>
+<td>PASS</td>
+<td><code>script.js</code> implements Laplace sampling; re-roll verified
+working</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Epsilon slider produces continuous visible changes</td>
+<td>PASS</td>
+<td>User verified on slides 13 and 16</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Deployed to public course website</td>
+<td>DEFERRED</td>
+<td>User decision: do not deploy during active development. Will deploy
+after Iteration 2 (federated learning) or earlier if needed as podium
+fallback</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Synthetic/mock data only</td>
+<td>PASS</td>
+<td>All datasets (medical records, voter records, salary bins, town
+demographics) are fabricated; documented in <code>handoff.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="keyboard-navigation-added-post-plan">Keyboard navigation (added
+post-plan)</h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arrow keys / PageUp-Down / Space navigate slides</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td><code>S</code> toggles speaker notes panel</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>Slider focus correctly bypasses arrow-key slide nav</td>
+<td>PASS</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deviations-from-plan">Deviations from Plan</h2>
+<ol type="1">
+<li><strong>File structure</strong>: Plan specified a single ~1500-2000
+line self-contained HTML file. Actual implementation was split into
+three files (<code>differential-privacy-explainer.html</code>,
+<code>assets/dp-explainer/styles.css</code>,
+<code>assets/dp-explainer/script.js</code>) during Execute to enable
+small targeted edits. Still &quot;self-contained&quot; in the
+no-external-dependencies sense; CSS/JS are local assets. Documented in
+<code>handoff.md</code>.</li>
+<li><strong>Section count</strong>: Plan specified 8 acts. Actual
+delivery is 18 slides with a presentation-mode (arrow-key, scroll-snap)
+layout instead of a scrolling article. Narrative arc is preserved;
+structure is finer-grained. Documented in <code>handoff.md</code> slide
+table.</li>
+<li><strong>Safari verification</strong>: Deferred (see criterion #7).
+Low risk — <code>backdrop-filter</code> is the only modern feature that
+historically differs, and Safari has supported it since 9.</li>
+<li><strong>Public deployment</strong>: Deferred per user decision
+(criterion #12). Iteration is not &quot;complete&quot; in the original plan sense
+but the artifact itself is production-ready.</li>
+</ol>
+<h2 id="website-wrapper-corrections-this-session">Website Wrapper
+Corrections (this session)</h2>
+<p>The wrapper at
+<code>website/demos/differential-privacy-explainer/index.html</code> had
+stale references to the rejected title &quot;The Invisible Math&quot;. Updated
+three occurrences:</p>
+<ul>
+<li><code>&lt;title&gt;</code> tag</li>
+<li>Hero subtitle</li>
+<li>Iframe <code>title</code> attribute</li>
+</ul>
+<p><strong>Still stale in the wrapper</strong> (not touched this session
+— flag for later):</p>
+<ul>
+<li>Meta description and intro blurb reference &quot;1997&quot; (should be 1996)
+and &quot;eight-act&quot; (should reflect the 18-slide structure). Low priority
+since the wrapper isn&#39;t deployed.</li>
+</ul>
+<h2 id="outstanding-issues-carried-forward">Outstanding Issues Carried
+Forward</h2>
+<p>From <code>handoff.md</code> §&quot;Known issues&quot;:</p>
+<ul>
+<li>Copyright concern on <code>1996-time-cover.jpg</code> /
+<code>1996-oasis.png</code> — <strong>resolved</strong> by user
+decision: educational fair use is fine for in-class; re-evaluate before
+any public deploy.</li>
+<li>Slide 3 collage visual balance and Slide 4 side-by-side crowding —
+cosmetic, defer to next editing pass.</li>
+<li><code>1996-internet.jpg</code> is actually WebP — non-blocking.</li>
+<li>Plan-vs-actual salary mean discrepancy ($55k vs $59,400) —
+documentation only; demo displays the correct value dynamically.</li>
+<li>No &quot;jump to slide N&quot; keyboard shortcut — enhancement, not
+blocking.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Iteration 1 is <strong>complete</strong>. The artifact meets all
+functional acceptance criteria. Public deployment is intentionally
+deferred; Safari smoke-test is deferred as low risk. Next work on this
+artifact will be direct slide-deck edits outside the cycle workflow, per
+user direction.</p>
+</body>
+</html>

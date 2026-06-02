@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 5 — Execute (Iteration 2)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 5 — Execute (Iteration 2)</h1>
+</header>
+<h1 id="phase-5--execute-iteration-2">Phase 5 — Execute (Iteration
+2)</h1>
+<h2 id="what-was-built">What was built</h2>
+<p>Study Mode added to <code>iteration-2/pathfinding-race.html</code>
+(evolved from the v1 baseline; v1 left intact). The 4-up race is
+unchanged and remains the default view. A <strong>📖 Study /
+Pseudocode</strong> toggle (default off) opens a focused, line-by-line
+pseudocode tracer for one algorithm.</p>
+<p>New pieces, per the plan&#39;s build sequence:</p>
+<ol type="1">
+<li><strong>Engine refactor</strong> — <code>makeSearch</code> is now a
+generator micro-stepper; <code>step()</code> is the expansion-boundary
+driver (race), <code>microStep()</code> yields one pseudocode line
+(study).</li>
+<li><strong>Teaching/pseudocode data</strong> — shared skeleton (10
+lines), per-mode annotations for the three divergent lines
+(<code>pop</code>/<code>cost</code>/<code>improve</code>), narration
+templates, per-algorithm blurbs, comparison table.</li>
+<li><strong>Study view</strong> — focused larger grid, pseudocode list,
+narration bar, thumbnails, comparison table; built once via DOM APIs
+(<code>textContent</code>, no <code>innerHTML</code>).</li>
+<li><strong>Study controller</strong> — mode routing
+(<code>race</code>|<code>study</code>); micro-step → active-line
+highlight + grid cursors (node expanded / neighbor inspected) + overlay
+accumulation + live narration; focus switching; Play auto-advances lines
+at the speed slider.</li>
+<li><strong>Difference-highlighting</strong> — divergent lines flagged
+and annotated for the focused algorithm; comparison table highlights the
+focused row.</li>
+</ol>
+<h2 id="step-1-regression-gate-the-critical-one">Step 1 regression gate
+(the critical one)</h2>
+<p>After refactoring the engine to the generator, the <strong>entire
+iteration-1 suite was re-run against the refactored file and passed
+identically</strong> — same race outcome (cost 44/36/44/36, visited
+319/417/21/261, same statuses), 42 engine assertions, 8 static checks,
+20 integration assertions. The race controller was not modified; it
+consumed the new <code>step()</code> transparently. Only after this gate
+did study mode get built.</p>
+<h2 id="tests-all-green--saved-under-iteration-2tests">Tests (all green)
+— saved under <code>iteration-2/tests/</code></h2>
+<table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>Scope</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>trace_proto.js</code></td>
+<td>generator vs iteration-1 engine oracle (4 algos × 3 fixtures)</td>
+<td>14/14</td>
+</tr>
+<tr>
+<td><code>v2_verify.js</code></td>
+<td>inlined refactored engine + static security/offline scan</td>
+<td>42/42 + 8/8</td>
+</tr>
+<tr>
+<td><code>v2_integration.js</code></td>
+<td>race mode unchanged (build, paint, race, step, reset, no-path)</td>
+<td>20/20</td>
+</tr>
+<tr>
+<td><code>v2_study.js</code></td>
+<td>study toggle, scaffold, line-by-line PC, grid sync, annotations,
+full study run, no-path-in-study, race-after-study</td>
+<td>26/26</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total: 110 assertions passing.</strong> Study line trace
+confirmed:
+<code>init → pop → goal → mark → for → cost → improve → push</code>.</p>
+<h2 id="bugs-found-and-fixed">Bugs found and fixed</h2>
+<ul>
+<li><strong>No artifact bugs.</strong> As in iteration 1, the Research
+prototype (generator validated against the oracle before inlining) meant
+the refactor and feature landed clean — the regression gate passed on
+the first run, and study tests passed on the first run.</li>
+<li>Only friction was a couple of tooling hiccups (a malformed edit
+retried), not defects in the artifact.</li>
+</ul>
+<h2 id="acceptance-criteria-results-vs-plan-checklist">Acceptance
+criteria results (vs. plan checklist)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Race mode unchanged (regression)</td>
+<td><strong>PASS</strong> — 20/20 identical race results</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Study toggle default OFF; initial view identical to v1</td>
+<td><strong>PASS</strong> — study tests</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Entering study focuses one; switch via thumbnails or panel
+click</td>
+<td><strong>PASS</strong> for toggle + thumbnails; panel-title click
+wired, not auto-asserted → Verify</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Shared skeleton shown; active line advances</td>
+<td><strong>PASS</strong> — sequence asserted</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Study Step = one line; Play auto-advances</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Focused grid: node + neighbor cursors; accumulates overlays</td>
+<td><strong>PASS</strong> for overlays (closed/open asserted); cursor
+classes implemented, not explicitly asserted → Verify</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Live plain-English narration with values</td>
+<td><strong>PASS</strong> — populated; no-path narration asserted</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Divergent annotations per algo; switching updates</td>
+<td><strong>PASS</strong> — A*→BFS swap asserted</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Teaching blurb + comparison table</td>
+<td><strong>PASS</strong> for table; blurb set on focus, text not
+asserted → Verify</td>
+</tr>
+<tr>
+<td>10</td>
+<td>No-path in study graceful</td>
+<td><strong>PASS</strong> — status &quot;no path&quot;, narration
+&quot;unreachable&quot;</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Generator race reproduces iteration-1 results exactly</td>
+<td><strong>PASS</strong> — oracle + identical race</td>
+</tr>
+<tr>
+<td>12</td>
+<td>No innerHTML/eval/fetch/external URLs</td>
+<td><strong>PASS</strong> — 8/8 static</td>
+</tr>
+</tbody>
+</table>
+<h2 id="honest-handoff-to-verify">Honest handoff to Verify</h2>
+<p>All testable-without-a-browser behavior is green, including a full
+regression of iteration 1. What a headless run can&#39;t fully judge —
+visual rendering of the study layout, the active-line and cursor
+highlighting <em>as seen</em>, panel-title click entry, blurb/table
+legibility, the feel of line auto-play, and reading the narration in
+context — are flagged above for the adversarial Verify pass and a human
+look.</p>
+</body>
+</html>

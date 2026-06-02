@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 6 — Verify (Iteration 1)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 6 — Verify (Iteration 1)</h1>
+</header>
+<h1 id="phase-6--verify-iteration-1">Phase 6 — Verify (Iteration 1)</h1>
+<p>Adversarial pass. Per the cycle, the full suite was <strong>re-run
+from scratch</strong> rather than trusting Execute&#39;s self-report, and
+combined with the user&#39;s direct hands-on verification of the rendered
+artifact in a real browser.</p>
+<h2 id="test-suite--fresh-re-run-not-copied-from-execute">Test suite —
+fresh re-run (not copied from Execute)</h2>
+<table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>Scope</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tests/test.js</code> (standalone engine)</td>
+<td>optimality, no-path, path validity, edge cases</td>
+<td><strong>44/44 pass</strong></td>
+</tr>
+<tr>
+<td><code>tests/verify_inlined.js</code> (shipped engine)</td>
+<td>re-extracts engine from the HTML and re-asserts</td>
+<td><strong>42/42 pass</strong></td>
+</tr>
+<tr>
+<td><code>tests/verify_inlined.js</code> (static)</td>
+<td>innerHTML/eval/Function/fetch/XHR/storage/external-URL scan</td>
+<td><strong>8/8 clean</strong></td>
+</tr>
+<tr>
+<td><code>tests/integration.js</code> (jsdom)</td>
+<td>build, paint, endpoints, full Play race, Step, reset, no-path</td>
+<td><strong>20/20 pass</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Headless race (reproduced this run):
+<code>cost [44, 36, 44, 36]</code>,
+<code>visited [319, 417, 21, 261]</code>,
+<code>optimal [✗, ✓, ✗, ✓]</code> — the intended teaching contrast
+holds.</p>
+<h2 id="acceptance-criteria--evidence">Acceptance criteria —
+evidence</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>Verdict</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Offline, no network, no console errors</td>
+<td><strong>PASS</strong></td>
+<td>Static: 0 external URLs / 0 storage / 0 fetch. No errors in jsdom.
+<strong>User: no console issues, runs offline.</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Four panels, same maze, shared legend</td>
+<td><strong>PASS</strong></td>
+<td>integration (4 panels, paint propagates); user visual</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Paint walls/weights/erase + drag endpoints, reflect in all four</td>
+<td><strong>PASS</strong></td>
+<td>paint propagation auto-tested; <strong>endpoint drag confirmed by
+user hands-on</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Random + Clear never strand start/end</td>
+<td><strong>PASS</strong></td>
+<td><code>reachable()</code> retry + guards; <strong>user exercised
+Random/Clear directly</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Play lockstep · Step one each · Reset clears</td>
+<td><strong>PASS</strong></td>
+<td>integration (Step→visited==1 each; reset clears overlays); user</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Speed slider changes pace</td>
+<td><strong>PASS</strong></td>
+<td><strong>user confirmed slider feel/pace</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Dijkstra &amp; A* equal optimal cost; A* visits ≤ Dijkstra</td>
+<td><strong>PASS</strong></td>
+<td>36==36; 261 ≤ 417</td>
+</tr>
+<tr>
+<td>8</td>
+<td>BFS/Greedy can be costlier than optimal</td>
+<td><strong>PASS</strong></td>
+<td>44 &gt; 36</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Scoreboard live visited/cost/steps/optimal</td>
+<td><strong>PASS</strong></td>
+<td>integration; user</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Final path drawn per panel</td>
+<td><strong>PASS</strong></td>
+<td>integration (<code>.cell.path</code> &gt; 0 in every panel);
+user</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Seal goal → &quot;No path&quot;, no crash</td>
+<td><strong>PASS</strong></td>
+<td>integration (all four report &quot;no path&quot;, cost ∞)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>No innerHTML/eval/fetch/external URLs</td>
+<td><strong>PASS</strong></td>
+<td>8/8 static checks</td>
+</tr>
+</tbody>
+</table>
+<p><strong>12 / 12 acceptance criteria pass.</strong></p>
+<h2 id="security-check-results">Security check results</h2>
+<ul>
+<li>Offline single-file artifact: no network, storage, auth, or secrets
+— no attack surface.</li>
+<li>Static scan clean: no <code>innerHTML</code>, <code>eval</code>,
+<code>new Function</code>, <code>fetch</code>,
+<code>XMLHttpRequest</code>,
+<code>localStorage</code>/<code>sessionStorage</code>, or
+external/protocol-relative URLs.</li>
+<li>DOM is built exclusively via <code>createElement</code> +
+<code>textContent</code>; no injection path.</li>
+</ul>
+<h2 id="user-human-verification--recorded">User (human) verification —
+recorded</h2>
+<p>User confirmed directly in a real browser: demo works well, looks
+great, all buttons and features functional. This closes the
+visual/interaction items automation could not judge (rendering fidelity,
+layout, slider feel, endpoint dragging, random/clear by hand).</p>
+<h2 id="issues-found">Issues found</h2>
+<p>None. No regressions, no failing criteria, no security findings.</p>
+<h2 id="outcome">Outcome</h2>
+<p><strong>Iteration 1 complete.</strong> All acceptance criteria pass
+with evidence; no issues carried forward. The stepable-engine
+architecture and shared-maze/four-view design are validated and provide
+a clean foundation for iteration 2 (teaching content + toggleable
+pseudocode execution).</p>
+</body>
+</html>

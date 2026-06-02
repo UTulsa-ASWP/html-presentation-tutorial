@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Building the DP Explainer — Condensed Transcript</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Building the DP Explainer — Condensed Transcript</h1>
+</header>
+<h1 id="building-the-dp-explainer--condensed-transcript">Building the DP
+Explainer — Condensed Transcript</h1>
+<p><em>A condensed record of the two <code>llm-dev:cycle</code> sessions
+that produced the Differential Privacy Explainer (the worked example
+narrated in Deck 2).</em></p>
+<p><strong>Source transcripts</strong> (in
+<code>CYB-4203-6203/.archive/transcripts/</code>):</p>
+<ul>
+<li><code>20260408-grade-assignments-and-start-dp-presentation.json</code>
+(conv #74) — the DP portion only; the grading work that opened that
+session is omitted.</li>
+<li><code>20260408-dp-explainer-deck-expansion-and-deploy.json</code>
+(conv #75) — in full.</li>
+</ul>
+<p><strong>How to read this:</strong> the user&#39;s (Dallas&#39;s) messages are
+reproduced <strong>verbatim</strong> in blockquotes. Claude&#39;s responses
+are <strong>summarized</strong> to one or two lines that capture the
+decision or the work done, not the full prose. A handful of immediate
+re-sends (where the same message was sent twice, the second time
+expanded) are collapsed to the fuller version with a note.</p>
+<hr />
+<h2 id="session-1--start-dp-run-the-cycle-conv-74">Session 1 — Start DP,
+run the cycle (conv #74)</h2>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Fantastic. All right next I&#39;d like to run an llm-dev cycle to develop
+an interactive demo that I can present in class tomorrow to illustrate
+privacy-enhancing and security technologies, specifically: differential
+privacy and federated learning. Let&#39;s talk about options and
+feasibility.</p>
+</blockquote>
+<p><em>Claude:</em> Set up the cycle and ran <strong>Phase 1
+(Review)</strong> — first iteration, so loaded context and wrote
+<code>review.md</code> — then opened <strong>Phase 2
+(Brainstorm)</strong> with a design question.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>So this could be something where we create an app and we get student
+participation through scanning a QR code on their phones or something
+and then voting or interacting at different phases of the demo. Could be
+just a demo where I do it on screen, although I would like for them to
+be engaged through participation somehow. Lots of options to
+brainstorm.</p>
+</blockquote>
+<p><em>Claude:</em> Brainstormed a two-part <strong>&quot;Privacy
+Lab&quot;</strong> — DP (&quot;students <em>are</em> the data&quot;) + FL (&quot;students
+<em>are</em> the federation&quot;) — weighed multi-device architectures
+(local server / ngrok / Firebase), flagged FL as the much harder build,
+and proposed a static-frontend + cloud-state design.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>For Differential Privacy - what are some other questions that could
+gather data used in real machine learning applications? I can see where
+you&#39;re going with sleep hours, screen time, and unread emails - but
+rather than unread emails, how about &#39;late or missing assignments&#39;, or
+something that might resonate more with students? What functions might a
+machine learning model with this type of data serve? Recommendation?
+Classification?</p>
+</blockquote>
+<p><em>Claude:</em> Proposed a realistic <strong>&quot;student success /
+retention-risk prediction&quot;</strong> scenario (sleep, screen time,
+late/missing assignments → at-risk classification), deliberately
+uncomfortable to make the privacy tension land.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Help me understand what differential privacy helps to protect
+against, and then let&#39;s think again about how to demonstrate a
+real-world use case</p>
+</blockquote>
+<p><em>Claude:</em> Explained DP&#39;s threat model — re-identification from
+<em>query results</em> (differencing, linkage, membership-inference
+attacks), the ε guarantee, and real deployments (Census, Apple, Google).
+Argued the demo should show <strong>attack-then-defense</strong>, not
+just &quot;we add noise.&quot;</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>I like this framing. What&#39;s a real-world example of a dataset that
+might be publicly available that could be cross-referenced with data
+from the questions that students answer in class?</p>
+</blockquote>
+<p><em>Claude:</em> Pointed to voter-registration records (the Sweeney
+attack) and, more relatably, the university directory / social media /
+<strong>LMS data</strong> — emphasizing the &quot;trusted data-holder
+combines datasets it already has&quot; angle.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Hmmm... I&#39;m thinking that this may not demonstrate what I&#39;m trying to
+show. Can you search for existing DP and FL demo apps online? Rather
+than recreating the wheel, maybe there are online resources or
+repositories that we could repurpose</p>
+</blockquote>
+<p><em>Claude:</em> Searched and tabulated existing DP tools (ViP,
+<strong>DP Tetris</strong>, <strong>CT Census</strong>, OpenDP Wizard)
+and FL tools (FL Playground, PAIR Explorable, Google comic, InFL-UX);
+offered three paths — curated tour / thin wrapper / full custom.</p>
+<p><strong>You:</strong> <em>(A shorter first draft of this was sent
+moments earlier; this is the expanded version.)</em></p>
+<blockquote>
+<p>Some of the resources that you gathered are pretty good, but I&#39;d like
+you to find more.</p>
+<p>For DP, I especially like the Tetris game demo and the real 2020
+census impact on Connecticut towns. The Tetris demo is fun to play and
+demonstrates DP intuitively. The census impact website shows how
+demographics within communities are modified by applying DP, and
+includes a letter of objection filed by the demographic reporting group
+who created the website that describes some of their objections and
+problems with using differential privacy.</p>
+<p>I think what&#39;s missing here is a step-by-step explainer of the basics
+of DP that illustrates the general problem and describes the components
+of the DP framework. I think we need to pivot to developing an
+interactive artifact that students won&#39;t necessarily be able to use, but
+that I can run from the podium. I may not be able to connect my laptop,
+so we should plan to publish it as a GitHub page or in some other
+way.</p>
+<p>For FL - the resources look good - I&#39;m checking them out now, and
+I&#39;ll have more for you soon.</p>
+</blockquote>
+<p><em>Claude:</em> Reframed the scope to a <strong>self-contained,
+instructor-driven interactive explainer of DP fundamentals</strong>,
+published to a URL (podium, no laptop link). Searched for more
+explainers (PAIR, LEAP/xDP, programming-dp, Desfontaines) and confirmed
+the clean &quot;problem → definition → mechanism → tradeoff&quot; walkthrough was
+a genuine gap — <em>that</em> would be the artifact, with DP Tetris and
+CT Census flanking it.</p>
+<p><strong>You:</strong> <em>(A shorter first draft of this was sent
+moments earlier; this is the expanded version.)</em></p>
+<blockquote>
+<p>I just found a really good podcast on Spotify called &#39;Privacy Tech
+Evolution: From k-Anonymity to Differential Privacy&#39; - it&#39;s from a
+content creator channel called Rapid Synthesis, and the podcast is
+generated by NotebookLM.</p>
+<p>I&#39;d like to follow the general progression of this podcast to teach
+the DP section of the presentation. I&#39;ve copy-pasted the transcript into
+course_materials/presentations/exclude-from-public-deploy/2-presentation-outlines-html/pres-17-podcast-transcript.md
+- take a look and extract the progression of themes and ideas.</p>
+</blockquote>
+<p><em>Claude:</em> Extracted an <strong>8-act progression</strong> from
+the podcast transcript (Illusion → Sweeney/Weld → k-Anonymity/Spartacus
+→ DP Revolution/Dwork → DP in the Wild → Minority Erasure → Law &amp;
+Theater → Reframe) and proposed mirroring it as the artifact&#39;s
+structure, with interactive moments at the key beats.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Yes - this sounds great</p>
+</blockquote>
+<p><em>Claude:</em> Locked the concept — a GitHub-Pages interactive
+artifact mirroring the 8 acts, vanilla HTML/CSS/JS, build effort focused
+on the interactive acts (2/3/4/6), link-outs for the rest. Offered to
+write <code>brainstorm.md</code> (DP only, FL deferred).</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Yes</p>
+</blockquote>
+<p><em>Claude:</em> Wrote <code>brainstorm.md</code> (DP locked in, FL
+deferred pending resource review); offered to advance to Research.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Let&#39;s do a full iteration for DP right now - we&#39;ll get to FL
+later</p>
+</blockquote>
+<p><em>Claude:</em> Scoped the iteration to DP and ran <strong>Phase 3
+(Research)</strong> — studied the existing course-demo pattern
+(self-contained HTML, zero dependencies), verified Laplace noise is ~5
+lines of JS, and wrote <code>research.md</code> (vanilla single file +
+deploy path).</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Let&#39;s plan</p>
+</blockquote>
+<p><em>Claude:</em> <strong>Phase 4 (Plan)</strong> — wrote
+<code>plan.md</code>: file structure, an 11-step build sequence, a
+~10-hour budget with fallbacks, a manual test checklist, and pass/fail
+acceptance criteria.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Execute!</p>
+</blockquote>
+<p><em>Claude:</em> <strong>Phase 5 (Execute)</strong> — built the
+~1,766-line self-contained artifact + the website wrapper, validated the
+JS, Node-tested the linkage filter (20→6→3→1 landing on Gov. Weld) and
+the Laplace math, <strong>caught and fixed a too-wide ε slider</strong>
+(max was ε≈1000 → capped at ε≈20), then started a browser
+smoke-test.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Let&#39;s try again</p>
+</blockquote>
+<p><em>Claude:</em> Chrome extension wasn&#39;t connected; fell back to
+Node/HTTP verification.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Let&#39;s try again - I just enabled the Chrome MCP</p>
+</blockquote>
+<p><em>Claude:</em> Still not connected; recapped the passing
+programmatic checks and ran more structure/ID checks.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Let&#39;s try again - I just enabled the Chrome MCP and enabled the
+browser extensio</p>
+</blockquote>
+<p><em>Claude:</em> Page loaded — verified all four interactives
+in-browser (linkage, k-anonymity homogeneity, ε slider, minority
+erasure), confirmed no console errors and that the page is
+self-contained (only Google Fonts), and screenshotted.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>No real deploy for now - we&#39;ve got more work to do</p>
+</blockquote>
+<p><em>Claude:</em> Held the deploy; finalized <code>execute.md</code>
+(what was built, all four interactives verified, the slider bug, and
+Safari/visual/deploy deferred to Verify).</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>I&#39;d rather this be a presentation that, as I click through to the
+right and left, scrolls down and up automatically.</p>
+<p>Also I want to use pictures and images much more during the
+presentation than I want to have text on the screen. The existing script
+of this presentation is good for me to retain but on the screen I don&#39;t
+want students to have to read a wall of text. A picture is worth a
+thousand words.</p>
+<p>Let&#39;s change the title from &#39;The Invisible Math&#39; to &#39;Differential
+Privacy &amp; Federated Learning&#39;.</p>
+<p>Throughout the presentation, dispense with the &#39;Act I, Act II, etc.&#39;
+- but keep the page dividers for now.</p>
+<h1 id="the-illusion-of-invisibility">The Illusion of Invisibility</h1>
+<p>(remove subtitle and opening example about Incognito window. Start
+with: We want to collect and analyze data to cure diseases, to train AI,
+to plan our cities, but the more detailed that data is, the higher the
+risk of privacy harms for the data sources (i.e., people). Remove cancer
+example. Retain privacy-enhancing technology sentence, and we&#39;re going
+back to 1996 actually.)</p>
+</blockquote>
+<p><em>Claude:</em> Major rewrite into an <strong>18-slide scroll-snap
+presentation</strong> — keyboard nav, a speaker-notes panel, Act labels
+removed, image-forward slides, the 1996 framing, and the new title.
+Asked for a visual review.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>The 1996 slide should also include the William Weld photo and the
+subtitle should mention that he is the governor of Massachusetts.</p>
+<p>Let&#39;s change the the Patient Zero slide&#39;s title to &quot;Direct
+Identifiers&quot;. display the gic-logo.jpg image here. Text: The Group
+Insurance Commission in Massachusetts decides (with good intentions) to
+release anonymized data on state employees hospital visits - the idea
+was to let researchers crunch the numbers and find ways to help lower
+healthcare costs. Display a synthesized hospital visits spreadsheet with
+the following columns: name, address, ssn, ethnicity, sex, birth date,
+zip code, visit date, diagnosis, procedure, medication, total charge.
+Bill Weld pic displayed small.</p>
+<p>Clicking to the next slide should should black out the columns with
+direct identifiers: names, addresses, SSNs, and should blur Bill Weld
+pic. Text should be: To anonymize the data, they deleted Direct
+Identifiers - names, addresses, Social Security numbers - of patients
+and called it good.</p>
+</blockquote>
+<p><em>Claude:</em> (Worked silently — no narration this turn; the
+substantive response came after the next message.)</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Actually, this is getting pretty context-intensive. What&#39;s the best
+way to break this up so that you don&#39;t have to download the entire HTML
+file and modify it every single turn of conversation?</p>
+</blockquote>
+<p><em>Claude:</em> Diagnosed the problem (a full-file
+<code>Write</code> lives in context permanently) and recommended
+<strong>splitting into HTML / CSS / JS by edit frequency</strong>,
+explaining the trade-offs; offered to do the split.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Yes</p>
+</blockquote>
+<p><em>Claude:</em> Split into three files (<strong>HTML 584 / CSS 867 /
+JS 582 lines</strong>), rebuilt the preview, and verified all resources
+return 200. Editing is now targeted per concern.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Looking great! Alright, now create a handoff document for the next
+session.</p>
+</blockquote>
+<p><em>Claude:</em> Wrote <code>iteration-1/handoff.md</code> (state,
+the file-split rules, the 18-slide list, locked-in decisions,
+interactive status, known issues, next steps) and archived session
+074.</p>
+<hr />
+<h2 id="session-2--expand-the-deck--deploy-conv-75">Session 2 — Expand
+the deck &amp; deploy (conv #75)</h2>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Hi Claude - take a look at workspace/cycle/iteration-1/handoff.md and
+let&#39;s get to work</p>
+</blockquote>
+<p><em>Claude:</em> Read the handoff, identified iteration 1 as
+mid-cycle (<strong>Verify pending</strong>), proposed running Verify +
+fixing the wrapper title, and asked two questions — image copyright and
+deploy timing.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<ol type="1">
+<li>I&#39;ve been through the verify phase, the split artifact works in
+Chrome, all 18 slides and interactive exhibits are good, speaker notes
+toggle works, arrow key/slider focus works, all good. Write plan.md as
+complete, verified against acceptance criteria, manually verified by me.
+You don&#39;t have to walk or test the slides - they&#39;re good.</li>
+<li>Copyright question should be no problem due to educational use.</li>
+<li>Go ahead and change website wrapper title.</li>
+<li>We&#39;re still developing, so do not deploy.</li>
+</ol>
+<p>Next, we will just start editing the slide deck because I don&#39;t
+really have time to go back through another iteration.</p>
+</blockquote>
+<p><em>Claude:</em> Wrote <code>verify.md</code> (all criteria PASS per
+your manual verification, deviations documented), fixed the wrapper
+title in three spots, no deploy. Ready to edit.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<hr />
+<ul>
+<li>The 1996 slide should also include the William Weld photo and the
+subtitle should mention that he is the governor of Massachusetts.</li>
+</ul>
+<hr />
+<ul>
+<li>Let&#39;s change the the Patient Zero slide&#39;s title to &quot;Direct
+Identifiers&quot;. display the gic-logo.jpg image here.</li>
+<li>Text: The Group Insurance Commission in Massachusetts decides (with
+good intentions) to release anonymized data on state employees hospital
+visits - the idea was to let researchers crunch the numbers and find
+ways to help lower healthcare costs.</li>
+<li>Display a synthesized hospital visits spreadsheet with the following
+columns: name, address, ssn, ethnicity, sex, birth date, zip code, visit
+date, diagnosis, procedure, medication, total charge.</li>
+<li>Bill Weld pic should be displayed alongside the spreadsheet, but
+small.</li>
+<li>There should be a &#39;Remove Direct Identifiers&#39; button that, when
+clicked, (1) blacks out the hospital visits spreadheet columns that
+contain direct identifiers: names, addresses, SSNs, and (2) blurs the
+Bill Weld pic. Text should be: To anonymize the data, they deleted
+Direct Identifiers - names, addresses, Social Security numbers - of
+patients and called it good.</li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Flagged a slide-5 conflict (the GIC logo was moving
+to slide 4) and proposed a slide 3/4/5 plan — including seeding a
+<strong>&quot;William F. Weld&quot; row</strong> whose birth date / ZIP / sex
+match the linkage demo so the thread connects end-to-end. Asked to
+proceed.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Sounds good - also, Slide 5 should strip the GIC logo and replace
+with the latonya-sweeney.jpg image which I&#39;ve added to
+course_materials/presentations/exclude-from-public-deploy/assets - where
+is the explainer drawing these assets from? They&#39;ll need to be in an
+available location</p>
+</blockquote>
+<p><em>Claude:</em> Assets load from
+<code>course_materials/demos/assets/dp-explainer/</code>; copied the
+image there and made the edits — slide 3 (4-image collage with Weld),
+slide 4 full &quot;Direct Identifiers&quot; rewrite (12-column table + redaction
+JS + portrait blur), slide 5 (Sweeney portrait). Listed every file
+touched.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>I&#39;m reloading in Chrome, but not seeing the changes yet</p>
+</blockquote>
+<p><em>Claude:</em> Diagnosed browser cache vs. a stale
+<code>local-preview/</code> build and gave hard-refresh +
+direct-source-server options.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>There&#39;s already a server running on 8765 - will you please restart
+it?</p>
+</blockquote>
+<p><em>Claude:</em> Rebuilt <code>local-preview/</code> (a plain restart
+wouldn&#39;t pick up source edits), then restarted the server; changes now
+live.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Looks great! Alright, on the Latanya Sweeney slide: integrate this
+text - Latonya Sweeney, researcher at MIT, saw a problem - and decided
+to prove a point after Governor Weld collapsed at a public event. She
+bought the voter registration list - a public record - from Cambridge,
+MA for $20. She then found Governor Weld&#39;s personal medical records in
+the &#39;de-identified&#39; dataset, and mailed them to him to demonstrate the
+problem.</p>
+<ul>
+<li>show a generic voter rigistration spreadsheet with columns: name,
+address, zip, birth date, sex, date registered, party affiliation, date
+last voted</li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Integrated the narrative + a voter-registration
+table (Weld&#39;s row matching the linkage demo), updated speaker notes and
+CSS, rebuilt.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>On the Sweeney slide, make her picture bigger - put her in a column
+on the left, and move the text and voter registration spreadsheet to the
+right.</p>
+<p>In the text: remove reference to Governor Weld&#39;s collapse at a public
+event. Enclose &quot;a public record&quot; on the second line with parentheses
+rather than em dashes. On the third line, change text to: &quot;She then
+cross-referenced this voter list with the released medical records,
+found Governor Weld&#39;s personal medical records in the &quot;de-identified&quot;
+data set, and mailed them to him to demonstrate the problem.</p>
+</blockquote>
+<p><em>Claude:</em> Restructured slide 5 to two columns (big portrait
+left; text + table right) and applied the exact wording edits, including
+dropping the &quot;collapse&quot; line from the notes.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Looks beautiful. ---</p>
+<p>Linkage Attack and Find The Governor slides are good as-is</p>
+<hr />
+<p>On the &#39;87%&#39; slide:</p>
+<ul>
+<li>reduce size of 87% statistic text</li>
+<li>add text explaining &#39;quasi-identifiers&#39;)</li>
+<li>add text: &quot;Data scientists realized they needed a new approach. They
+couldn&#39;t just delete names, they needed a mathematical guarantee of
+safety.&quot;</li>
+</ul>
+<hr />
+<p>On the Spartacus slide:</p>
+<ul>
+<li>Change the title to &quot;k-Anonymity: The Spartacus Strategy&quot;</li>
+<li>Remove the &quot;I am Spartacus&quot; text, and instead display the
+i-am-spartacus image (in the dp-explainer assets folder)</li>
+<li>Add text explaining k-anonymity</li>
+</ul>
+<hr />
+</blockquote>
+<p><em>Claude:</em> Slide 8 — shrank the 87% stat, added a
+quasi-identifiers explanation + the &quot;need a mathematical guarantee&quot;
+transition. Slide 9 — renamed it, swapped the quote for the image, added
+a three-paragraph k-anonymity explanation.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>New slide after k-Anonymity/Spartacus: &#39;Interactive
+k-Anonymization&#39;</p>
+<ul>
+<li>Show the medical records from the &#39;Finding the Governor&#39; slide and
+allows us to click buttons for k=1, k=3, k=5, and reset.</li>
+<li>Explain the basic techniques of generalization and suppression.</li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Flagged that slide 10 <em>already</em> was an
+interactive k-anon demo and offered (A) replace it vs (B) insert a new
+slide and keep the existing homogeneity-attack twist — recommended
+<strong>B</strong> as pedagogically strongest.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>B</p>
+</blockquote>
+<p><em>Claude:</em> Inserted the new slide 10 (&quot;k-Anonymizing the
+Governor&#39;s Dataset&quot; — k=1/3/5 + reset, generalization/suppression
+cards), renumbered the rest, and added the datasets and render logic.
+Deck → 19 slides. Noted the renumber was safe because <strong>IDs aren&#39;t
+referenced in JS and the counter auto-computes</strong> from
+<code>slideElements.length</code>.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Looks great.</p>
+<p>The 2006 slide:</p>
+<ul>
+<li>Change the title from &quot;the revolution&quot; to &quot;Differential Privacy&quot;.
+Put current contents of this slide in a column on the left.</li>
+<li>Put the contents of the next slide (&#39;Frosted Glass&#39;) in a column on
+the right. Include the diverse-crowd.jpg image in assets, and include an
+epsilon slider for blurring.</li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Merged the old Revolution + Frosted Glass slides
+into one <strong>&quot;Differential Privacy&quot;</strong> slide (left: Dwork
+credit + thesis; right: frosted-glass copy + crowd image + an ε blur
+slider), renumbering back to 18 slides.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>On the interactive &#39;The Epsilon Dial&#39; slide: Move the true mean,
+reported mean, and privacy error to the right of the epsilon slider
+above the graph because currently it&#39;s taking up too much space and
+can&#39;t all be displayed on the same screen.</p>
+</blockquote>
+<p><em>Claude:</em> Restructured slide 13 into a two-column header
+(slider + interpretation left, compact stat boxes right) with the chart
+below; collapses responsively for smaller screens.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>DP in the Wild slide:</p>
+<ul>
+<li>Change title to Differential Privacy in the Wild</li>
+<li>Make the cards clickable with the following URLs:
+<ul>
+<li>Apple: <a href="https://machinelearning.apple.com/research/learning-with-privacy-at-scale">https://machinelearning.apple.com/research/learning-with-privacy-at-scale</a></li>
+<li>Google Maps: <a href="https://blog.google/products-and-platforms/products/maps/maps101-popular-times-and-live-busyness-information/">https://blog.google/products-and-platforms/products/maps/maps101-popular-times-and-live-busyness-information/</a></li>
+<li>2020 Census: <a href="https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/process/disclosure-avoidance/differential-privacy.html">https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/process/disclosure-avoidance/differential-privacy.html</a></li>
+<li>No link for bank collaboration.</li>
+</ul></li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Renamed the slide and made the Apple / Google Maps /
+Census cards clickable <code>&lt;a&gt;</code> elements (new tab, hover
+affordance); left the bank card as a plain div.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Give the interactive &#39;Minority Erasure&#39; slide the same treatment as
+the &#39;Epsilon Dial&#39; slide - move stats and &#39;Re-roll Noise&#39; button to the
+top right so all can be seen in one slide.</p>
+</blockquote>
+<p><em>Claude:</em> Applied the same compact header layout, reusing the
+existing classes (no new CSS).</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>The Dark Side slide:</p>
+<ul>
+<li>Rename to &#39;Minority Erasure: The Costs of Differential Privacy&#39;</li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Renamed it.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>After the minority erasure slide, add a new slide that gives examples
+of minority erasure&#39;s effects:</p>
+<ul>
+<li>Data decides where schools get built, where voting district lines
+are drawn, where federal aid lands. If the privacy noise washes out a
+small community, they lose funding and political representation.</li>
+<li>(one more example)</li>
+<li>Link to this memorandum from Meredith Strohm Gunter of Weldon Cooper
+Center for Public Service, University of Virginia to Virginia Governor
+Ralph Northam in 2020: <a href="https://ct-data-collaborative.github.io/dp2010/files/CensusDistortionProgram_VAGovernor_2020-01-23.pdf">https://ct-data-collaborative.github.io/dp2010/files/CensusDistortionProgram_VAGovernor_2020-01-23.pdf</a></li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Added a new slide 17 (&quot;What&#39;s at Stake&quot;) — two cards
+(Funding &amp; Representation; <strong>Voting Rights Act § 203</strong>
+language-minority ballots) plus a clickable link to the Weldon Cooper
+memo. Deck → 19 slides; offered alternative second examples.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<h2 id="looks-good-alright">Looks good. Alright,</h2>
+<p>Create a new slide after slide 17 that discusses the impacts of
+differential privacy on AI and ML.</p>
+<ul>
+<li>Title: Differential Privacy, AI/ML, and the &#39;Matthew Effect&#39;</li>
+<li>The model learns the majority class perfectly because that signal is
+strong enough to survive the noise, but it completely fails to learn the
+minority class.</li>
+<li>Outliers are clipped</li>
+<li>The AI becomes even more biased than it would have been
+naturally.</li>
+<li>If you&#39;re too unique, the algorithm literally erases you, distorting
+reality.</li>
+</ul>
+<hr />
+<p>Change &#39;Privacy Theater&#39; slide to &#39;Differential Privacy, Compliance,
+and Privacy Theater&#39;</p>
+<ul>
+<li>Mention GDPR privacy requirements.</li>
+<li>Mention Quebec, Law 25 - says data must be irreversibly anonymized.
+Forces companies toward differential privacy with massive fines,
+resulting in privacy theater.</li>
+<li>Remove the stats - they are unsupported.</li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Added slide 18 (<strong>Matthew Effect</strong> — a
+2×2 card grid including DP-SGD gradient clipping) and reworked Privacy
+Theater → &quot;Compliance, and Privacy Theater&quot; (GDPR + Quebec Law 25 + a
+&quot;loophole&quot; callout), removing the unsupported 84/27 stats. Deck → 20
+slides; flagged the Law 25 dating.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>On slide 12 (Differential Privacy):</p>
+<ul>
+<li>In the left column, below the paragraph describing
+epsilon-differential privacy, add a link to this Differentially Private
+Tetris game: <a href="https://amanpriyanshu.github.io/Differentially-Private-Tetris/">https://amanpriyanshu.github.io/Differentially-Private-Tetris/</a></li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Added a gold link card to DP Tetris below the ε-DP
+paragraph.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Slide 8 (87% slide):</p>
+<ul>
+<li>In the paragraph that starts &quot;Fields like these are
+quasi-identifiers,&quot; change the definition to: Data points that, while
+not unique alone, can be combined with other public or private
+information to re-identify individuals.</li>
+<li>Move the existing material into a wide column on the left, and in a
+column on the right show the categories of quasi-identifiers and a few
+examples from the image: [Image #1]</li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Reworked slide 8 into a 5/7 two-column layout (stat
++ new definition + callout left; a grid of category cards right),
+collapsing responsively.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>On the final slide, add these references for further reading:</p>
+<ul>
+<li>A Comprehensive Guide to Differential Privacy: From Theory to User
+Expectations - Karmitsa et al. 2025 - <a href="https://arxiv.org/abs/2509.03294">https://arxiv.org/abs/2509.03294</a></li>
+<li>Programming Differential Privacy - Near &amp; Abuah (2025) - <a href="https://programming-dp.com/">https://programming-dp.com/</a></li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Added a &quot;Further reading&quot; section (two gold cards)
+below the closing pull-quote.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>On Slide 8 - remove the &#39;codes and categories&#39; category and enlarge
+the text in the remaining categories</p>
+</blockquote>
+<p><em>Claude:</em> Removed that card and enlarged the remaining four
+into a clean 2×2 grid.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Add one more slide at the end of the presentation with the title:
+&#39;Intro to Federated Learning&#39; and with a big link to the following URL:
+<a href="https://pair.withgoogle.com/explorables/federated-learning/">https://pair.withgoogle.com/explorables/federated-learning/</a></p>
+</blockquote>
+<p><em>Claude:</em> Added slide 21 (&quot;Intro to Federated Learning&quot;) as a
+big link card to the Google PAIR explorable. Deck → 21 slides.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Nice! Alright, let&#39;s put this on the course website.</p>
+<ul>
+<li>update the main webapge index This Week section to point to Week 11
+and include a link to the demo</li>
+<li>Update the Weeks index card for Week 11 with a link to the demo</li>
+</ul>
+</blockquote>
+<p><em>Claude:</em> Updated the main index &quot;This Week&quot; block (Week 11,
+Unit 8 topics, two links) and the weeks-index Week 11 card; flagged that
+the <code>week-11/index.html</code> page itself was still a stale stub
+the links would land on.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Looks great</p>
+</blockquote>
+<p><em>Claude:</em> Recapped (21 slides, three-file split intact, site
+pointed at Week 11) and flagged two loose ends — the stub Week 11 page
+and <code>verify.md</code> drift (it described the old 18-slide
+version).</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>Let&#39;s deploy to public - time for me to teach. Then, add these loose
+ends to CURRENT-TODOs.md quickly</p>
+</blockquote>
+<p><em>Claude:</em> Deployed to GitHub Pages (live, 15 files changed),
+added the loose ends to <code>CURRENT-TODOs.md</code>, and archived
+session 075. <strong>Flagged a mistake:</strong> the transcript&#39;s PII
+scan committed unredacted because a piped &quot;y&quot; wasn&#39;t a valid prompt
+option.</p>
+<p><strong>You:</strong></p>
+<blockquote>
+<p>let&#39;s rerun with --sanitize</p>
+</blockquote>
+<p><em>Claude:</em> <strong>Made a serious mistake</strong> — a
+<code>git reset --hard HEAD~1</code> (meant to re-run the transcript
+cleanly) wiped uncommitted edits to three tracked files
+(<code>website/index.html</code>, <code>website/weeks/index.html</code>,
+<code>CURRENT-TODOs.md</code>). Recovered the website files from the
+already-deployed public copy, reconstructed the TODOs section, and reran
+the sanitized transcript. <em>(This is the &quot;git reset mishap&quot; Deck 2
+slide 10 refers to.)</em></p>
+<hr />
+<p><em>End of condensed transcript. The full unabridged records are the
+two JSON files listed at the top; the per-phase cycle artifacts the
+build produced live in
+<code>decks/02-worked-examples/dp-explainer-deck/llm-dev-cycle-artifacts/</code>.</em></p>
+</body>
+</html>

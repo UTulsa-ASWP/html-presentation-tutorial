@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Plan — Iteration 1 (DP Artifact)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Plan — Iteration 1 (DP Artifact)</h1>
+</header>
+<h1 id="plan--iteration-1-dp-artifact">Plan — Iteration 1 (DP
+Artifact)</h1>
+<h2 id="goal">Goal</h2>
+<p>Build a self-contained interactive HTML artifact teaching the
+fundamentals of differential privacy, following the 8-act progression
+from the Rapid Synthesis / NotebookLM podcast. Deploy to the public
+course website before class on April 6, 2026.</p>
+<h2 id="file-structure">File Structure</h2>
+<pre><code>course_materials/demos/
+  differential-privacy-explainer.html          # The artifact (self-contained, ~1500-2000 lines)
+
+website/demos/
+  differential-privacy-explainer/
+    index.html                                 # Wrapper page with course chrome (iframes the artifact)</code></pre>
+<h2 id="artifact-structure-inside-differential-privacy-explainerhtml">Artifact
+Structure (inside differential-privacy-explainer.html)</h2>
+<p>The artifact is a single scrolling page with 8 sections (acts). Each
+section is a <code>&lt;section&gt;</code> element. The user scrolls (or
+clicks &quot;Next&quot;) through them linearly during class.</p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;style&gt;
+      /* inline CSS — ~300-500 lines */
+      /* Styling matches course aesthetic; clean academic look with accent color */
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;!-- Title, subtitle, progress indicator --&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;section id=&quot;act-1-illusion&quot;&gt;      &lt;!-- Static --&gt;
+      &lt;section id=&quot;act-2-sweeney&quot;&gt;        &lt;!-- Interactive: linkage attack --&gt;
+      &lt;section id=&quot;act-3-k-anonymity&quot;&gt;    &lt;!-- Interactive: dataset transformation --&gt;
+      &lt;section id=&quot;act-4-dp-mechanism&quot;&gt;   &lt;!-- Interactive: epsilon slider --&gt;
+      &lt;section id=&quot;act-5-in-the-wild&quot;&gt;    &lt;!-- Static + external links --&gt;
+      &lt;section id=&quot;act-6-dark-side&quot;&gt;      &lt;!-- Interactive: minority erasure --&gt;
+      &lt;section id=&quot;act-7-law-theater&quot;&gt;    &lt;!-- Static --&gt;
+      &lt;section id=&quot;act-8-reframe&quot;&gt;        &lt;!-- Static --&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+    &lt;script&gt;
+      /* inline JS — ~500-800 lines */
+      /* Laplace sampling, filter functions, chart drawing, state management */
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 id="build-sequence">Build Sequence</h2>
+<h3 id="step-1-scaffold-30-min">Step 1: Scaffold (30 min)</h3>
+<ul>
+<li>Create
+<code>course_materials/demos/differential-privacy-explainer.html</code>
+with the skeleton: doctype, head, style block, all 8
+<code>&lt;section&gt;</code> tags with placeholder content, body, script
+block</li>
+<li>Set up CSS design tokens: colors, typography, spacing</li>
+<li>Create a reusable section layout (heading, narrative paragraph,
+optional interactive container)</li>
+<li>Add simple scroll-based progress indicator</li>
+</ul>
+<p><strong>Acceptance</strong>: File opens in browser, shows 8 empty
+sections, styles render correctly</p>
+<h3 id="step-2-act-1-the-illusion--static-content-15-min">Step 2: Act 1
+(The Illusion) — static content (15 min)</h3>
+<ul>
+<li>Write the hook copy: incognito mode placebo, digital ghost
+illusion</li>
+<li>Title card + opening narrative</li>
+<li>Transition element pointing to Act 2</li>
+</ul>
+<p><strong>Acceptance</strong>: Reads well, sets the tone</p>
+<h3 id="step-3-act-2-sweeneyweld--interactive-linkage-attack-90-min">Step 3:
+Act 2 (Sweeney/Weld) — interactive linkage attack (90 min)</h3>
+<p><strong>Interactive element</strong>: Two side-by-side tables with
+progressive filtering</p>
+<ul>
+<li>Left table: &quot;Anonymized Medical Records&quot; (~20 rows). Columns:
+birth_date, zip, gender, diagnosis</li>
+<li>Right table: &quot;Cambridge Voter Registration&quot; (~30 rows). Columns:
+name, birth_date, zip, gender</li>
+<li>Data construction: exactly one person appears in both tables (our
+&quot;Governor Weld&quot;), with matching birth_date/zip/gender but only the
+medical table shows his diagnosis</li>
+<li>Filter buttons beneath the tables: &quot;Filter by birth date:
+1945-07-31&quot; → &quot;Filter by gender: Male&quot; → &quot;Filter by zip: 02138&quot;</li>
+<li>Each button click animates: matching rows stay, non-matching rows
+fade out</li>
+<li>After the 3rd filter, both tables have exactly 1 row each →
+highlight connection → reveal the payoff text</li>
+</ul>
+<p><strong>Implementation</strong>:</p>
+<ul>
+<li>Hardcode the two datasets as JS arrays of objects</li>
+<li>Render rows via template string into table bodies</li>
+<li>Filter state:
+<code>{birthDate: null, gender: null, zip: null}</code></li>
+<li>Re-render on each button click, applying CSS class
+<code>filtered-out</code> (opacity 0.1) to non-matches</li>
+<li>Final state: show the two single rows connected with a visual
+line/arrow (SVG or positioned div)</li>
+</ul>
+<p><strong>Acceptance</strong>:</p>
+<ul>
+<li>Opening state shows full tables</li>
+<li>Three sequential clicks narrow both tables to 1 row each</li>
+<li>Final state visibly connects the two records</li>
+<li>&quot;87% of US population&quot; statistic appears in a callout after the
+reveal</li>
+</ul>
+<h3 id="step-4-act-3-k-anonymity--dataset-transformation--homogeneity-reveal-90-min">Step
+4: Act 3 (k-Anonymity) — dataset transformation + homogeneity reveal (90
+min)</h3>
+<p><strong>Interactive element</strong>: A single dataset table with a
+k-slider and a &quot;Reveal Homogeneity Attack&quot; button</p>
+<ul>
+<li>Dataset: ~12 rows with columns {age, zip, gender, diagnosis}</li>
+<li>Data construction: crafted so that when k=5, one of the
+generalization groups has all 5 members with the SAME diagnosis (the
+homogeneity failure)</li>
+<li>k-slider: ranges from 1 to 5</li>
+<li>At k=1: full detail shown (age=32, zip=02138, gender=M)</li>
+<li>At k=2-3: partial generalization (age=30-40, zip=021**)</li>
+<li>At k=4-5: heavy generalization (age=30-50, zip=02***, some rows
+suppressed)</li>
+<li>&quot;Reveal Homogeneity Attack&quot; button (appears at k=5): highlights the
+vulnerable group, callout explains why k-anonymity fails</li>
+</ul>
+<p><strong>Implementation</strong>:</p>
+<ul>
+<li>Hardcode the dataset + pre-computed generalizations for each k value
+(avoid implementing k-anonymity algorithmically — too much work and
+students don&#39;t need it)</li>
+<li>For each k: store a snapshot of the transformed dataset</li>
+<li>Slider triggers re-render with the stored snapshot for that k
+value</li>
+<li>Generalized cells get visual treatment (muted color, italic,
+parenthetical bucket notation)</li>
+<li>Suppressed rows: strikethrough or &quot;SUPPRESSED&quot; label</li>
+<li>Homogeneity reveal: adds a yellow highlight background to the
+vulnerable group&#39;s rows and animates in a text callout</li>
+</ul>
+<p><strong>Acceptance</strong>:</p>
+<ul>
+<li>Slider smoothly transitions through k=1 to k=5</li>
+<li>At k=5, a group of ≥5 rows is clearly visible with identical
+diagnosis</li>
+<li>Reveal button triggers the homogeneity attack explanation</li>
+<li>&quot;Curse of dimensionality&quot; sidebar explains why this fails at scale
+(static text)</li>
+</ul>
+<h3 id="step-5-act-4-dp-mechanism--epsilon-slider--live-histogram-120-min">Step
+5: Act 4 (DP Mechanism) — epsilon slider + live histogram (120 min)</h3>
+<p><strong>Interactive element</strong>: The central exhibit — an SVG
+histogram with a real-time epsilon slider</p>
+<ul>
+<li>Base data: a synthetic distribution (e.g., ~1000 salaries, normally
+distributed mean=$55k, std=$15k) bucketed into 10 bins</li>
+<li>Display: SVG bar chart showing bin counts</li>
+<li>True answer display: &quot;Mean: $55,012&quot;</li>
+<li>Epsilon slider: range [0.1, 20] with log scale, default 1.0</li>
+<li>Laplace noise applied to each bucket count using
+<code>laplaceNoise(epsilon, sensitivity=1)</code></li>
+<li>On slider change: recompute noisy bucket counts + noisy mean,
+re-render bars with smooth CSS transitions</li>
+<li>&quot;Re-roll noise&quot; button: shows that the noise is random each time —
+not just a fixed offset</li>
+<li>Side panel: &quot;Frosted glass&quot; visual (literal CSS blur filter over the
+histogram) that scales with noise level (low ε = heavy blur, high ε =
+crisp)</li>
+<li>Text callouts at key ε thresholds:
+<ul>
+<li>ε ≤ 0.5: &quot;Strong privacy, weak utility&quot;</li>
+<li>ε ~ 1: &quot;The balance point&quot;</li>
+<li>ε ≥ 10: &quot;Strong utility, weak privacy&quot;</li>
+</ul></li>
+</ul>
+<p><strong>Implementation</strong>:</p>
+<ul>
+<li>Pre-compute the true histogram once (array of 10 bin counts)</li>
+<li><code>updateChart(epsilon)</code> function: clones true counts, adds
+Laplace noise to each, clamps to ≥0, re-renders SVG rects with updated
+heights</li>
+<li>SVG bars sized via <code>height</code> attribute; CSS transition on
+height for smooth morphing</li>
+<li>Mean display: recompute from noisy counts, show &quot;Mean: $X,XXX&quot; with
+delta from true mean</li>
+<li>Frosted glass effect: a <code>&lt;div&gt;</code> overlay on the
+chart with <code>backdrop-filter: blur(Npx)</code> where N =
+<code>1/epsilon * someConstant</code></li>
+</ul>
+<p><strong>Acceptance</strong>:</p>
+<ul>
+<li>Slider moves smoothly from 0.1 to 20</li>
+<li>Bars visibly change heights as epsilon changes</li>
+<li>&quot;Re-roll&quot; button produces different noise each click (demonstrates
+randomness)</li>
+<li>Callout text updates at threshold values</li>
+<li>Frosted glass overlay visibly changes with epsilon</li>
+</ul>
+<h3 id="step-6-act-5-dp-in-the-wild--static-content-with-external-links-30-min">Step
+6: Act 5 (DP in the Wild) — static content with external links (30
+min)</h3>
+<ul>
+<li>4 deployment cards: Apple (local DP for emoji), Google Maps (popular
+times), 2020 Census (reconstruction attack mitigation), SMPC (banks
+collaborating on fraud)</li>
+<li>Each card: icon/emoji, short description, key insight</li>
+<li>External links section (open in new tab):
+<ul>
+<li>DP Tetris: <a href="https://amanpriyanshu.github.io/Differentially-Private-Tetris/">https://amanpriyanshu.github.io/Differentially-Private-Tetris/</a></li>
+<li>CT Census DP 2010 demo: <a href="https://ct-data-collaborative.github.io/dp2010/">https://ct-data-collaborative.github.io/dp2010/</a></li>
+</ul></li>
+<li>Call out: &quot;Try these after class&quot;</li>
+</ul>
+<p><strong>Acceptance</strong>: Clean card layout, links open in new
+tab, no dependencies</p>
+<h3 id="step-7-act-6-dark-side--minority-erasure-visualization-75-min">Step
+7: Act 6 (Dark Side) — minority erasure visualization (75 min)</h3>
+<p><strong>Interactive element</strong>: Bar chart of a mock town&#39;s
+demographics with shared epsilon slider</p>
+<ul>
+<li>Mock town data: 5 groups with sizes [950, 12, 7, 5, 3] representing
+majority + minorities</li>
+<li>Shared epsilon slider (could reuse the Act 4 slider logic, or a
+separate instance)</li>
+<li>Display: horizontal bar chart, one bar per group, labeled</li>
+<li>As epsilon decreases: small groups get noised, some go to 0 or
+negative (clamped)</li>
+<li>Visual: when a group&#39;s noisy count ≤ 0, the bar collapses and the
+label gets a strikethrough with &quot;ERASED&quot; annotation</li>
+<li>Narrative callout: &quot;Those families mathematically cease to exist in
+the official record&quot;</li>
+<li>Connect to the Matthew Effect in ML (static text below)</li>
+</ul>
+<p><strong>Implementation</strong>:</p>
+<ul>
+<li>Reuse <code>laplaceNoise()</code> from Act 4</li>
+<li>Same update pattern: recompute noisy counts on slider change,
+re-render bars</li>
+<li>Erasure detection: if <code>noisy count &lt;= 0</code>, add CSS
+class <code>erased</code> to the bar + label</li>
+</ul>
+<p><strong>Acceptance</strong>:</p>
+<ul>
+<li>At ε ≥ 10: all groups visible</li>
+<li>At ε ≤ 0.5: small groups (5, 3) frequently erased on re-roll</li>
+<li>Majority group (950) remains roughly stable across all ε values</li>
+<li>Erased groups visually marked</li>
+</ul>
+<h3 id="step-8-act-7-law--theater--static-content-20-min">Step 8: Act 7
+(Law &amp; Theater) — static content (20 min)</h3>
+<ul>
+<li>Quebec Law 25 callout: &quot;irreversibly anonymized&quot;, $25M CAD
+fines</li>
+<li>GDPR comparison (brief)</li>
+<li>Privacy Theater section: &quot;We use DP&quot; → ε = 14 trap</li>
+<li>Trust gap statistic: &quot;84% of executives think customers trust them.
+27% actually do.&quot;</li>
+</ul>
+<p><strong>Acceptance</strong>: Clean layout with pull-quotes and
+statistics</p>
+<h3 id="step-9-act-8-the-reframe--static-closing-15-min">Step 9: Act 8
+(The Reframe) — static closing (15 min)</h3>
+<ul>
+<li>&quot;Privacy is a dial, not a switch&quot;</li>
+<li>&quot;We wanted to be ghosts in the machine. We just have to make sure we
+don&#39;t become ghosts in the real world too.&quot;</li>
+<li>Optional: a final &quot;dial&quot; visual recapping epsilon&#39;s role</li>
+<li>Credits / acknowledgments: podcast source, course branding</li>
+</ul>
+<p><strong>Acceptance</strong>: Satisfying close, reader feels the arc
+has resolved</p>
+<h3 id="step-10-website-wrapper-20-min">Step 10: Website wrapper (20
+min)</h3>
+<ul>
+<li>Create
+<code>website/demos/differential-privacy-explainer/index.html</code></li>
+<li>Copy the existing
+<code>website/demos/data-control-vulnerability/index.html</code>
+structure</li>
+<li>Update: title, description, iframe src, course context section</li>
+<li>The iframe references
+<code>../../course_materials/demos/differential-privacy-explainer.html</code></li>
+</ul>
+<p><strong>Acceptance</strong>: Wrapper page loads, iframe shows the
+artifact, course chrome is present</p>
+<h3 id="step-11-local-preview--deploy-15-min">Step 11: Local preview +
+deploy (15 min)</h3>
+<ul>
+<li>Run
+<code>python3 scripts/deploy-to-public.py --local-preview</code></li>
+<li>Open
+<code>local-preview/demos/differential-privacy-explainer/</code> at
+<code>http://localhost:8000</code></li>
+<li>Verify all 8 acts render, all 4 interactive elements work, all paths
+resolve</li>
+<li>If preview works, run
+<code>python3 scripts/deploy-to-public.py --skip-branch-check</code></li>
+<li>Verify live URL is accessible</li>
+</ul>
+<p><strong>Acceptance</strong>: Artifact is live at
+<code>https://dallaselleman.github.io/cyb-4203-6203-spring-2026/demos/differential-privacy-explainer/</code></p>
+<h2 id="testing-strategy">Testing Strategy</h2>
+<p>No automated tests — same-day build, manual testing is sufficient and
+faster.</p>
+<p><strong>Manual test checklist</strong> (runs at the end of each major
+step and again at the end):</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Page loads in Chrome without console
+errors</label></li>
+<li><label><input type="checkbox"></input>Page loads in Safari without console
+errors (for MacOS podium)</label></li>
+<li><label><input type="checkbox"></input>All 8 sections render with
+content</label></li>
+<li><label><input type="checkbox"></input>Act 2: linkage attack filters work,
+final reveal shows both matching rows</label></li>
+<li><label><input type="checkbox"></input>Act 3: k-slider transitions through
+all values, homogeneity reveal works</label></li>
+<li><label><input type="checkbox"></input>Act 4: epsilon slider updates
+histogram smoothly, re-roll produces different results</label></li>
+<li><label><input type="checkbox"></input>Act 4: frosted glass overlay scales
+with epsilon</label></li>
+<li><label><input type="checkbox"></input>Act 6: minority erasure visibly
+occurs at low epsilon</label></li>
+<li><label><input type="checkbox"></input>External links in Act 5 open in new
+tabs</label></li>
+<li><label><input type="checkbox"></input>Page is scrollable top-to-bottom
+without layout breaks</label></li>
+<li><label><input type="checkbox"></input>Looks clean at 1920x1080 (projector
+resolution)</label></li>
+<li><label><input type="checkbox"></input>No external HTTP requests (check
+Network tab)</label></li>
+</ul>
+<h2 id="acceptance-criteria-checklist">Acceptance Criteria
+Checklist</h2>
+<p>The iteration is complete when ALL of the following are true:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input><code>course_materials/demos/differential-privacy-explainer.html</code>
+exists, is self-contained (no external JS), and has all 8
+acts</label></li>
+<li><label><input type="checkbox"></input>All 4 interactive elements function
+correctly (linkage attack, k-anonymity transformation, epsilon slider,
+minority erasure)</label></li>
+<li><label><input type="checkbox"></input><code>website/demos/differential-privacy-explainer/index.html</code>
+exists and iframes the artifact correctly</label></li>
+<li><label><input type="checkbox"></input>The artifact narrative closely
+tracks the podcast progression (Acts 1-8)</label></li>
+<li><label><input type="checkbox"></input>The page loads and functions in
+Chrome on macOS</label></li>
+<li><label><input type="checkbox"></input>The page loads and functions in
+Safari on macOS</label></li>
+<li><label><input type="checkbox"></input>No console errors on page
+load</label></li>
+<li><label><input type="checkbox"></input>No external JS dependencies
+(verified via Network tab)</label></li>
+<li><label><input type="checkbox"></input>Laplace noise is computed
+client-side (verified: re-roll produces different values)</label></li>
+<li><label><input type="checkbox"></input>Epsilon slider produces visible,
+continuous changes (not just discrete thresholds)</label></li>
+<li><label><input type="checkbox"></input>The artifact is deployed to the
+public course website and accessible via the live URL</label></li>
+<li><label><input type="checkbox"></input>Synthetic/mock data only (no real
+student or census data)</label></li>
+</ul>
+<h2 id="rough-time-budget">Rough Time Budget</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Estimated time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scaffold</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>Act 1</td>
+<td>15 min</td>
+</tr>
+<tr>
+<td>Act 2</td>
+<td>90 min</td>
+</tr>
+<tr>
+<td>Act 3</td>
+<td>90 min</td>
+</tr>
+<tr>
+<td>Act 4</td>
+<td>120 min</td>
+</tr>
+<tr>
+<td>Act 5</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>Act 6</td>
+<td>75 min</td>
+</tr>
+<tr>
+<td>Act 7</td>
+<td>20 min</td>
+</tr>
+<tr>
+<td>Act 8</td>
+<td>15 min</td>
+</tr>
+<tr>
+<td>Wrapper page</td>
+<td>20 min</td>
+</tr>
+<tr>
+<td>Local preview + deploy</td>
+<td>15 min</td>
+</tr>
+<tr>
+<td><strong>Buffer for polish/bugs</strong></td>
+<td>60 min</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>~10 hours</strong></td>
+</tr>
+</tbody>
+</table>
+<p>This is an aggressive build but feasible. The longest items (Acts 3
+and 4) are the core pedagogical exhibits; they deserve the most care.
+Static sections (1, 5, 7, 8) act as buffers that can absorb time
+pressure.</p>
+<h2 id="risk-mitigation">Risk Mitigation</h2>
+<p><strong>If running out of time:</strong></p>
+<ol type="1">
+<li><strong>Cut Act 6&#39;s interactive element</strong> — Make it static
+with a diagram; the concept is covered in narrative. Saves ~60 min.</li>
+<li><strong>Cut the &quot;frosted glass&quot; visual in Act 4</strong> — Keep the
+histogram but skip the CSS backdrop-filter overlay. Saves ~20 min.</li>
+<li><strong>Simplify Act 3</strong> — Show only 2-3 k values (k=1, k=3,
+k=5) as discrete buttons instead of a slider. Saves ~30 min.</li>
+</ol>
+<p><strong>If something breaks during deploy:</strong></p>
+<ul>
+<li>The deploy script has <code>--dry-run</code> mode; use it first</li>
+<li>If the live site fails, open
+<code>course_materials/demos/differential-privacy-explainer.html</code>
+directly from a local checkout on the podium laptop as fallback</li>
+<li>Save a copy to a USB drive before class as backup</li>
+</ul>
+<h2 id="out-of-scope-explicit">Out of Scope (Explicit)</h2>
+<ul>
+<li>Animations beyond simple CSS transitions</li>
+<li>Mobile responsive layout (podium projector only)</li>
+<li>Accessibility beyond semantic HTML (keyboard navigation, ARIA labels
+are nice-to-have, not blocking)</li>
+<li>Actual mathematical derivation of the Laplace mechanism (just the
+intuition)</li>
+<li>Discussion of (ε, δ)-differential privacy (keep it pure ε-DP for
+simplicity)</li>
+<li>Composition theorems (mentioned briefly in narrative, not
+interactively demonstrated)</li>
+</ul>
+</body>
+</html>

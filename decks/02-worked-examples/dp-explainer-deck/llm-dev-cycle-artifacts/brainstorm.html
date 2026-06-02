@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Brainstorm — Iteration 1</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Brainstorm — Iteration 1</h1>
+</header>
+<h1 id="brainstorm--iteration-1">Brainstorm — Iteration 1</h1>
+<h2 id="chosen-concept">Chosen Concept</h2>
+<p><strong>&quot;Privacy Lab&quot; — an interactive web artifact for teaching
+Differential Privacy and Federated Learning</strong>, published to
+GitHub Pages (or similar) and driven from the podium during Presentation
+17 (April 6, 2026). The artifact is instructor-controlled, not
+participatory — students watch and discuss rather than submit data or
+act as nodes.</p>
+<p>Rationale for instructor-controlled (vs. earlier participatory
+ideas):</p>
+<ul>
+<li>Podium connectivity is uncertain; no local server dependencies</li>
+<li>Eliminates multi-device networking complexity for a same-day
+build</li>
+<li>A well-designed interactive explainer can drive discussion as
+effectively as participation</li>
+<li>Existing tools (DP Tetris, CT Census Demo) already provide the &quot;fun
+participatory&quot; angle — this artifact fills the missing gap: <strong>a
+step-by-step explainer of DP fundamentals</strong></li>
+</ul>
+<h2 id="part-1-differential-privacy-artifact">Part 1: Differential
+Privacy Artifact</h2>
+<h3 id="narrative-structure-mirrors-rapid-synthesis--notebooklm-podcast">Narrative
+structure (mirrors Rapid Synthesis / NotebookLM podcast)</h3>
+<p>An 8-act progression adapted from
+<code>course_materials/presentations/exclude-from-public-deploy/2-presentation-outlines-html/pres-17-podcast-transcript.md</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Act</th>
+<th>Theme</th>
+<th>Content</th>
+<th>Interactive?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. The Illusion</strong></td>
+<td>Incognito mode as placebo</td>
+<td>Hook: &quot;you feel hidden but you&#39;re not&quot;</td>
+<td>Static</td>
+</tr>
+<tr>
+<td><strong>2. Patient Zero</strong></td>
+<td>Latanya Sweeney / Governor Weld</td>
+<td>Medical data + voter records + linkage attack</td>
+<td><strong>Yes — live linkage attack</strong></td>
+</tr>
+<tr>
+<td><strong>3. The Spartacus Strategy</strong></td>
+<td>k-Anonymity and its failure</td>
+<td>Generalization, suppression, homogeneity attack, curse of
+dimensionality</td>
+<td><strong>Yes — dataset transformation</strong></td>
+</tr>
+<tr>
+<td><strong>4. The Revolution</strong></td>
+<td>Differential Privacy (Dwork et al., 2006)</td>
+<td>Plausible deniability, frosted glass analogy, noise injection,
+epsilon budget</td>
+<td><strong>Yes — epsilon slider with live histogram</strong></td>
+</tr>
+<tr>
+<td><strong>5. DP in the Wild</strong></td>
+<td>Apple, Google Maps, 2020 Census, SMPC</td>
+<td>Real deployments; link to DP Tetris and CT Census Demo</td>
+<td>Static + external links</td>
+</tr>
+<tr>
+<td><strong>6. The Dark Side</strong></td>
+<td>Minority erasure, Matthew effect, clipping</td>
+<td>The ethical cost of noise</td>
+<td><strong>Yes — small-group erasure visualization</strong></td>
+</tr>
+<tr>
+<td><strong>7. Law &amp; Theater</strong></td>
+<td>Quebec Law 25, privacy theater, trust gap</td>
+<td>Regulation and the &quot;we use DP&quot; PR problem</td>
+<td>Static</td>
+</tr>
+<tr>
+<td><strong>8. The Reframe</strong></td>
+<td>Privacy is a dial, not a switch</td>
+<td>Closing thought</td>
+<td>Static</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interactive-elements-in-detail">Interactive elements in
+detail</h3>
+<p><strong>Act 2 — Live linkage attack:</strong></p>
+<ul>
+<li>Two side-by-side tables: &quot;Anonymized medical records&quot; (birth date,
+zip, gender, diagnosis) and &quot;Voter registration&quot; (name, birth date, zip,
+gender)</li>
+<li>Instructor clicks filters to progressively narrow down the medical
+record</li>
+<li>Click: filter by birth date → 6 matches</li>
+<li>Click: filter by gender → 3 matches</li>
+<li>Click: filter by zip → 1 match, revealing &quot;Gov. William Weld&quot; with
+his diagnosis highlighted</li>
+<li>Payoff animation: &quot;She mailed him his own medical records&quot;</li>
+</ul>
+<p><strong>Act 3 — k-Anonymity transformation + homogeneity
+attack:</strong></p>
+<ul>
+<li>Small mock dataset (~12 rows) with identifiers + a sensitive
+attribute</li>
+<li>Slider for k (1 → 5): watch rows get generalized (ages bucketed,
+zips truncated) and outliers suppressed</li>
+<li>After reaching k=5, a &quot;reveal&quot; button exposes the homogeneity
+failure: all 5 people in Spartacus&#39;s group have the same diagnosis</li>
+<li>Optional: a dimensionality toggle showing how adding columns
+destroys k-anonymity</li>
+</ul>
+<p><strong>Act 4 — Epsilon slider:</strong></p>
+<ul>
+<li>A histogram (or scatter plot) of a mock dataset (e.g., salaries, or
+a normally-distributed synthetic population)</li>
+<li>Slider for ε from 0.1 to 20</li>
+<li>As ε decreases, Laplace noise is added and the histogram visibly
+jitters/blurs</li>
+<li>Side panel shows the &quot;true answer&quot; (e.g., mean) vs. the &quot;noisy
+answer&quot; — with delta</li>
+<li>Visual motif: frosted glass overlay thickens/thins as ε changes</li>
+<li>A text callout at key ε values: &quot;ε=0.5: strong privacy, weak
+utility&quot; / &quot;ε=15: strong utility, weak privacy&quot;</li>
+</ul>
+<p><strong>Act 6 — Small-group erasure:</strong></p>
+<ul>
+<li>A bar chart showing multiple ethnic/demographic groups in a mock
+town</li>
+<li>Majority group: 950 people. Minority groups: 3, 5, 7, 12 people</li>
+<li>Epsilon slider (reused from Act 4)</li>
+<li>Watch minority groups get noised to 0 or negative (clamped to
+0)</li>
+<li>Narrative callout: &quot;Those families mathematically cease to exist in
+the official record&quot;</li>
+</ul>
+<h2 id="part-2-federated-learning-artifact">Part 2: Federated Learning
+Artifact</h2>
+<p><strong>Deferred to a future iteration.</strong> This iteration
+focuses entirely on the DP artifact. FL will be its own iteration,
+informed by user review of existing resources (FL Playground, PAIR
+Explorable, Google Comic, InFL-UX) and lessons learned from the DP
+build.</p>
+<h2 id="architecture">Architecture</h2>
+<ul>
+<li><strong>Single-page site</strong> — HTML/CSS/JS, no backend, no
+build step required (or minimal — possibly Vite if we use a
+framework)</li>
+<li><strong>Chart library</strong> — Chart.js (simpler) or D3 (more
+flexible) for the interactive visualizations; decision in Research
+phase</li>
+<li><strong>Deployment</strong> — GitHub Pages, likely as a new
+subdirectory in the existing course website repo or a standalone
+repo</li>
+<li><strong>State</strong> — all client-side; no persistence needed</li>
+<li><strong>Fonts/styling</strong> — match the existing course website
+aesthetic (see <code>website/</code> directory)</li>
+</ul>
+<h2 id="scope-boundaries">Scope Boundaries</h2>
+<p><strong>In scope:</strong></p>
+<ul>
+<li>Acts 1-8 of the DP artifact with 4 interactive elements (Acts 2, 3,
+4, 6)</li>
+<li>Deployment to a publicly accessible URL before class tomorrow</li>
+<li>Clean visual design matching course branding</li>
+<li>Mock/synthetic data (no real student data)</li>
+<li>Links to DP Tetris and CT Census Demo in Act 5</li>
+</ul>
+<p><strong>Out of scope for this iteration:</strong></p>
+<ul>
+<li>Participatory multi-device features (submitting data, QR code
+voting)</li>
+<li>Real ML model training or demonstration</li>
+<li>Mobile-optimized layouts (podium projector only)</li>
+<li>Persistent state or analytics</li>
+<li>The FL artifact until user decides on approach</li>
+<li>Real census data or realistic ML datasets</li>
+</ul>
+<h2 id="security-relevant-boundaries">Security-Relevant Boundaries</h2>
+<p>Minimal attack surface — static site, no user input accepted, no
+backend, no data stored. Only security-relevant considerations:</p>
+<ul>
+<li><strong>Dependency integrity</strong>: use CDN-hosted libraries with
+SRI hashes, or bundle locally</li>
+<li><strong>No student data</strong>: all datasets are synthetic/mock to
+avoid FERPA concerns even though the site is public</li>
+<li><strong>No external tracking</strong>: no analytics, no third-party
+scripts beyond the chart library</li>
+</ul>
+<h2 id="alternatives-considered-and-rejected">Alternatives Considered
+and Rejected</h2>
+<ol type="1">
+<li><p><strong>Full participatory multi-device demo with QR
+codes</strong> — Rejected due to podium connectivity uncertainty,
+same-day build risk, and Firebase dependency complexity. The
+podcast-driven narrative structure is more pedagogically rich
+anyway.</p></li>
+<li><p><strong>Curated tour of existing tools only (no custom
+build)</strong> — Rejected because the key pedagogical gap (step-by-step
+DP fundamentals explainer with interactive elements) is not well-served
+by any single existing tool. PAIR explorables come closest but don&#39;t
+cover the Sweeney→k-anonymity→DP progression.</p></li>
+<li><p><strong>Python/Streamlit app with real DP library</strong> —
+Rejected because deployment and browser accessibility are harder; custom
+HTML/JS gives more presentation polish.</p></li>
+<li><p><strong>Jupyter notebook as the artifact</strong> — Rejected
+because it&#39;s not podium-friendly; looks like a coding environment, not a
+teaching tool.</p></li>
+<li><p><strong>Slides with embedded interactive elements in
+PPTX</strong> — Rejected because PPTX interactivity is limited and
+fragile; a dedicated web page is more reliable.</p></li>
+</ol>
+<h2 id="open-questions-for-research-phase">Open Questions for Research
+Phase</h2>
+<ul>
+<li>Chart.js vs. D3 vs. raw SVG for the visualizations?</li>
+<li>Framework (React/Svelte/vanilla)? Leaning vanilla for
+simplicity</li>
+<li>Deploy as standalone repo or nest within existing course website
+repo?</li>
+<li>How to handle the Act 4 Laplace noise mathematically — compute
+client-side or precompute and interpolate?</li>
+</ul>
+</body>
+</html>

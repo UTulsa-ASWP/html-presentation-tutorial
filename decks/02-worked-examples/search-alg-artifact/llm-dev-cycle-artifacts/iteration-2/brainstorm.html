@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 2 — Brainstorm (Iteration 2)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 2 — Brainstorm (Iteration 2)</h1>
+</header>
+<h1 id="phase-2--brainstorm-iteration-2">Phase 2 — Brainstorm (Iteration
+2)</h1>
+<h2 id="chosen-concept">Chosen concept</h2>
+<p>Add a toggleable <strong>Study Mode</strong> to the existing four-way
+race. The 4-up race remains the default &quot;compare&quot; view; toggling
+<strong>Study / Pseudocode</strong> on focuses a single algorithm and
+walks its pseudocode <strong>line by line</strong>, synced to its grid,
+with plain-English narration — a true program-counter view. The other
+three algorithms appear as small thumbnails to switch focus.</p>
+<h3 id="the-key-idea-one-shared-pseudocode-skeleton">The key idea: one
+shared pseudocode skeleton</h3>
+<p>All four algorithms share the same control-flow skeleton and differ
+on only a few lines. We show <strong>one</strong> template and mark the
+divergent lines per algorithm — so the same artifact serves both R8
+(pseudocode execution) and R7 (difference-highlighting):</p>
+<pre><code>push start to frontier
+while frontier not empty:
+  node ← remove &quot;best&quot; from frontier     ← BFS: oldest · Dijkstra: min g · Greedy: min h · A*: min g+h
+  if node is goal: reconstruct path; stop
+  mark node visited
+  for each neighbor:
+    skip if wall or visited
+    cost ← g[node] + weight(neighbor)     ← BFS ignores weight (counts steps)
+    if new or cheaper:                      ← BFS/Greedy: only if unseen (no re-open)
+      update g, set parent, push to frontier</code></pre>
+<h2 id="decisions-locked">Decisions (locked)</h2>
+<ul>
+<li><strong>Tracer model:</strong> focused line-walk (one algorithm at a
+time), <em>not</em> parallel traces.</li>
+<li><strong>Other panels during study:</strong> paused; shown as small
+reference thumbnails. Study mode is a distinct mode from the parallel
+race.</li>
+<li><strong>Granularity / stepping:</strong> sub-step program counter.
+<code>Step</code> = advance one pseudocode line (pop → goal-test → mark
+visited → per-neighbor: skip? → cost → improve? → update+push).
+<code>Play</code> auto-advances lines at the speed slider.</li>
+<li><strong>Grid sync:</strong> focused grid highlights the <strong>node
+being expanded</strong> and the <strong>neighbor under
+inspection</strong> for the current line.</li>
+<li><strong>Narration (R6/R8):</strong> one live sentence translating
+the current line into plain English with real values (e.g. &quot;Remove (8,5)
+— lowest f = 12 in the frontier&quot;).</li>
+<li><strong>Teaching content (R6):</strong> 2–3 sentence blurb per
+algorithm in the study header (role, guarantee, weakness).</li>
+<li><strong>Difference summary (R7):</strong> compact comparison table —
+ordering key · uses weights? · heuristic? · optimal? — plus the
+highlighted divergent pseudocode lines.</li>
+<li><strong>Entry/exit:</strong> a Study/Pseudocode toggle,
+<strong>default OFF</strong> (demo opens exactly as it does today).
+Clicking any race panel also enters study mode focused on that
+algorithm.</li>
+</ul>
+<h2 id="alternatives-considered-and-rejected">Alternatives considered
+and rejected</h2>
+<table>
+<thead>
+<tr>
+<th>Alternative</th>
+<th>Why rejected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parallel pseudocode strips under all four grids</td>
+<td>Four live line-walks at once overwhelms; not true line-by-line</td>
+</tr>
+<tr>
+<td>Ride-along slow-mo (race continues while focused one
+slow-walks)</td>
+<td>Busier; non-focused panels &quot;jump&quot; an expansion at a time —
+distracting</td>
+</tr>
+<tr>
+<td>Separate pseudocode per algorithm (4 distinct listings)</td>
+<td>Misses the teaching gold: the algorithms are <em>almost
+identical</em>; a shared skeleton makes differences obvious</td>
+</tr>
+<tr>
+<td>Real compilable source (JS/Python)</td>
+<td>Distracts from concept with language noise; pseudocode teaches
+better</td>
+</tr>
+<tr>
+<td>Editable pseudocode / breakpoints</td>
+<td>Scope creep; not needed to teach</td>
+</tr>
+</tbody>
+</table>
+<h2 id="scope-boundaries">Scope boundaries</h2>
+<p><strong>In scope (iteration 2):</strong></p>
+<ul>
+<li>Study Mode toggle (default off); focus one algorithm; switch via
+thumbnails or by clicking a race panel.</li>
+<li>Shared pseudocode skeleton with per-algorithm divergent-line
+highlighting.</li>
+<li>Sub-step program counter driven by Step/Play; grid highlights node +
+neighbor under inspection.</li>
+<li>Live plain-English narration of the current line.</li>
+<li>Per-algorithm teaching blurbs + a comparison table.</li>
+<li>The existing 4-up race must keep working unchanged when Study Mode
+is off.</li>
+</ul>
+<p><strong>Out of scope (deferred):</strong></p>
+<ul>
+<li>Step-<em>backward</em> / history scrubbing (<strong>stretch</strong>
+— nice but not required).</li>
+<li>Real source code, editable pseudocode, breakpoints, audio
+narration.</li>
+</ul>
+<h2 id="security-relevant-boundaries">Security-relevant boundaries</h2>
+<p>Unchanged from iteration 1: fully offline, single file, no
+network/auth/storage/secrets, no new external input — only additional
+internal UI state. Discipline held: pseudocode and narration lines are
+built with <code>textContent</code> only (<strong>never
+<code>innerHTML</code></strong>); no
+<code>eval</code>/<code>new Function</code>. The divergent-line
+annotations are static strings in code, not user-derived.</p>
+</body>
+</html>

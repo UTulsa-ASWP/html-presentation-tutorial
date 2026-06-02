@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 2 — Brainstorm (Iteration 3)</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 2 — Brainstorm (Iteration 3)</h1>
+</header>
+<h1 id="phase-2--brainstorm-iteration-3">Phase 2 — Brainstorm (Iteration
+3)</h1>
+<h2 id="chosen-concept">Chosen concept</h2>
+<p>A refined-minimalism <strong>light redesign</strong> in the spirit of
+Apple&#39;s product UI: calm neutral surfaces, one restrained blue accent,
+generous whitespace, soft diffuse depth, and clean system type.
+Appearance only — structure, controls, modes, and behaviour are
+untouched. Both the 4-up race and Study Mode are restyled to feel
+cohesive and native-light.</p>
+<h2 id="decisions-locked">Decisions (locked)</h2>
+<p><strong>Approach:</strong> restyle <em>with refinement</em> (not a
+recolour) — palette + spacing + typography + radius + depth.</p>
+<p><strong>Color discipline:</strong> neutral UI with a single
+Apple-blue accent; the four algorithm hues survive only as small
+<strong>identity dots</strong> beside titles/thumbnails.</p>
+<p><strong>Surfaces &amp; depth:</strong></p>
+<ul>
+<li>Page background: Apple off-white <code>#f5f5f7</code>.</li>
+<li>Content: white cards, large corner radius (~18px), soft
+<strong>diffuse shadows</strong> instead of borders.</li>
+<li>Hairline separators only where genuinely needed.</li>
+<li>Remove the graph-paper texture, glows, and gradients entirely.</li>
+</ul>
+<p><strong>Accent:</strong> Apple blue <code>#0071e3</code> for primary
+buttons, the active toggle, slider, focus rings, and the active
+pseudocode line. Everything else neutral.</p>
+<p><strong>Typography:</strong></p>
+<ul>
+<li><code>-apple-system</code> stack (SF Pro on Apple devices) for
+UI/body; system <strong>mono</strong> (SF Mono) for numerals, stats, and
+pseudocode.</li>
+<li>Larger, lighter heading; comfortable body in Apple secondary gray
+<code>#6e6e73</code> on near-black ink <code>#1d1d1f</code>; generous
+line-height.</li>
+</ul>
+<p><strong>Controls:</strong></p>
+<ul>
+<li>Rounded / pill buttons; primary &quot;Play&quot; is a filled blue pill.</li>
+<li>Paint tools (Wall / Mud / Erase) become an Apple-style
+<strong>segmented control</strong>.</li>
+<li>Minimal emoji; clean text labels.</li>
+</ul>
+<p><strong>Cell-state palette — re-derived for a white
+background:</strong> | State | Color | Note | |-------|-------|------| |
+start | <code>#34c759</code> (green) | | | goal | <code>#ff3b30</code>
+(red) | | | wall | <code>#1d1d1f</code> (ink) | | | mud (weight) |
+<code>#ff9500</code> (orange) | small dot marker | | frontier / open |
+<code>#5ac8fa</code> (cyan) | the advancing edge | | visited / closed |
+<code>#dfe4ee</code> (light cool gray) | calm, recedes | | final path |
+<code>#ffc400</code> (gold) | the payoff | | study cursor: node | blue
+ring | | | study cursor: neighbor | red ring | |</p>
+<p>In-grid story on white: a calm light-gray field of visited cells, a
+cyan advancing frontier, a gold final path — legible and quiet.</p>
+<h2 id="alternatives-considered-and-rejected">Alternatives considered
+and rejected</h2>
+<table>
+<thead>
+<tr>
+<th>Alternative</th>
+<th>Why rejected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recolour only</td>
+<td>Would look like a recoloured dark UI, not a native-light Apple
+design</td>
+</tr>
+<tr>
+<td>Single blue accent everywhere (no algorithm hues)</td>
+<td>Loses the at-a-glance teaching color-code</td>
+</tr>
+<tr>
+<td>Keep full per-algorithm accents throughout</td>
+<td>Less strictly minimal; competes with the single-accent
+discipline</td>
+</tr>
+<tr>
+<td><code>prefers-color-scheme</code> dark variant</td>
+<td>Tempting, but adds scope + a second palette to verify —
+deferred</td>
+</tr>
+<tr>
+<td>Loading SF Pro as a web font</td>
+<td>Violates offline/no-deps; unnecessary since
+<code>-apple-system</code> already renders SF on Apple devices</td>
+</tr>
+</tbody>
+</table>
+<h2 id="scope-boundaries">Scope boundaries</h2>
+<p><strong>In scope:</strong> light palette;
+spacing/typography/radius/depth refinement; segmented paint control;
+blue-pill primary; identity dots; re-derived cell-state palette; restyle
+of both race and study views. Appearance only.</p>
+<p><strong>Out of scope (deferred):</strong> automatic dark mode
+(<code>prefers-color-scheme</code>); any layout-structure, control,
+mode, or algorithm change; new features.</p>
+<h2 id="security-relevant-boundaries">Security-relevant boundaries</h2>
+<p>Unchanged. A pure CSS/markup-class restyle introduces no new input,
+network, or execution surface. Discipline held: still no
+<code>innerHTML</code>/<code>eval</code>; any markup tweaks use
+<code>textContent</code>/DOM APIs. No new external resources (no web
+fonts, no CDNs) — the offline single-file guarantee is preserved.</p>
+<h2 id="regression-guard">Regression guard</h2>
+<p>The iteration-2 behaviour/class-based test suite (111 assertions)
+must keep passing unchanged — it asserts classes, overlays, text, and
+search results, none of which the restyle should alter. If a class name
+must change for styling, the corresponding test selector is updated in
+lockstep and the assertion&#39;s intent preserved.</p>
+</body>
+</html>

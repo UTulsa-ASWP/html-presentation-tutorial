@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 1 — Review</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--bg: #0f1419; 
+--bg-card: #fafaf7; 
+--ink: #1a1a2e;
+--ink-muted: #55556b;
+--navy: #1d3557;
+--navy-light: #2c5282;
+--gold: #b8860b;
+--gold-light: #d4a017;
+--border: #e2dfd8;
+--border-strong:#c9c4b8;
+--accent-bg: #f4f1eb;
+--highlight: #fef3c7;
+--serif: Georgia, 'Times New Roman', serif;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+--mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+html { background: var(--bg); }
+body {
+font-family: var(--sans);
+color: var(--ink);
+background: var(--bg-card);
+max-width: 70ch;
+margin: 2.2rem auto;
+padding: 2.6rem 3rem 3.4rem;
+line-height: 1.62;
+font-size: 17px;
+border: 1px solid var(--border);
+border-top: 4px solid var(--gold);
+border-radius: 6px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 760px) {
+body { margin: 0; max-width: none; border-radius: 0; padding: 1.4rem 1.6rem 2.4rem; }
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: var(--serif);
+color: var(--navy);
+line-height: 1.25;
+margin: 1.8em 0 0.5em;
+}
+h1 { font-size: 1.8rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.3em; margin-top: 0; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-strong); padding-bottom: 0.2em; }
+h3 { font-size: 1.15rem; color: var(--navy-light); }
+h4, h5, h6 { font-size: 1rem; color: var(--ink-muted); }
+p { margin: 0.75em 0; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); }
+a:hover { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+strong { color: var(--navy); }
+em { color: var(--ink-muted); }
+ul, ol { margin: 0.7em 0; padding-left: 1.5em; }
+li { margin: 0.32em 0; }
+li::marker { color: var(--gold); }
+code {
+font-family: var(--mono);
+font-size: 0.86em;
+background: var(--accent-bg);
+border: 1px solid var(--border);
+border-radius: 3px;
+padding: 0.1em 0.36em;
+color: var(--navy-deep, #0f1e33);
+}
+pre {
+background: #0f1e33;
+color: #e8e8ef;
+border-radius: 6px;
+padding: 1em 1.2em;
+overflow-x: auto;
+font-size: 0.84rem;
+line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+blockquote {
+margin: 1em 0;
+padding: 0.5em 1.1em;
+border-left: 4px solid var(--gold);
+background: var(--accent-bg);
+color: var(--ink-muted);
+}
+blockquote p { margin: 0.3em 0; }
+table {
+border-collapse: collapse;
+margin: 1.1em 0;
+width: 100%;
+font-size: 0.92rem;
+}
+th, td { border: 1px solid var(--border-strong); padding: 0.45em 0.7em; text-align: left; }
+th { background: var(--navy); color: #fff; font-family: var(--sans); }
+tr:nth-child(even) td { background: var(--accent-bg); }
+hr { border: none; border-top: 1px solid var(--border-strong); margin: 2em 0; }
+img { max-width: 100%; height: auto; }
+
+header#title-block-header { display: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 1 — Review</h1>
+</header>
+<h1 id="phase-1--review">Phase 1 — Review</h1>
+<p><em>Iteration 1. No prior iteration, so no Reflection
+section.</em></p>
+<h2 id="context-summary">Context summary</h2>
+<p><strong>Goal:</strong> Build an interactive, self-contained artifact
+(vanilla HTML + JS, no build step, no network) that demonstrates a few
+pathfinding algorithms in the spirit of the PathFinding.js visual demo
+(<a href="https://qiao.github.io/PathFinding.js/visual/">https://qiao.github.io/PathFinding.js/visual/</a>).</p>
+<p><strong>What the source demo does (reference, not a spec to
+clone):</strong></p>
+<ul>
+<li>A 2D grid. User places a start node and an end node, and paints
+walls.</li>
+<li>User picks an algorithm and options (diagonal movement, heuristic,
+bi-directional, etc.).</li>
+<li>On &quot;Start&quot;, the search animates: cells are shown as they&#39;re
+<em>opened</em> (frontier) and <em>closed</em> (explored), then the
+final path is drawn.</li>
+<li>Controls for pausing, clearing the path, and clearing walls.</li>
+<li>Library finders: A*, IDA*, Breadth-First, Best-First, Dijkstra, Jump
+Point Search, plus bi-directional variants.</li>
+</ul>
+<h2 id="requirements-from-the-user">Requirements (from the user)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td>Interactive</td>
+<td>User can manipulate the grid and trigger searches</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>Vanilla HTML + JS</td>
+<td>No frameworks, no bundler</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>Fully runnable offline</td>
+<td>Single file, zero network requests, no CDN</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>Demonstrates &quot;a few&quot; algorithms</td>
+<td>Plural but bounded — not the full library</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>Runs in a web browser</td>
+<td>Standard modern browser, no plugins</td>
+</tr>
+</tbody>
+</table>
+<h2 id="constraints">Constraints</h2>
+<ul>
+<li><strong>Single-file, offline (R3):</strong> all CSS/JS inline; no
+external fonts, images, or libraries. This rules out importing
+PathFinding.js itself — we reimplement the handful of algorithms we want
+from scratch. That&#39;s fine and actually better for a <em>teaching</em>
+artifact.</li>
+<li><strong>No build tooling (R2):</strong> plain
+<code>&lt;script&gt;</code>, no modules-from-disk gotchas (a single
+inline script sidesteps <code>file://</code> CORS issues with ES module
+imports).</li>
+<li><strong>Artifact medium:</strong> renders as an <code>.html</code>
+artifact in this interface.</li>
+</ul>
+<h2 id="candidate-algorithm-set-narrowing-per-skill-eliminate-dont-expand">Candidate
+algorithm set (narrowing, per skill: eliminate, don&#39;t expand)</h2>
+<p>The source library has ~10 finders. &quot;A few&quot; + a clear teaching story
+argues for a small, <em>contrasting</em> set rather than breadth.
+Leading candidate — the classic quartet:</p>
+<ol type="1">
+<li><strong>BFS</strong> — uninformed, explores in rings, optimal on
+unweighted grids.</li>
+<li><strong>Dijkstra</strong> — uniform-cost; same as BFS when all costs
+equal, but the framing matters.</li>
+<li><strong>Greedy Best-First</strong> — pure heuristic; fast, beelines
+to goal, <em>not</em> optimal.</li>
+<li><strong>A*</strong> — combines cost-so-far + heuristic; optimal
+<em>and</em> directed.</li>
+</ol>
+<p>This set is pedagogically tight: each one differs from its neighbour
+by exactly one idea (add a cost function → add a heuristic → combine
+them). That contrast is the demo&#39;s payload.</p>
+<p><strong>Deliberately set aside</strong> (candidates for a later
+iteration, not iteration 1):</p>
+<ul>
+<li>Jump Point Search, IDA*, bi-directional variants — more advanced,
+dilute the core story.</li>
+<li>Weighted terrain / variable cell costs — would make Dijkstra vs BFS
+more vivid, but adds UI and model complexity. Flag for Brainstorm as a
+possible scope decision.</li>
+</ul>
+<h2 id="gaps--ambiguities-to-resolve-in-brainstorm">Gaps / ambiguities
+to resolve in Brainstorm</h2>
+<ul>
+<li><strong>How many</strong> algorithms exactly? (Recommend the 4
+above; could trim to 3 — drop Dijkstra if we stay strictly unweighted,
+since it&#39;d be visually identical to BFS.)</li>
+<li><strong>Diagonal movement</strong> on/off, and whether to expose it
+as a toggle.</li>
+<li><strong>Side-by-side race</strong> vs <strong>one-at-a-time</strong>
+visualization — a meaningful UX fork.</li>
+<li><strong>Weighted cells</strong> in or out of scope for iteration
+1.</li>
+<li>Visual style / how much polish vs. how much clarity.</li>
+</ul>
+<h2 id="candidate-approaches-high-level">Candidate approaches (high
+level)</h2>
+<ul>
+<li><strong>A) Faithful single-grid demo</strong> — one grid, pick
+algorithm, animate. Closest to source.</li>
+<li><strong>B) Comparison view</strong> — run 2+ algorithms on the same
+maze, side by side, to make the differences legible at a glance. More
+original, stronger teaching.</li>
+<li><strong>C) Hybrid</strong> — single grid by default, with an
+optional &quot;compare&quot; mode.</li>
+</ul>
+<p>These trade-offs are exactly what Phase 2 (Brainstorm) should settle
+interactively.</p>
+</body>
+</html>
