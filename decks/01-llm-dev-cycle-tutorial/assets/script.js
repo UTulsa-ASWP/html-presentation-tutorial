@@ -25,12 +25,18 @@ function initSlides() {
 
   const dots = document.getElementById('slideDots');
   dots.innerHTML = '';
-  slideElements.forEach((_, i) => {
+  slideElements.forEach((slide, i) => {
     const dot = document.createElement('div');
     dot.className = 'slide-dot';
     dot.dataset.idx = i;
     dot.addEventListener('click', () => goToSlide(i));
     dots.appendChild(dot);
+
+    // Auto-number the per-slide ".slide-number" badge from its position, so
+    // inserting or reordering slides never leaves a hardcoded number stale.
+    // Slides without the badge (e.g. title / closing slides) are simply skipped.
+    const label = slide.querySelector('.slide-number');
+    if (label) label.textContent = String(i + 1).padStart(2, '0');
   });
 
   updateSlideChrome();
