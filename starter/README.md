@@ -41,9 +41,17 @@ below the token block. The canonical token set lives in
 | → · ↓ · PageDown · Space | Next slide |
 | ← · ↑ · PageUp | Previous slide |
 | Home / End | First / last slide |
-| S | Toggle speaker-notes panel |
-| Esc | Close speaker-notes panel |
+| P | Open the **presenter view** (second window: notes + next slide + timer) |
+| F | Toggle fullscreen |
+| S | Toggle the inline speaker-notes panel |
+| Esc | Close the speaker-notes panel |
 | Click a dot | Jump to that slide |
+
+**Presenter view (P):** opens a second window showing the current slide's speaker
+notes, the next slide's title, and a running timer, with Prev/Next buttons. Put it on
+your laptop screen and the deck on the projector. Arrow keys work in *either* window, so
+you can drive the talk from whichever has focus. It runs fully offline (no setup) — your
+browser may ask to allow the popup the first time.
 
 ## The HTML ↔ JS contract (don't break these)
 

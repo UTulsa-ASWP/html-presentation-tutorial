@@ -107,48 +107,49 @@ section.slide.title-slide::before {
 }
 section.slide.title-slide .eyebrow {
   font-family: var(--sans);
-  font-size: 1rem;
+  font-size: clamp(1rem, 1.4vw, 1.35rem);
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--gold-light);
-  margin-bottom: 32px;
+  margin-bottom: 48px;
   position: relative;
   z-index: 1;
 }
 section.slide.title-slide h1 {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(2.5rem, 7vw, 5.5rem);
-  line-height: 1.05;
-  max-width: 1200px;
+  font-size: clamp(3rem, 9vw, 8rem);
+  line-height: 1.04;
+  max-width: 1600px;
   position: relative;
   z-index: 1;
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 section.slide.title-slide .subtitle {
   font-family: var(--serif);
-  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
   font-style: italic;
+  line-height: 1.4;
   color: rgba(250, 250, 247, 0.85);
-  max-width: 760px;
+  max-width: 1000px;
   position: relative;
   z-index: 1;
 }
 section.slide.title-slide .attribution {
   font-family: var(--mono);
-  font-size: 0.9375rem;
+  font-size: clamp(0.9375rem, 1.1vw, 1.15rem);
   color: rgba(250, 250, 247, 0.55);
   position: relative;
   z-index: 1;
-  margin-top: 40px;
+  margin-top: 64px;
 }
 
 /* ---- 4. GENERIC CONTENT -------------------------------------------------- */
 /* A centered column that holds most slide content. */
 .slide-content {
   width: 100%;
-  max-width: 980px;
+  max-width: 1360px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -168,24 +169,24 @@ section.slide.title-slide .attribution {
 .slide-title {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-size: clamp(2.4rem, 5vw, 4rem);
   line-height: 1.1;
   color: var(--navy);
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .slide-content p {
-  font-size: 1.2rem;
+  font-size: clamp(1.2rem, 1.5vw, 1.5rem);
   line-height: 1.6;
   color: var(--ink-muted);
-  max-width: 760px;
+  max-width: 1120px;
   margin-bottom: 1em;
 }
 .slide-content p strong { color: var(--ink); }
 
 .lead {
   font-family: var(--serif);
-  font-size: clamp(1.3rem, 2.8vw, 1.9rem) !important;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem) !important;
   line-height: 1.45 !important;
   color: var(--ink) !important;
 }
@@ -195,7 +196,7 @@ section.slide.title-slide .attribution {
   color: var(--ink-muted);
 }
 .slide-content li {
-  font-size: 1.15rem;
+  font-size: clamp(1.15rem, 1.4vw, 1.4rem);
   line-height: 1.5;
   margin-bottom: 0.6em;
 }
@@ -392,6 +393,25 @@ section.slide.title-slide .attribution {
 
 /* The per-slide notes source is hidden on the slide itself; the panel reads it. */
 .speaker-notes { display: none; }
+
+/* File-tree illustration — monospace, for showing artifact/folder structure. */
+.file-tree {
+  font-family: var(--mono);
+  font-size: 1rem;
+  line-height: 1.7;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  padding: 24px 28px;
+  margin: 0;
+  white-space: pre;
+  color: var(--ink-muted);
+  overflow-x: auto;
+}
+.file-tree .dir { color: var(--navy); font-weight: 700; }
+.file-tree .file { color: var(--ink); }
+.file-tree .muted { color: var(--ink-dim); }
 
 /* ---- 7. RESPONSIVE ------------------------------------------------------- */
 @media (max-width: 760px) {
