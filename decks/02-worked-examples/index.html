@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Worked Example — How the DP Explainer Was Built</title>
-  <meta name="description" content="A real interactive explainer, built step by step with the llm-dev:cycle.">
+  <title>Worked Examples — Building an HTML Presentation and a Search-Algorithm Demo</title>
+  <meta name="description" content="Two real builds — an interactive explainer and a search-algorithm demo — walked through with the llm-dev:cycle.">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -14,18 +14,21 @@
   <!-- ============ 1. TITLE ================================================== -->
   <section class="slide title-slide">
     <div class="eyebrow">ASWP Summer 2026 · Deck 2 of 3</div>
-    <h1>The Worked Example</h1>
-    <p class="subtitle">How a real interactive explainer was built, one cycle phase at a
-      time — with the transcripts and artifacts to prove it.</p>
-    <div class="attribution">Differential Privacy Explainer · a live, offline artifact</div>
+    <h1>Worked Examples</h1>
+    <p class="subtitle">Two real builds, one cycle phase at a time — an interactive HTML
+      presentation and a search-algorithm demo, with the transcripts and artifacts to
+      prove it.</p>
+    <div class="attribution">DP Explainer · Search-Algorithm Demo · live, offline artifacts</div>
 
     <div class="speaker-notes">
       <h2>Welcome to the worked example</h2>
-      <p>Deck 1 taught the cycle in the abstract. This deck shows it applied to one real
-         build — a differential-privacy explainer used in a live class. Everything here is
-         real: the decisions, the quotes, the bug, the refactor.</p>
-      <p>Tell the audience they can open the finished artifact themselves — it's bundled in
-         this repo and runs offline, just like these slides.</p>
+      <p>Deck 1 taught the cycle in the abstract; this deck shows it applied to one real
+         build — the differential-privacy explainer used in a live class. Everything on
+         these slides is real: the decisions, the quotes, the bug, the refactor, all pulled
+         from the actual session transcripts and the cycle artifacts in this repo.</p>
+      <p>The finished explainer is bundled alongside this deck and runs fully offline,
+         exactly like these slides. Open it whenever a slide points to it and click through
+         the interactives yourself — seeing the artifact makes the rest of the deck concrete.</p>
     </div>
   </section>
 
@@ -43,17 +46,19 @@
          moments that mattered most.</p>
       <div class="callout">
         <p><strong>Open it now:</strong> the finished
-          <a href="artifact/differential-privacy-explainer.html" target="_blank" rel="noopener">Differential Privacy
+          <a href="dp-explainer-deck/differential-privacy-explainer.html" target="_blank" rel="noopener">Differential Privacy
           Explainer</a> — try the interactive demos, then come back.</p>
       </div>
     </div>
 
     <div class="speaker-notes">
       <h2>The story in one breath</h2>
-      <p>Set expectations: this is "how it really went," not an idealized version. The point
-         is to show that the cycle produces real artifacts at each step, and that the messy
-         parts (a bug, a refactor, a time crunch) are normal. Invite them to open the
-         explainer link and click an interactive before you continue.</p>
+      <p>This is "how it really went," not an idealized version. The point of the deck is
+         that the cycle produces a real artifact at every step, and that the messy parts — a
+         bug caught late, a mid-build refactor, a same-day time crunch — are normal, not
+         signs that something went wrong.</p>
+      <p>Before reading on, it's worth opening the explainer link and clicking one
+         interactive, so the rest of the deck has something concrete to point back to.</p>
     </div>
   </section>
 
@@ -70,11 +75,17 @@
       <p>A same-day deadline with a live, in-class demo and no server to lean on. That one
          constraint quietly decided the tool, the scope, and the format before a line of
          code existed.</p>
-      <p class="small-context"><a href="cycle-artifacts/review.md" target="_blank" rel="noopener">Read the full Review doc →</a></p>
+      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/review.md" target="_blank" rel="noopener">Read the full Review doc →</a></p>
     </div>
-    <div class="speaker-notes"><h2>Review</h2>
-      <p>Key teaching point: naming the constraint early is what makes the later decisions
-         obvious. "Same-day + offline + live demo" is doing all the work here.</p></div>
+    <div class="speaker-notes">
+      <h2>Phase 1: Review</h2>
+      <p>The teaching point: naming the hard constraint early is what makes every later
+         decision obvious. Here "same-day + offline + live demo" does all the work — it
+         quietly settles the tool, the scope, and the format before any code exists.</p>
+      <p>When you run your own cycle, this is the phase to pin down who the audience is, how
+         the result is delivered, and what it has to run on. Those constraints cascade
+         through everything downstream.</p>
+    </div>
   </section>
 
   <!-- ============ 4. PHASE 2 — BRAINSTORM ================================== -->
@@ -92,13 +103,18 @@
       <p>This was the foundational <strong>key moment</strong>: the narrative and pedagogy
          were designed <em>first</em>, then the interactive demos were mapped onto that arc
          — not the other way around.</p>
-      <p class="small-context"><a href="cycle-artifacts/brainstorm.md" target="_blank" rel="noopener">Read the full Brainstorm doc →</a></p>
+      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/brainstorm.md" target="_blank" rel="noopener">Read the full Brainstorm doc →</a></p>
     </div>
-    <div class="speaker-notes"><h2>Brainstorm</h2>
-      <p>Story-first is the lesson. The 8-act arc (Sweeney's $20 re-identification, the
-         Spartacus k-anonymity analogy, Dwork's 2006 "revolution," real deployments,
-         minority erasure as the dark side) came before any slide. Rejecting the
-         participatory idea was a deliberate scope-narrowing for a same-day build.</p></div>
+    <div class="speaker-notes">
+      <h2>Phase 2: Brainstorm</h2>
+      <p>Story-first is the lesson. The eight-act arc — Sweeney's $20 re-identification, the
+         Spartacus k-anonymity analogy, Dwork's 2006 "revolution," real deployments, and
+         minority erasure as the dark side — was designed here, in Brainstorm, before a line
+         of HTML existed.</p>
+      <p>Just as important was what got rejected: the tempting participatory, multi-device
+         demo was deliberately cut to keep a same-day build achievable. Deciding what you
+         won't build is half the value of this phase.</p>
+    </div>
   </section>
 
   <!-- ============ 5. PHASE 3 — RESEARCH ==================================== -->
@@ -114,12 +130,18 @@
       <p>React, D3, Chart.js — all considered and rejected. The payoff: sophisticated
          interactivity (Laplace-noise sampling, live SVG histograms, sliders) built in pure
          client-side JavaScript, with nothing to break between now and class tomorrow.</p>
-      <p class="small-context"><a href="cycle-artifacts/research.md" target="_blank" rel="noopener">Read the full Research doc →</a></p>
+      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/research.md" target="_blank" rel="noopener">Read the full Research doc →</a></p>
     </div>
-    <div class="speaker-notes"><h2>Research</h2>
-      <p>This is the decision that makes the artifact <em>offline</em> — the same reason
-         our tutorial decks are vanilla too. Note that "simplest tool that meets the
-         requirements" beat the reflex to reach for a framework.</p></div>
+    <div class="speaker-notes">
+      <h2>Phase 3: Research</h2>
+      <p>This is the decision that makes the artifact <em>offline</em> — the same reason our
+         tutorial decks are vanilla too. The reflex is to reach for a framework (React, D3,
+         Chart.js); Research rejected all of them in favor of the simplest tool that meets
+         the requirements.</p>
+      <p>The payoff is sophisticated interactivity — Laplace-noise sampling, live SVG
+         histograms, sliders — built in pure client-side JavaScript, with nothing that can
+         break between now and class tomorrow.</p>
+    </div>
   </section>
 
   <!-- ============ 6. PHASE 4 — PLAN ======================================== -->
@@ -137,12 +159,18 @@
         <p>Acceptance criteria were written as pass/fail checks — the same ones Verify would
            later confirm.</p>
       </div>
-      <p class="small-context"><a href="cycle-artifacts/plan.md" target="_blank" rel="noopener">Read the full Plan doc →</a></p>
+      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/plan.md" target="_blank" rel="noopener">Read the full Plan doc →</a></p>
     </div>
-    <div class="speaker-notes"><h2>Plan</h2>
-      <p>The plan is self-contained: someone else could execute it. The split-file
-         foresight is the link to the next slide's refactor — plans anticipate where the
-         pressure will be.</p></div>
+    <div class="speaker-notes">
+      <h2>Phase 4: Plan</h2>
+      <p>A good plan is self-contained — someone else could execute it without being in the
+         room. Two things this one got right: an ordered build sequence (scaffold →
+         narrative acts → interactive exhibits → deploy), and acceptance criteria written as
+         pass/fail checks, which are exactly what Verify confirms later.</p>
+      <p>The "plan for a structure that can split as complexity grows" foresight is the
+         direct setup for the refactor on slide 9 — good plans anticipate where the pressure
+         will land.</p>
+    </div>
   </section>
 
   <!-- ============ 7. PHASE 5 — EXECUTE ===================================== -->
@@ -161,15 +189,20 @@
          privacy-vs-utility tradeoff actually teachable.</p>
       <div class="callout">
         <p><strong>See it live:</strong> jump straight to the
-          <a href="artifact/differential-privacy-explainer.html#slide-13" target="_blank" rel="noopener">epsilon
+          <a href="dp-explainer-deck/differential-privacy-explainer.html#slide-13" target="_blank" rel="noopener">epsilon
           slider</a> in the explainer and re-roll the noise to feel the fix.</p>
       </div>
-      <p class="small-context"><a href="cycle-artifacts/execute.md" target="_blank" rel="noopener">Read the full Execute doc →</a></p>
+      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/execute.md" target="_blank" rel="noopener">Read the full Execute doc →</a></p>
     </div>
-    <div class="speaker-notes"><h2>Execute</h2>
-      <p>"Test early and often" is the whole lesson — the bug was caught because each
-         interactive was exercised as it was built, not at the end. Have them open the
-         slider and re-roll the noise a few times to feel the randomness.</p></div>
+    <div class="speaker-notes">
+      <h2>Phase 5: Execute</h2>
+      <p>"Test early and often" is the whole lesson. The epsilon-slider bug was caught only
+         because each interactive was exercised in the browser as it landed, not at the end —
+         and until that fix the demo was complete but pedagogically broken, since the
+         privacy-vs-utility tradeoff wasn't legible.</p>
+      <p>The slide links straight to the fixed slider (<code>#slide-13</code>); re-roll the
+         noise a few times to feel both the randomness and why the narrowed range matters.</p>
+    </div>
   </section>
 
   <!-- ============ 8. PHASE 6 — VERIFY ====================================== -->
@@ -184,12 +217,17 @@
       <p>Every slide and all four interactive exhibits were walked through by a human in the
          browser. Two items — Safari and public deploy — were consciously deferred as
          low-risk, not silently skipped.</p>
-      <p class="small-context"><a href="cycle-artifacts/verify.md" target="_blank" rel="noopener">Read the full Verify doc →</a></p>
+      <p class="small-context"><a href="dp-explainer-deck/llm-dev-cycle-artifacts/verify.md" target="_blank" rel="noopener">Read the full Verify doc →</a></p>
     </div>
-    <div class="speaker-notes"><h2>Verify</h2>
-      <p>Evidence over assertion: "verified in Chrome on macOS, all four interactives
-         exercised" beats "looks done." Deferring Safari/deploy explicitly is honest scope
-         management, not cutting corners.</p></div>
+    <div class="speaker-notes">
+      <h2>Phase 6: Verify</h2>
+      <p>Evidence over assertion: "verified hands-on in Chrome on macOS, all four
+         interactives exercised" beats "looks done." Every slide and exhibit was walked
+         through by a human in the browser.</p>
+      <p>The honest part worth highlighting: Safari and a public deploy were consciously
+         deferred as low-risk and recorded as known gaps, rather than silently skipped. That
+         explicit scope management is what separates verification from wishful thinking.</p>
+    </div>
   </section>
 
   <!-- ============ 9. KEY MOMENT — THE REFACTOR ============================= -->
@@ -209,10 +247,15 @@
          auto-computes from <code>slideElements.length</code> — so there were no hardcoded
          numbers to break. Structure emerged exactly when complexity demanded it.</p>
     </div>
-    <div class="speaker-notes"><h2>The refactor</h2>
-      <p>This is the "refactoring emerges from the cycle" lesson made concrete — it wasn't
-         scheduled, it was triggered by the code signaling it was time. The same three-file
-         split is what our starter template uses.</p></div>
+    <div class="speaker-notes">
+      <h2>The refactor</h2>
+      <p>This is "refactoring emerges from the cycle" made concrete. The one-file-to-three
+         split wasn't scheduled — it was triggered when the growing code signaled it was time.</p>
+      <p>It was safe specifically because the slide IDs weren't referenced in JS and the
+         counter auto-computes from <code>slideElements.length</code>, so there were no
+         hardcoded numbers to break. That same three-file split (.html / .css / .js) is what
+         our starter template ships with.</p>
+    </div>
   </section>
 
   <!-- ============ 10. KEY MOMENT — HOW IT REALLY WENT ===================== -->
@@ -232,26 +275,36 @@
          <code>git reset --hard</code> wiped uncommitted edits, recovered from the already
          deployed copy.</p>
     </div>
-    <div class="speaker-notes"><h2>How it really went</h2>
-      <p>Humanize it: the process bends to real constraints (time pressure → skip a formal
-         iteration), decisions can be one word, and tools have sharp edges (the reset
-         mishap). None of this is failure — it's what real builds look like.</p></div>
+    <div class="speaker-notes">
+      <h2>How it really went</h2>
+      <p>Humanize the process: it bends to real constraints. Time pressure led to skipping a
+         formal iteration and editing the deck directly; a decision can be a single keystroke
+         ("B" chose the stronger slide order); and tools have sharp edges — a
+         deploy-then-sanitize <code>git reset --hard</code> wiped uncommitted edits,
+         recovered only from the already-deployed copy.</p>
+      <p>None of this is failure. It's what real builds look like, and the transcripts
+         preserve it honestly.</p>
+    </div>
   </section>
 
   <!-- ============ 11. CLOSE ================================================= -->
   <section class="slide title-slide">
     <div class="eyebrow">Your turn</div>
     <h1>You've seen it end to end.</h1>
-    <p class="subtitle">Open the <a href="artifact/differential-privacy-explainer.html"
+    <p class="subtitle">Open the <a href="dp-explainer-deck/differential-privacy-explainer.html"
       target="_blank" rel="noopener" style="color:var(--gold-light);">finished explainer</a>, skim the
-      <a href="cycle-artifacts/review.md" target="_blank" rel="noopener" style="color:var(--gold-light);">cycle
+      <a href="dp-explainer-deck/llm-dev-cycle-artifacts/review.md" target="_blank" rel="noopener" style="color:var(--gold-light);">cycle
       artifacts</a>, then build your own. Deck 3 covers making your slides richer.</p>
 
-    <div class="speaker-notes"><h2>Hand-off</h2>
-      <p>Concrete next step: they now have a full worked example AND the starter. Encourage
-         them to run <code>/llm-dev:cycle</code> on a real topic. Tease Deck 3 (enrichment +
-         what's next). The artifacts and the live explainer are all here in the repo to
-         study offline.</p></div>
+    <div class="speaker-notes">
+      <h2>Hand-off</h2>
+      <p>The concrete next step: you now have a full worked example <em>and</em> the
+         re-themeable starter. Run <code>/llm-dev:cycle</code> on a real topic of your own —
+         the cycle artifacts and the live explainer are all here in the repo to study offline
+         first.</p>
+      <p>Deck 3 picks up from here, covering how to enrich your slides with richer,
+         better-sourced content.</p>
+    </div>
   </section>
 
   <!-- ============ CHROME =================================================== -->

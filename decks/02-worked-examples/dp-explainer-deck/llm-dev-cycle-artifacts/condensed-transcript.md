@@ -455,4 +455,4 @@ to.)*
 
 *End of condensed transcript. The full unabridged records are the two JSON files listed
 at the top; the per-phase cycle artifacts the build produced live in
-`decks/02-worked-example/cycle-artifacts/`.*
+`decks/02-worked-examples/dp-explainer-deck/llm-dev-cycle-artifacts/`.*

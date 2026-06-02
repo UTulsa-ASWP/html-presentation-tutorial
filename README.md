@@ -1,11 +1,12 @@
-# Interactive HTML Presentations — ASWP Tutorial Suite
+# Interactive HTML Presentations & Artifacts — ASWP Tutorial Suite
 
-A team tutorial on building **interactive HTML presentations with LLM assistance** —
-as a replacement for traditional PowerPoint, for in-class delivery.
+A team tutorial on building **interactive HTML presentations and artifacts with LLM
+assistance** — as a replacement for traditional PowerPoint, and for the interactive
+demos and explainers that go with in-class delivery.
 
-Every presentation here is a plain **vanilla HTML/CSS/JS** file: no framework, no build
+Everything here is a plain **vanilla HTML/CSS/JS** file: no framework, no build
 step, no internet. Open it in any browser and it runs — which is the whole point, since
-the finished decks go to classrooms that may have no network.
+the finished decks and artifacts go to classrooms that may have no network.
 
 ## Start here
 
@@ -15,8 +16,8 @@ through the decks in order; Decks 1 and 2 are ready now, Deck 3 is in progress.
 
 | | Deck | Launch | What it covers |
 | --- | --- | --- | --- |
-| 1 | **The Method** (`decks/01-the-method/`) | [▶ Launch](https://utulsa-aswp.github.io/html-presentation-tutorial/decks/01-the-method/) | The `llm-dev:cycle` process — six phases from a topic to a finished deck. |
-| 2 | **The Worked Example** (`decks/02-worked-example/`) | [▶ Launch](https://utulsa-aswp.github.io/html-presentation-tutorial/decks/02-worked-example/) | How a real interactive explainer was built, phase by phase, with verbatim quotes from the cycle artifacts. Bundles the **live DP explainer** to explore plus the source cycle docs. |
+| 1 | **Vibe Engineering with `llm-dev:cycle`** (`decks/01-llm-dev-cycle-tutorial/`) | [▶ Launch](https://utulsa-aswp.github.io/html-presentation-tutorial/decks/01-llm-dev-cycle-tutorial/) | A framework for LLM-assisted development — the six-phase `llm-dev:cycle`, from a topic to a finished presentation or artifact. |
+| 2 | **Worked Examples** (`decks/02-worked-examples/`) | [▶ Launch](https://utulsa-aswp.github.io/html-presentation-tutorial/decks/02-worked-examples/) | Two real builds walked through phase by phase: an interactive HTML presentation (the **DP explainer**) and the **search-algorithm demo** built with the Claude desktop app — with verbatim quotes and the source cycle docs. |
 | 3 | **Enrichment & What's Next** | Coming soon | Making slides richer and better-sourced; reveal.js as a future option. |
 
 > The ▶ links open the rendered decks via GitHub Pages — handy for a quick look or to
@@ -38,8 +39,12 @@ skill definition is bundled here under [`skills/cycle/`](skills/cycle/SKILL.md) 
 read what each phase does.
 
 To actually *run* the skill in Claude Code, install the **llm-dev plugin**:
-<https://github.com/DallasElleman/llm-dev>. Deck 1 ("The Method") walks through the cycle
-as a concept; the bundled `SKILL.md` is the full specification.
+<https://github.com/DallasElleman/llm-dev>. Deck 1 ("Vibe Engineering with `llm-dev:cycle`")
+walks through the cycle as a concept; the bundled `SKILL.md` is the full specification.
+
+The cycle is **tool-agnostic** — it isn't tied to Claude Code. Deck 2's second worked
+example, the Pathfinding Race, was built by running the same cycle in the **Claude desktop
+app**, and its full per-iteration artifacts ship alongside it.
 
 ## Layout
 
@@ -56,39 +61,23 @@ html-presentation-tutorial/
 │   ├── assets/script.js
 │   └── README.md
 └── decks/
-    ├── 01-the-method/          # Deck 1, built on the starter
+    ├── 01-llm-dev-cycle-tutorial/  # Deck 1, built on the starter
     │   ├── index.html
     │   └── assets/{styles.css, script.js, img/}
-    └── 02-worked-example/      # Deck 2, built on the starter
+    └── 02-worked-examples/         # Deck 2, built on the starter
         ├── index.html
         ├── assets/{styles.css, script.js, img/}
-        ├── artifact/          # the live DP explainer (offline copy you can open)
-        └── cycle-artifacts/   # the 6 source cycle .md docs Deck 2 quotes from,
-                               #   plus condensed-transcript.md (the build conversation)
+        ├── dp-explainer-deck/      # worked example 1: the DP explainer (a presentation)
+        │   ├── differential-privacy-explainer.html
+        │   ├── assets/dp-explainer/
+        │   └── llm-dev-cycle-artifacts/   # its 6 cycle docs + condensed-transcript.md
+        ├── search-alg-artifact/    # worked example 2: the Pathfinding Race (an artifact)
+        │   ├── pathfinding-race.html
+        │   ├── llm-dev-cycle-artifacts/iteration-{1,2,3}/   # built over 3 iterations
+        │   └── tests/              # the build's test suite
+        └── llm-dev-cycle-artifacts/   # how THIS deck itself was built
+            └── iteration-{1,2}/    # the deck's own cycle artifacts
 ```
-
-## Bonus: cross-tool demos (`search-alg-demos/`)
-
-To show that `llm-dev:cycle` is a *tool-agnostic* method, two fully offline interactive
-demos were built by running the same cycle skill through different AI coding tools. Each
-folder keeps its cycle artifacts (`review` → `verify`) alongside the artifact it produced.
-These are reference material, not part of the three-deck tutorial flow.
-
-- **`generated-by-codex-5.5/`** — a **Search Algorithm Workbench**
-  ([`index.html`](search-alg-demos/generated-by-codex-5.5/index.html)) built with the
-  Codex CLI (GPT-5.5-codex). One vanilla HTML/CSS/JS page that teaches **linear search,
-  binary search, BFS, and DFS** — step/run/reset controls, a tunable problem, visible
-  algorithm state with live metrics, and a trace panel for comparing recent runs.
-  One cycle iteration.
-- **`generated-by-claude-desktop-app/`** — a **Pathfinding Race**
-  ([`pathfinding-race.html`](search-alg-demos/generated-by-claude-desktop-app/cycle/iteration-2/pathfinding-race.html))
-  built with the Claude desktop app. A single offline HTML file that races **BFS,
-  Dijkstra, Greedy Best-First, and A\*** in lockstep across one shared weighted maze, with
-  a per-panel scoreboard (cells visited, path cost, length, optimal?) so the behavioural
-  differences are visible and quantitative. Two cycle iterations.
-
-Both are self-contained and run from `file://` with no network — the same offline bar the
-tutorial decks hold to.
 
 ## How to view
 
