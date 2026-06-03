@@ -394,10 +394,11 @@ section.slide.title-slide .attribution {
 .bubble.user {
   align-self: flex-end;
   background: var(--navy);
-  color: var(--bg-slide);
+  color: #fff;
   border-bottom-right-radius: 4px;
 }
 .bubble.user .who { color: var(--gold-light); }
+.bubble.user p { color: #fff; }   /* override .slide-content p (--ink-muted) so text reads on navy */
 .bubble.user strong { color: #fff; }
 .bubble.assistant {
   align-self: flex-start;
