@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fundamentals of AI — Slate &amp; Gold</title>
+<style>
+  deck-stage:not(:defined) { visibility: hidden; }
+
+  :root {
+    /* Palette — warm paper, navy ink, TU old gold */
+    --paper:   #f5f2ea;
+    --paper-2: #ebe6da;
+    --ink:     #16233b;
+    --ink-2:   #41506b;
+    --gold:    #b58a36;
+    --gold-2:  #946f24;
+    --rule:    rgba(22,35,59,0.18);
+
+    /* Type — system serif display + system sans labels (offline-safe) */
+    --serif: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
+    --sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+    /* Type scale */
+    --type-cover:    104px;
+    --type-title:    72px;
+    --type-section:  84px;
+    --type-lede:     44px;
+    --type-body:     30px;
+    --type-small:    24px;
+    --type-kicker:   22px;
+
+    /* Spacing */
+    --pad-x:   130px;
+    --pad-top: 104px;
+    --pad-bot: 92px;
+    --gap-title: 40px;
+    --gap-item:  26px;
+  }
+
+  deck-stage { background: #0c1320; }
+
+  section {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  section * { box-sizing: border-box; }
+
+  /* Shared slide frame */
+  .slide {
+    width: 100%; height: 100%;
+    padding: var(--pad-top) var(--pad-x) var(--pad-bot);
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+
+  /* Kicker — small-caps sans label */
+  .kicker {
+    font-family: var(--sans);
+    font-size: var(--type-kicker);
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-2);
+    display: flex; align-items: center; gap: 18px;
+  }
+  .kicker::before {
+    content: ""; width: 46px; height: 2px; background: var(--gold);
+    display: inline-block;
+  }
+
+  /* Running footer common to content slides */
+  .footer {
+    position: absolute;
+    left: var(--pad-x); right: var(--pad-x); bottom: 52px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--sans);
+    font-size: 18px; letter-spacing: 0.04em;
+    color: var(--ink-2);
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+  }
+  .footer .pg { color: var(--gold-2); font-variant-numeric: tabular-nums; }
+
+  h1, h2 { margin: 0; font-weight: 600; line-height: 1.02; letter-spacing: -0.01em; }
+  p { margin: 0; }
+
+  /* ---------- Slide 1 · Cover ---------- */
+  .cover {
+    background:
+      radial-gradient(120% 90% at 88% 12%, var(--paper-2) 0%, var(--paper) 55%);
+    justify-content: center;
+  }
+  .cover .kicker { margin-bottom: 38px; }
+  .cover h1 {
+    font-size: var(--type-cover);
+    line-height: 0.98;
+    max-width: 16ch;
+  }
+  .cover h1 em { font-style: italic; color: var(--gold-2); }
+  .cover .sub {
+    font-family: var(--sans); font-size: var(--type-lede);
+    color: var(--ink-2); margin-top: 34px; max-width: 26ch; line-height: 1.3;
+    font-weight: 400;
+  }
+  .cover .meta {
+    position: absolute; left: var(--pad-x); bottom: var(--pad-bot);
+    font-family: var(--sans); font-size: 22px; letter-spacing: 0.06em;
+    color: var(--ink); border-top: 2px solid var(--ink);
+    padding-top: 18px; display: flex; gap: 40px;
+  }
+  .cover .meta b { color: var(--gold-2); font-weight: 700; }
+  .cover .seal {
+    position: absolute; top: var(--pad-top); right: var(--pad-x);
+    width: 132px; height: 132px; border-radius: 50%;
+    border: 2px solid var(--ink);
+    display: grid; place-items: center; text-align: center;
+    font-family: var(--sans); font-size: 14px; letter-spacing: 0.18em;
+    font-weight: 700; color: var(--ink); line-height: 1.5;
+  }
+  .cover .seal span { color: var(--gold-2); }
+
+  /* ---------- Slide 2 · Definition ---------- */
+  .lede-grid {
+    display: grid; grid-template-columns: 1.55fr 1fr;
+    gap: 72px; align-items: start; flex: 1;
+    margin-top: var(--gap-title);
+  }
+  .definition h2 { font-size: var(--type-title); margin-bottom: 36px; max-width: 14ch; }
+  .definition .lede {
+    font-size: var(--type-lede); line-height: 1.32; color: var(--ink);
+    max-width: 22ch;
+  }
+  .definition .lede b { color: var(--gold-2); font-weight: 700; }
+  .aside {
+    border-left: 2px solid var(--gold);
+    padding: 8px 0 8px 34px;
+    align-self: center;
+  }
+  .aside .label {
+    font-family: var(--sans); font-size: var(--type-small); font-weight: 700;
+    letter-spacing: 0.04em; color: var(--ink); margin-bottom: 14px;
+  }
+  .aside p {
+    font-family: var(--sans); font-size: var(--type-body); line-height: 1.4;
+    color: var(--ink-2); font-weight: 400;
+  }
+
+  /* ---------- Slide 3 · Section divider ---------- */
+  .section-slide {
+    background: var(--ink);
+    color: var(--paper);
+    justify-content: center;
+  }
+  .section-slide .kicker { color: var(--gold); }
+  .section-slide .kicker::before { background: var(--gold); }
+  .section-slide .num {
+    font-size: 300px; line-height: 0.8; color: var(--gold);
+    font-weight: 600; letter-spacing: -0.04em;
+    position: absolute; right: var(--pad-x); top: 50%; transform: translateY(-50%);
+    opacity: 0.92;
+  }
+  .section-slide h2 {
+    font-size: var(--type-section); margin-top: 30px; max-width: 16ch;
+    color: var(--paper);
+  }
+  .section-slide .lead {
+    font-family: var(--sans); font-size: var(--type-body); color: #c3cbd9;
+    margin-top: 30px; max-width: 36ch; line-height: 1.4; font-weight: 400;
+  }
+
+  /* ---------- Slide 4 · Three columns ---------- */
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px;
+          flex: 1; margin-top: var(--gap-title); }
+  .col { display: flex; flex-direction: column; padding-top: 30px;
+         border-top: 3px solid var(--ink); }
+  .col .idx {
+    font-family: var(--sans); font-size: 20px; font-weight: 700;
+    letter-spacing: 0.16em; color: var(--gold-2); margin-bottom: 22px;
+  }
+  .col h3 { font-size: 42px; font-weight: 600; margin: 0 0 18px; line-height: 1.05; }
+  .col p { font-family: var(--sans); font-size: var(--type-small); line-height: 1.46;
+           color: var(--ink-2); font-weight: 400; }
+  .col .eg {
+    margin-top: auto; font-family: var(--sans); font-size: 20px; line-height: 1.4;
+    color: var(--ink); padding-top: 22px;
+  }
+  .col .eg b { color: var(--gold-2); display: block; font-size: 16px;
+               letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+
+  /* ---------- Slide 5 · Diagram ---------- */
+  .diagram-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 64px;
+                  align-items: center; flex: 1; margin-top: var(--gap-title); }
+  .diagram-grid h2 { font-size: var(--type-title); margin-bottom: 28px; }
+  .diagram-grid .body { font-family: var(--sans); font-size: var(--type-body);
+                        line-height: 1.42; color: var(--ink-2); font-weight: 400;
+                        max-width: 24ch; }
+  .diagram-grid .body b { color: var(--gold-2); }
+  .net { width: 100%; height: auto; }
+  .net .lbl { font-family: var(--sans); font-size: 21px; font-weight: 700;
+              fill: var(--ink); letter-spacing: 0.04em; }
+
+  /* ---------- Slide 6 · Closing ---------- */
+  .closing h2 { font-size: var(--type-title); max-width: 18ch; margin-bottom: 14px; }
+  .closing .build-list { margin-top: 46px; display: flex; flex-direction: column;
+                         gap: var(--gap-item); flex: 1; }
+  .build-item { display: grid; grid-template-columns: 64px 1fr; gap: 30px;
+                align-items: baseline; padding-bottom: 24px;
+                border-bottom: 1px solid var(--rule); }
+  .build-item .n { font-size: 40px; color: var(--gold-2); font-weight: 600; }
+  .build-item .t { }
+  .build-item .t h4 { margin: 0 0 6px; font-size: 34px; font-weight: 600; }
+  .build-item .t p { font-family: var(--sans); font-size: var(--type-small);
+                     color: var(--ink-2); font-weight: 400; }
+
+  /* entrance — content is always visible; deck-stage cross-fades whole
+     slides between navigations, which is reliable across print + reduced-motion.
+     (Per-element keyframe/transition reveals strand on slotted slide flips.) */
+  .anim, .anim2, .anim3 { opacity: 1; }
+</style>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+  <!-- 1 · Cover -->
+  <section data-label="Cover">
+    <div class="slide cover">
+      <div class="seal">EST<br><span>1894</span><br>TULSA</div>
+      <div class="kicker anim">The University of Tulsa · Fall 2026</div>
+      <h1 class="anim2">Fundamentals<br>of <em>Artificial<br>Intelligence</em></h1>
+      <p class="sub anim3">A first course in how machines sense, reason, and learn — from first principles.</p>
+      <div class="meta">
+        <span><b>CS 1010</b> · Tandy School of Computer Science</span>
+        <span>Lecture Series</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Definition -->
+  <section data-label="What is AI">
+    <div class="slide">
+      <div class="kicker anim">Lecture 01 · Foundations</div>
+      <div class="lede-grid">
+        <div class="definition anim2">
+          <h2>What Is Artificial Intelligence?</h2>
+          <p class="lede">AI is the science of building systems that perform tasks we'd call <b>intelligent</b> — recognizing a face, understanding a sentence, or choosing a winning move.</p>
+        </div>
+        <div class="aside anim3">
+          <p class="label">The key idea</p>
+          <p>Instead of being told every rule by a programmer, a modern AI system <b style="color:var(--gold-2)">learns patterns from examples</b> — much like a student learns from practice.</p>
+        </div>
+      </div>
+      <div class="footer"><span>Fundamentals of AI</span><span class="pg">02</span></div>
+    </div>
+  </section>
+
+  <!-- 3 · Section -->
+  <section data-label="Module 01">
+    <div class="slide section-slide">
+      <div class="num">01</div>
+      <div class="kicker anim">Module One</div>
+      <h2 class="anim2">How Machines<br>Learn</h2>
+      <p class="lead anim3">Before a system can recognize a cat or translate a sentence, it has to learn from data. This module is about what "learning" actually means for a machine.</p>
+    </div>
+  </section>
+
+  <!-- 4 · Three columns -->
+  <section data-label="Three ways">
+    <div class="slide">
+      <div class="kicker anim">Module 01 · The Landscape</div>
+      <h2 class="anim2" style="font-size:var(--type-title); margin-top:18px;">Three Ways Machines Learn</h2>
+      <div class="cols">
+        <div class="col anim">
+          <div class="idx">01</div>
+          <h3>Supervised<br>Learning</h3>
+          <p>The system studies labeled examples — inputs paired with the right answers — and learns to predict the answer for new inputs.</p>
+          <div class="eg"><b>Example</b>Flagging spam from thousands of emails marked "spam" or "not spam."</div>
+        </div>
+        <div class="col anim2">
+          <div class="idx">02</div>
+          <h3>Unsupervised<br>Learning</h3>
+          <p>No labels at all. The system explores raw data and discovers its own structure — groupings, patterns, and outliers.</p>
+          <div class="eg"><b>Example</b>Sorting shoppers into natural segments without being told the categories.</div>
+        </div>
+        <div class="col anim3">
+          <div class="idx">03</div>
+          <h3>Reinforcement<br>Learning</h3>
+          <p>The system learns by doing — trying actions, receiving rewards or penalties, and improving its strategy over time.</p>
+          <div class="eg"><b>Example</b>A program mastering chess by playing millions of games against itself.</div>
+        </div>
+      </div>
+      <div class="footer"><span>Fundamentals of AI</span><span class="pg">04</span></div>
+    </div>
+  </section>
+
+  <!-- 5 · Diagram -->
+  <section data-label="Neural network">
+    <div class="slide">
+      <div class="kicker anim">Module 01 · A Closer Look</div>
+      <div class="diagram-grid">
+        <div class="anim2">
+          <h2>Inside a Neural Network</h2>
+          <p class="body">Information flows from an <b>input layer</b>, through <b>hidden layers</b> that combine and weigh signals, to an <b>output</b> — the network's answer. Training nudges those weights until the answers get better.</p>
+        </div>
+        <svg class="net anim3" viewBox="0 0 720 460" role="img" aria-label="Neural network diagram">
+          <!-- edges -->
+          <g stroke="rgba(22,35,59,0.22)" stroke-width="1.5">
+            <line x1="120" y1="110" x2="360" y2="80"/><line x1="120" y1="110" x2="360" y2="200"/><line x1="120" y1="110" x2="360" y2="320"/><line x1="120" y1="110" x2="360" y2="440"/>
+            <line x1="120" y1="250" x2="360" y2="80"/><line x1="120" y1="250" x2="360" y2="200"/><line x1="120" y1="250" x2="360" y2="320"/><line x1="120" y1="250" x2="360" y2="440"/>
+            <line x1="120" y1="390" x2="360" y2="80"/><line x1="120" y1="390" x2="360" y2="200"/><line x1="120" y1="390" x2="360" y2="320"/><line x1="120" y1="390" x2="360" y2="440"/>
+            <line x1="360" y1="80" x2="600" y2="180"/><line x1="360" y1="80" x2="600" y2="300"/>
+            <line x1="360" y1="200" x2="600" y2="180"/><line x1="360" y1="200" x2="600" y2="300"/>
+            <line x1="360" y1="320" x2="600" y2="180"/><line x1="360" y1="320" x2="600" y2="300"/>
+            <line x1="360" y1="440" x2="600" y2="180"/><line x1="360" y1="440" x2="600" y2="300"/>
+          </g>
+          <!-- input nodes -->
+          <g fill="#16233b">
+            <circle cx="120" cy="110" r="22"/><circle cx="120" cy="250" r="22"/><circle cx="120" cy="390" r="22"/>
+          </g>
+          <!-- hidden nodes -->
+          <g fill="#fff" stroke="#16233b" stroke-width="3">
+            <circle cx="360" cy="80" r="22"/><circle cx="360" cy="200" r="22"/><circle cx="360" cy="320" r="22"/><circle cx="360" cy="440" r="22"/>
+          </g>
+          <!-- output nodes -->
+          <g fill="#b58a36">
+            <circle cx="600" cy="180" r="22"/><circle cx="600" cy="300" r="22"/>
+          </g>
+          <text class="lbl" x="120" y="445" text-anchor="middle">Input</text>
+          <text class="lbl" x="360" y="20" text-anchor="middle">Hidden</text>
+          <text class="lbl" x="600" y="355" text-anchor="middle" fill="#946f24">Output</text>
+        </svg>
+      </div>
+      <div class="footer"><span>Fundamentals of AI</span><span class="pg">05</span></div>
+    </div>
+  </section>
+
+  <!-- 6 · Closing -->
+  <section data-label="This semester">
+    <div class="slide closing">
+      <div class="kicker anim">Looking Ahead</div>
+      <h2 class="anim2" style="margin-top:18px;">What You'll Build This Semester</h2>
+      <div class="build-list">
+        <div class="build-item anim"><div class="n">1</div><div class="t"><h4>A digit recognizer</h4><p>Train your first model to read handwritten numbers — and see exactly why it works.</p></div></div>
+        <div class="build-item anim2"><div class="n">2</div><div class="t"><h4>A text classifier</h4><p>Teach a system to tell the difference between reviews that are positive and negative.</p></div></div>
+        <div class="build-item anim3"><div class="n">3</div><div class="t"><h4>An AI ethics case study</h4><p>Investigate where these systems fail — and who is responsible when they do.</p></div></div>
+      </div>
+      <div class="footer"><span>The University of Tulsa · Fundamentals of AI</span><span class="pg">06</span></div>
+    </div>
+  </section>
+
+</deck-stage>
+<script src="deck-stage.js"></script>
+</body>
+</html>

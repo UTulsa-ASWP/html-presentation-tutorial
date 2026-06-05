@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deck Style Options — ASWP Tutorial Suite</title>
+  <meta name="description" content="Deck 3 of the ASWP tutorial suite: two ways to build offline HTML decks, and a styling decision for the team.">
+  <link rel="stylesheet" href="assets/styles.css?v=1">
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ============ SLIDE 1 — TITLE ============================================ -->
+  <section class="slide title-slide">
+    <div class="eyebrow">Deck 3 · Tutorial Suite</div>
+    <h1>Deck Style Options</h1>
+    <p class="subtitle">Several deck style and JS engine choices for your inspection and feedback.</p>
+    <div class="attribution">ASWP Summer 2026 · Tutorial Suite · Written by Dallas Elleman and Claude Opus 4.8</div>
+
+    <div class="speaker-notes">
+      <h2>Choosing a Deck Style</h2>
+      <p>Decks 1 and 2 taught the method and showed it worked. This short deck is different:
+         it lays out the <strong>two deck-building systems</strong> we now have, the trade-offs
+         between them, and asks the team to weigh in on where we go next. Nothing here is locked —
+         that's the point.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2 — TWO SYSTEMS AT A GLANCE ========================= -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content">
+      <div class="eyebrow">The choice</div>
+      <h2 class="slide-title">Two JS systems, four color palettes</h2>
+      <p class="lead">On the following slides, you'll see some initial options and styles for
+        our slide decks to follow. Feel free to copy and modify the styles — and suggest other themes.</p>
+    </div>
+    <div class="two-column">
+      <div>
+        <div class="callout good"><p><strong>Similarities across options</strong><br>
+          Vanilla HTML/CSS/JS · zero dependencies · runs fully offline from
+          <code>file://</code> · system fonts only — no CDNs, no build step.</p></div>
+      </div>
+      <div>
+        <div class="callout"><p><strong>Differences between options</strong><br>
+          <strong>Responsive flow</strong> (our <code>starter/</code>) vs a
+          <strong>fixed 16:9 canvas</strong> (<code>deck-stage</code>). Everything else
+          follows from that one choice.</p></div>
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Two systems, one goal</h2>
+      <p>Both satisfy the hard constraints, so the decision isn't about offline-safety —
+         it's about layout philosophy and the features each model makes easy.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3 — SYSTEM 1: OUR STARTER ========================== -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content">
+      <div class="eyebrow">O.G. System with scroll-snap</div>
+      <h2 class="slide-title">The classic</h2>
+      <p class="lead">It's the theme template from Decks 1 and 2. Features:</p>
+    </div>
+    <div class="two-column">
+      <div>
+        <ul>
+          <li>Full-screen <strong>scroll-snap</strong> slides that reflow to any screen</li>
+          <li>A two-window <strong>presenter view</strong> — notes, timer, next-slide</li>
+          <li>Offline <strong>Markdown &rarr; HTML</strong> pipeline for embedded docs</li>
+          <li>Responsive &amp; accessible (real text reflow / zoom)</li>
+          <li>A <strong>~313-line engine</strong> the team can actually read and modify</li>
+        </ul>
+        <p><a class="launch-btn" href="../02-worked-examples/index.html" target="_blank" rel="noopener">Open Deck 2 (this engine) &#8599;</a></p>
+      </div>
+      <div>
+        <img class="slide-image" src="assets/img/system1-example.webp" alt="Deck 2 title slide built on the starter engine — navy and gold editorial style">
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>System 1 — our starter</h2>
+      <p>This is the engine behind Decks 1 and 2. Its strength is that it's a web document
+         that happens to present: it reflows, it's accessible, and it's small enough to teach.
+         The launch button opens Deck 2 so the team can feel it live.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4 — SYSTEM 2: DECK-STAGE =========================== -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content">
+      <div class="eyebrow">Newcomer deck-stage System Options</div>
+      <h2 class="slide-title">3 Styles &mdash; 1 JS Engine</h2>
+      <p class="lead">The following slides show three different styles with the same underlying
+        presentation engine: author at <span class="mark">1920&times;1080</span> and it scales
+        pixel-perfect to any screen, like a polished <code>.pptx</code>.</p>
+    </div>
+    <div class="two-column">
+      <div>
+        <ul>
+          <li><strong>WYSIWYG</strong> fixed 16:9 — identical on every projector</li>
+          <li><strong>Thumbnail rail</strong> — jump, reorder, skip, delete</li>
+          <li>Clean <strong>print &rarr; one-slide-per-page PDF</strong></li>
+          <li>Keyboard + touch nav; three finished, distinct themes</li>
+        </ul>
+      </div>
+      <div>
+        <div class="callout warn"><p><strong>The trade</strong><br>
+          A heavier engine (~1796 lines, shadow DOM) and — today — no built-in presenter
+          view or Markdown pipeline. Built with Claude Design.</p></div>
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>System 2 — deck-stage</h2>
+      <p>This is shaped like the thing we're replacing: a fixed projector slide. The
+         print-to-PDF is a real asset given our PowerPoint-fallback path and the open
+         Chromebook/Google-Drive question. The cost is a bigger engine and features we'd
+         have to rebuild.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5 — THEME A ========================================= -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content">
+      <div class="eyebrow">deck-stage · Theme A</div>
+      <h2 class="slide-title">Slate &amp; Gold</h2>
+    </div>
+    <div class="two-column">
+      <div>
+        <p>An <strong>editorial, academic</strong> feel — warm paper, navy ink, a single
+          gold accent. Credible and unhurried.</p>
+        <p><strong>Best for:</strong> formal university lectures.</p>
+        <p><a class="launch-btn" href="assets/themes/theme-a-editorial.html" target="_blank" rel="noopener">Open full-screen &#8599;</a></p>
+      </div>
+      <div>
+        <img class="slide-image" src="assets/img/theme-a-cover.webp" alt="Theme A, Slate and Gold — editorial cover with a serif title in navy and gold on warm paper">
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Theme A — Slate &amp; Gold</h2>
+      <p>The university-leaning option. Launch it to show the thumbnail rail, keyboard nav,
+         and the inline SVG neural-net diagram on slide 5.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6 — THEME B ========================================= -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content">
+      <div class="eyebrow">deck-stage · Theme B</div>
+      <h2 class="slide-title">Grid</h2>
+    </div>
+    <div class="two-column">
+      <div>
+        <p>A <strong>Swiss / neo-grotesque</strong> system — huge bold type, visible
+          structure, one electric royal-blue accent. Modern and engineering-minded.</p>
+        <p><strong>Best for:</strong> technical, high-impact talks.</p>
+        <p><a class="launch-btn" href="assets/themes/theme-b-swiss.html" target="_blank" rel="noopener">Open full-screen &#8599;</a></p>
+      </div>
+      <div>
+        <img class="slide-image" src="assets/img/theme-b-cover.webp" alt="Theme B, Grid — Swiss style cover, huge black Helvetica with a royal-blue accent on white">
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Theme B — Grid</h2>
+      <p>The starkest, most structural option. Monospace index bars, a faint column grid,
+         800-weight display type.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7 — THEME C ========================================= -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content">
+      <div class="eyebrow">deck-stage · Theme C</div>
+      <h2 class="slide-title">Spark</h2>
+    </div>
+    <div class="two-column">
+      <div>
+        <p>A <strong>friendly, geometric</strong> system — deep indigo, rounded shapes, a
+          warm coral / teal / gold palette. Energetic and approachable.</p>
+        <p><strong>Best for:</strong> K-12 and intro outreach.</p>
+        <p><a class="launch-btn" href="assets/themes/theme-c-spark.html" target="_blank" rel="noopener">Open full-screen &#8599;</a></p>
+      </div>
+      <div>
+        <img class="slide-image" src="assets/img/theme-c-cover.webp" alt="Theme C, Spark — friendly cover, white title on deep indigo with coral, teal and gold shapes">
+      </div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Theme C — Spark</h2>
+      <p>The most approachable, K-12-leaning option. Pill labels, decorative blobs, rounded
+         cards — playful but still professional.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 8 — THE TRADE-OFF =================================== -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content">
+      <div class="eyebrow">The trade-off</div>
+      <h2 class="slide-title">Flow vs fixed canvas</h2>
+      <p class="lead">Neither is "better" — they optimize for different things.</p>
+      <table class="data-table">
+        <thead><tr><th>&nbsp;</th><th>Our <code>starter/</code></th><th><code>deck-stage</code></th></tr></thead>
+        <tbody>
+          <tr><td>Layout</td><td>Responsive flow</td><td>Fixed 16:9, scale-to-fit</td></tr>
+          <tr><td>Present view</td><td>Built-in (notes + timer)</td><td>Not yet</td></tr>
+          <tr><td>Markdown embeds</td><td>Yes (pipeline)</td><td>No</td></tr>
+          <tr><td>Print &rarr; PDF</td><td>No</td><td>Yes, clean</td></tr>
+          <tr><td>Themes ready</td><td>1 (navy/gold)</td><td>3 polished</td></tr>
+          <tr><td>Accessibility</td><td>Reflow + zoom</td><td>Uniform scale</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Flow vs fixed canvas</h2>
+      <p>The one-liner: <code>deck-stage</code> is PowerPoint-shaped (great for projector,
+         PDF, the Chromebook fallback); our starter is web-document-shaped (responsive,
+         accessible, teachable). The right answer depends on how decks actually get delivered.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 9 — PATHS FORWARD =================================== -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content">
+      <div class="eyebrow">The decision</div>
+      <h2 class="slide-title">Four ways forward</h2>
+    </div>
+    <div class="two-column">
+      <div class="callout"><p><strong>1 · Coexist</strong> — keep the starter as our spine;
+        offer the three themes as a parallel style gallery. <em>(Where we are now.)</em></p></div>
+      <div class="callout"><p><strong>2 · Port the look</strong> — re-theme the starter with
+        the A/B/C design languages; keep all our features.</p></div>
+    </div>
+    <div class="two-column">
+      <div class="callout"><p><strong>3 · Switch</strong> — adopt <code>deck-stage</code> as
+        the engine; rebuild the presenter view + Markdown we'd lose.</p></div>
+      <div class="callout good"><p><strong>4 · Targeted merge</strong> — harvest the best of
+        <code>deck-stage</code> (print-to-PDF, the themes) into our engine, in stages.</p></div>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Four ways forward</h2>
+      <p>These aren't all-or-nothing. Option 4 is the pragmatic middle — take the wins we
+         clearly want (print-to-PDF, the polished themes) without abandoning the engine we
+         know. But this is the team's call.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 10 — CALL TO ACTION ================================ -->
+  <section class="slide">
+    <span class="slide-number"></span>
+    <div class="slide-content">
+      <div class="eyebrow">Your input</div>
+      <h2 class="slide-title">Try both — then tell us</h2>
+      <p class="lead">Open the decks, click around, and weigh in. Your preference shapes the
+        direction we take.</p>
+      <p>Drop a comment with your pick and a sentence on why — and <span class="mark">&#128077; the
+        options you like</span> — on the team issue:</p>
+      <p><a class="launch-btn" href="https://github.com/UTulsa-ASWP/summer-2026-AIPP-course-development/issues/1" target="_blank" rel="noopener">Open the discussion issue &#8599;</a></p>
+    </div>
+
+    <div class="speaker-notes">
+      <h2>Try both — then tell us</h2>
+      <p>The deck is a decision-support tool, not a verdict. Point everyone at the GitHub
+         issue; comments + thumbs-up reactions give us a lightweight read on where the team
+         leans before we commit engineering time.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 11 — CLOSE ========================================= -->
+  <section class="slide title-slide">
+    <div class="eyebrow">Closing</div>
+    <h1>The suite is yours</h1>
+    <p class="subtitle">Deck 1 gave you the method. Deck 2, a worked example. Deck 3, a
+      styling choice. Go build — and tell us which way to take it.</p>
+
+    <div class="speaker-notes">
+      <h2>The suite is yours</h2>
+      <p>Wrap-up: the three decks together are the on-ramp. The team now has the method, a
+         worked example, and a real choice of look — plus a say in the engine we standardize
+         on. Next step is theirs.</p>
+    </div>
+  </section>
+
+  <!-- ============ PRESENTATION CHROME ======================================= -->
+  <div class="slide-dots" id="slideDots"></div>
+  <div class="slide-counter" id="slideCounter">1 / 11</div>
+  <div class="nav-hint">&larr; &rarr; navigate &middot; P presenter view &middot; F fullscreen</div>
+
+  <aside class="speaker-notes-panel" id="speakerNotesPanel">
+    <button class="close-notes" onclick="toggleSpeakerNotes()" aria-label="Close speaker notes">&times;</button>
+    <h3>Speaker Notes</h3>
+    <div id="speakerNotesContent"></div>
+  </aside>
+
+  <script src="assets/script.js?v=1"></script>
+</body>
+</html>

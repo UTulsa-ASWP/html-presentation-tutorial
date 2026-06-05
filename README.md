@@ -12,13 +12,13 @@ the finished decks and artifacts go to classrooms that may have no network.
 
 **▶ [Launch the suite in your browser](https://utulsa-aswp.github.io/html-presentation-tutorial/)** —
 no clone, no setup. Or open **`index.html`** locally for the same landing page. Work
-through the decks in order; Decks 1 and 2 are ready now, Deck 3 is in progress.
+through the decks in order; all three decks are ready now.
 
 | | Deck | Launch | What it covers |
 | --- | --- | --- | --- |
 | 1 | **Vibe Engineering with `llm-dev:cycle`** (`decks/01-llm-dev-cycle-tutorial/`) | [▶ Launch](https://utulsa-aswp.github.io/html-presentation-tutorial/decks/01-llm-dev-cycle-tutorial/) | A framework for LLM-assisted development — the six-phase `llm-dev:cycle`, from a topic to a finished presentation or artifact. |
 | 2 | **Worked Examples** (`decks/02-worked-examples/`) | [▶ Launch](https://utulsa-aswp.github.io/html-presentation-tutorial/decks/02-worked-examples/) | Two real builds walked through phase by phase: an interactive HTML presentation (the **DP explainer**) and the **search-algorithm demo** built with the Claude desktop app — with verbatim quotes and the source cycle docs. |
-| 3 | **Enrichment & What's Next** | Coming soon | Making slides richer and better-sourced; reveal.js as a future option. |
+| 3 | **Deck Style Options** (`decks/03-choosing-a-deck-style/`) | [▶ Launch](https://utulsa-aswp.github.io/html-presentation-tutorial/decks/03-choosing-a-deck-style/) | Two ways to build offline decks — our scroll-snap `starter/` vs a fixed-canvas `deck-stage` system with three finished themes — the trade-offs, and a styling decision for the team. |
 
 > The ▶ links open the rendered decks via GitHub Pages — handy for a quick look or to
 > share. The decks are still fully offline: clone the repo (or download a deck folder)
@@ -32,13 +32,13 @@ Ready to build your own decks and artifacts for the team? The quick path:
    shows two real builds end to end. You can launch both in your browser — no setup needed.
 
 2. **Clone the team presentations repo.** All Summer 2026 ASWP decks and artifacts live in
-   **[`summer-2026-presentations`](https://github.com/UTulsa-ASWP/summer-2026-presentations)**
+   **[`summer-2026-AIPP-course-development`](https://github.com/UTulsa-ASWP/summer-2026-AIPP-course-development)**
    (private to the team). It ships a starter template and its own README that walks you
    through your first deck:
 
    ```sh
-   git clone https://github.com/UTulsa-ASWP/summer-2026-presentations.git
-   cd summer-2026-presentations
+   git clone https://github.com/UTulsa-ASWP/summer-2026-AIPP-course-development.git
+   cd summer-2026-AIPP-course-development
    ```
 
 3. **Copy the starter and run the cycle.** Duplicate the starter template, then run
@@ -46,7 +46,7 @@ Ready to build your own decks and artifacts for the team? The quick path:
    [Build your own](#build-your-own) and [The cycle skill](#the-cycle-skill) below for details.
 
 > This tutorial suite is your **reference**; the team repo
-> (`summer-2026-presentations`) is where your actual **work** lives.
+> (`summer-2026-AIPP-course-development`) is where your actual **work** lives.
 
 ## Build your own
 
