@@ -55,6 +55,10 @@ Copy the **`starter/`** folder — a re-themeable, fully offline presentation sk
 [`starter/README.md`](starter/README.md) for how to copy, re-theme, and the small
 HTML ↔ JS contract to keep intact.
 
+Each deck also ships a **teacher script** — a teacher-facing `.docx` with a
+Say / Ask / Expected-Responses / Teacher-Do walkthrough per slide. See
+[`teacher-script/`](teacher-script/README.md) to generate one (macOS, Linux, or Windows).
+
 ## The cycle skill
 
 These decks are built using **`llm-dev:cycle`** — a structured six-phase development
@@ -84,6 +88,10 @@ html-presentation-tutorial/
 │   ├── assets/{styles.css, script.js, doc.css}
 │   ├── docs/                   # optional: Markdown to embed (example-notes.md + .html)
 │   ├── scripts/render-markdown.sh   # optional: pre-render docs/*.md → self-contained HTML
+│   └── README.md
+├── teacher-script/            # make a teacher-facing presentation-script .docx per deck
+│   ├── build-teacher-script.sh # pandoc .md → .docx (macOS/Linux); .ps1 twin for Windows
+│   ├── teacher-script-template.{md,docx}
 │   └── README.md
 └── decks/
     ├── 01-llm-dev-cycle-tutorial/  # Deck 1, built on the starter
